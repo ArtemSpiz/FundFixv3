@@ -1,0 +1,170 @@
+.scale {
+  background-image: url("@/assets/img/scaleBg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 260px 0px;
+  flex-direction: column;
+  position: relative;
+}
+
+.scaleTitle {
+  color: #fff;
+  text-align: center;
+  font-family: "Helvetica Now Display";
+  font-size: 132px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 132px; /* 100% */
+  touch-action: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.scaleCards {
+  display: flex;
+  gap: 16px;
+  align-self: stretch;
+  align-items: center;
+  touch-action: none;
+  user-select: none;
+  position: relative;
+  transition: none;
+  cursor: grab;
+}
+
+.scaleCards:active {
+  cursor: grabbing;
+}
+
+.scaleCard {
+  border-radius: 23px;
+  background: linear-gradient(95deg, #bffff0 2.24%, #236c5b 83.45%);
+  display: flex;
+  width: max-content;
+  padding-top: 5px;
+  flex-direction: column;
+}
+
+.scaleCard.thirdCard {
+  background: linear-gradient(95deg, #ffa85c 2.24%, #1f0e00 83.45%);
+}
+
+.scaleCard.secCard {
+  background: linear-gradient(95deg, #dbdbdb 2.24%, #3f3f3f 83.45%);
+}
+
+.scaleCard.firstCard {
+  background: linear-gradient(95deg, #ffec9e 2.24%, #c79835 83.45%);
+}
+
+.scaleCardWrapper {
+  box-sizing: border-box;
+  flex: 1 0 0;
+  padding: 8px 8px 24px 8px;
+  height: max-content;
+  width: 100%;
+  max-width: 348px;
+  border-radius: 18px;
+  background: #313131;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+}
+
+.scaleCardEclipse {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  pointer-events: none;
+}
+
+.scaleCardEclipse.thirdCard {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.scaleCardEclipse.secCard {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.scaleCardEclipse.firstCard {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.scaleCardImg {
+  width: 100%;
+  height: 193px;
+  border-radius: 15px;
+  background: radial-gradient(56.22% 56.22% at 50% 50%, #525e5c 0%, #000 100%);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25) inset;
+}
+
+.scaleCardTexts {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.scaleCardTitle {
+  color: #fff;
+  font-family: "Helvetica Now Display";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px; /* 110% */
+}
+
+.scaleCardSubtitle {
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.48);
+  font-family: "Helvetica Now Display";
+  font-size: 16px;
+  font-style: normal;
+  white-space: normal;
+  font-weight: 500;
+  line-height: 22px; /* 137.5% */
+}
+
+.scaleCardBottom {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.scaleCardPriceWrap {
+  display: flex;
+  gap: 6px;
+  align-items: end;
+}
+
+.scaleCardPrice {
+  color: #fff;
+  font-family: "Helvetica Now Display";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px; /* 112.5% */
+}
+
+.scaleCardCurrency {
+  color: rgba(255, 255, 255, 0.64);
+  font-family: "Helvetica Now Display";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 114.286% */
+}

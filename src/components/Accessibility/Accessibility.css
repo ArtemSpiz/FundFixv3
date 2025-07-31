@@ -1,0 +1,197 @@
+.accessibility {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: start;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  background-image: url("@/assets/img/AccessibilityBg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.accessibility::before {
+  content: "";
+  background: radial-gradient(
+    174.5% 89.33% at 51.05% 60.09%,
+    #0f0f0f 23.56%,
+    rgba(15, 15, 15, 0) 100%
+  );
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: -45px;
+  right: 0;
+  z-index: 33;
+}
+
+.accessibility::after {
+  content: "";
+  background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #0f0f0f 49.52%);
+  transform: rotate(180deg);
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0px;
+  right: 0;
+  z-index: 33;
+}
+
+.accessibilityTexts {
+  padding-top: 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+  position: relative;
+}
+
+.accessibilityTitle {
+  color: #fff;
+  text-align: center;
+  font-family: "Helvetica Now Display";
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 96px; /* 100% */
+  width: 100%;
+  max-width: 946px;
+}
+
+.accessibilityCards {
+  display: flex;
+  gap: 32px;
+  align-self: stretch;
+  justify-content: center;
+}
+
+.accessibilityCard {
+  padding: 8px 8px 20px 8px;
+  align-items: center;
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 320px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(21.147891998291016px);
+  opacity: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.accessibilityCard {
+  will-change: transform, opacity;
+  transform: translateY(100px);
+}
+
+.accessibilityCard {
+  position: relative;
+  top: 300px;
+}
+
+.secondCard {
+  position: relative;
+  top: 520px;
+}
+
+.accessCardSubtitles {
+  width: 100%;
+  height: 240px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accessCardSubtitle {
+  display: inline-flex;
+  padding: 11px 24px 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 32px;
+
+  font-family: "Helvetica Now Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 112.5% */
+}
+
+.firstSub {
+  background: #f36ec2;
+  color: #572728;
+  position: relative;
+  left: 20px;
+}
+
+.secSub {
+  color: #555727;
+  background: #eef36e;
+  position: relative;
+  right: 40px;
+}
+
+.thirdSub {
+  color: #572756;
+  background: #b56ef3;
+  position: relative;
+  right: 3px;
+}
+
+.firstSubSecCard {
+  background: #f3b56e;
+  color: #573f27;
+  position: relative;
+  left: 30px;
+}
+
+.secSubSecCard {
+  color: #575327;
+  background: #f3e86e;
+  position: relative;
+  right: 40px;
+}
+
+.thirdSubSecCard {
+  color: #274a57;
+  background: #6ef3e8;
+  position: relative;
+  left: 25px;
+}
+
+.accessCardTexts {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+
+.accessCardTitle {
+  color: #fff;
+  font-family: "Helvetica Now Display";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 20px; /* 111.111% */
+}
+
+.accessCardText {
+  color: rgba(255, 255, 255, 0.48);
+  font-family: "Helvetica Now Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 112.5% */
+  width: 100%;
+  max-width: 272px;
+}

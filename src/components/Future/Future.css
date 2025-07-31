@@ -1,0 +1,231 @@
+.future {
+  padding-top: 32px;
+  padding-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  background-image: url("@/assets/img/FutureBg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.future::before {
+  content: "";
+  background: radial-gradient(
+    174.5% 89.33% at 51.05% 60.09%,
+    #0f0f0f 23.56%,
+    rgba(15, 15, 15, 0) 100%
+  );
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  bottom: -45px;
+  right: 0;
+  z-index: 33;
+}
+
+.future::after {
+  content: "";
+  background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #0f0f0f 49.52%);
+  transform: rotate(180deg);
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  top: 0px;
+  right: 0;
+  z-index: 33;
+}
+
+.futureTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 34;
+}
+
+.futureTitle {
+  max-width: 600px;
+}
+
+.futurePhone {
+  width: 402px;
+  height: 874px;
+  flex-shrink: 0;
+  z-index: 34;
+  max-width: 110vw;
+  pointer-events: none;
+}
+
+.phoneOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 95%;
+  height: 100%;
+  background-color: white;
+  transform-origin: center;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tokenomicsInFuture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+  box-sizing: border-box;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.futureCard {
+  padding: 24px 8px 8px 8px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #333 0%, #1a1a1a 100%);
+  width: max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 50;
+  align-items: center;
+  justify-self: center;
+}
+
+.futureCard.left {
+  position: absolute;
+  left: 64px;
+  bottom: 290px;
+}
+
+.futureCard.right {
+  position: absolute;
+  right: 64px;
+  top: 218px;
+}
+
+.futureCardTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: start;
+  width: 100%;
+  max-width: 258px;
+}
+
+.futureCardTitle {
+  color: #fff;
+  font-family: "Helvetica Now Display";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 20px; /* 111.111% */
+}
+
+.futureCardText {
+  color: rgba(255, 255, 255, 0.48);
+  font-family: "Helvetica Now Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 112.5% */
+}
+
+.futureCardSubtitles {
+  width: 290px;
+  height: 248px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.futureCardSubtitle {
+  display: inline-flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 32px;
+
+  font-family: "Helvetica Now Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 112.5% */
+  position: absolute;
+  white-space: nowrap;
+}
+
+.firstSubFut {
+  background: #966ef3;
+  color: #4d2757;
+  transform: rotate(-24.168deg);
+  top: 45px;
+  left: -6px;
+}
+
+.secSubFut {
+  background: #eef36e;
+  color: #555727;
+  transform: rotate(-22.034deg);
+  top: 72px;
+  left: -9px;
+}
+
+.thirdSubFut {
+  color: #275057;
+  background: #6ef3d8;
+  transform: rotate(-11.619deg);
+  bottom: 64px;
+  left: -1px;
+}
+
+.fourthSubFut {
+  color: #275727;
+  background: #a8f36e;
+  bottom: 0px;
+  right: 0px;
+}
+
+.firstSubSecCardFut {
+  color: #573f27;
+  background: #f38d6e;
+  transform: rotate(18.149deg);
+  top: 55px;
+  right: -5px;
+}
+
+.secSubSecCardFut {
+  color: #2c2757;
+  background: #6e75f3;
+  transform: rotate(11.74deg);
+  bottom: 109px;
+  left: 0px;
+}
+
+.thirdSubSecCardFut {
+  color: #572728;
+  background: #f36e70;
+  transform: rotate(-12.761deg);
+  bottom: 29px;
+  left: -1px;
+}

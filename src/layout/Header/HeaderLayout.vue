@@ -29,7 +29,7 @@ function setActive(index) {
 </script>
 
 <template>
-  <div class="header">
+  <div class="header single-pulse-wave">
     <div class="headerLogo"><img :src="logo" alt="" /></div>
     <div class="headerRight">
       <div class="headerLinks">
@@ -44,7 +44,7 @@ function setActive(index) {
         </div>
       </div>
 
-      <button class="headerBtn">Connect Wallet</button>
+      <button class="headerBtn jelly-wave">Connect Wallet</button>
     </div>
   </div>
 </template>

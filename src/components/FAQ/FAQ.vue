@@ -3,6 +3,7 @@ import ArrowFAQ from "@/assets/svg/ArrowFAQ.vue";
 import Stars from "@/assets/svg/Stars.vue";
 import "./FAQ.css";
 import { ref } from "vue";
+import AnimatedText from "../AnimatedText.vue";
 
 const FaqCards = [
   {
@@ -42,8 +43,11 @@ const toggle = (index) => {
 <template>
   <div class="faq">
     <div class="faqTexts">
-      <div class="UnderTitle"><Stars />FAQ</div>
-      <div class="Title faqTitle">Frequently Asked Questions</div>
+      <div class="UnderTitle">
+        <Stars />
+        <AnimatedText text="FAQ" />
+      </div>
+      <AnimatedText class="Title faqTitle" text="Frequently Asked Questions" />
     </div>
     <div class="faqCards">
       <div

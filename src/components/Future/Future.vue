@@ -32,6 +32,7 @@ import { onMounted, onBeforeUnmount } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Tokenomics from "../Tokenomics/Tokenomics.vue";
+import AnimatedText from "../AnimatedText.vue";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,21 +44,19 @@ onMounted(() => {
   const futureSection = document.querySelector(".future");
   const tokenomics = document.querySelector(".tokenomicsInFuture");
 
-  // Адаптивні параметри
   const isMobile = window.innerWidth <= 768;
   const isTablet = window.innerWidth <= 1024;
 
   const initialWidth = phoneImage.offsetWidth;
   const targetWidth = window.innerWidth;
 
-  // Менше масштабування телефону
   let scaleFactor;
   if (isMobile) {
-    scaleFactor = (targetWidth / initialWidth) * 0.6; // Зменшено з 0.8
+    scaleFactor = (targetWidth / initialWidth) * 0.6;
   } else if (isTablet) {
-    scaleFactor = (targetWidth / initialWidth) * 0.7; // Зменшено з 0.9
+    scaleFactor = (targetWidth / initialWidth) * 0.7;
   } else {
-    scaleFactor = (targetWidth / initialWidth) * 1.1; // Зменшено з 1.1
+    scaleFactor = (targetWidth / initialWidth) * 1.1;
   }
 
   const tl = gsap.timeline({
@@ -72,7 +71,6 @@ onMounted(() => {
     },
   });
 
-  // Початкові налаштування для Tokenomics - ЗНАЧНО менший розмір
   gsap.set(tokenomics, {
     position: "absolute",
     top: "50%",
@@ -80,7 +78,7 @@ onMounted(() => {
     xPercent: -50,
     yPercent: -50,
     opacity: 0,
-    scale: isMobile ? 0.25 : isTablet ? 0.3 : 0.35, // ЗНАЧНО зменшено
+    scale: isMobile ? 0.25 : isTablet ? 0.3 : 0.35,
     transformOrigin: "center center",
   });
 
@@ -90,7 +88,6 @@ onMounted(() => {
     opacity: 1,
   });
 
-  // Анімація карток і тексту
   tl.to([futureTexts, cards], {
     yPercent: -400,
     opacity: 0,
@@ -102,14 +99,13 @@ onMounted(() => {
   tl.to(
     phoneImage,
     {
-      y: isMobile ? -50 : -200, // Зменшено рух
+      y: isMobile ? -50 : -200,
       ease: "power2.inOut",
       duration: 1,
     },
     "<+0.2"
   );
 
-  // Поява overlay
   tl.to(
     overlay,
     {
@@ -143,7 +139,6 @@ onMounted(() => {
     "<+=1"
   );
 
-  // Intersection Observer
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -181,10 +176,14 @@ onBeforeUnmount(() => {
 <template>
   <div class="future">
     <div class="futureTexts">
-      <div class="UnderTitle"><Stars /> Next-Gen Investing</div>
-      <div class="Title futureTitle">
-        The Future of Private <span>Investing — Today</span>
+      <div class="UnderTitle">
+        <Stars />
+        <AnimatedText text="Next-Gen Investing" />
       </div>
+      <AnimatedText
+        class="Title futureTitle"
+        text="The Future of Private Investing — Today"
+      />
     </div>
 
     <div class="futurePhoneWrap">

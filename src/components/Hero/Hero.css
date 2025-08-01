@@ -31,7 +31,7 @@
   font-weight: 700;
   line-height: 96px; /* 100% */
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
 }
 
 .heroSubtitle {
@@ -42,7 +42,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 22px; /* 122.222% */
-  max-width: 380px;
+  max-width: 390px;
   width: 100%;
 }
 
@@ -67,18 +67,6 @@
   position: relative;
 }
 
-.heroBtn::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  pointer-events: none;
-  z-index: 0;
-}
 
 .heroBottom {
   display: inline-flex;

@@ -12,6 +12,7 @@ import heroCard6 from "@/assets/img/heroCard2.png";
 import heroCard7 from "@/assets/img/heroCard2.png";
 import heroCardIcon from "@/assets/img/heroCardActive.png";
 import { onMounted, onUnmounted, ref, watch } from "vue";
+import AnimatedText from "../AnimatedText.vue";
 
 const HeroCards = [
   {
@@ -213,52 +214,55 @@ onUnmounted(() => {
 <template>
   <div class="hero" ref="heroRef">
     <div class="heroTexts">
-      <div class="heroTitle">FundFix backs what’s next</div>
-      <div class="heroSubtitle">
-        FundFix opens up access to early investments through a tokenized
-        platform.
-      </div>
+      <AnimatedText class="heroTitle" text="FundFix backs what’s next" />
 
-      <button class="heroBtn">Join to FundFix <ArrowBtn /></button>
+      <AnimatedText
+        class="heroSubtitle"
+        text="FundFix opens up access to early investments through a tokenized platform."
+      />
+
+      <button class="heroBtn jelly-wave">Join to FundFix <ArrowBtn /></button>
     </div>
     <div class="heroBottom"><CompMouse /> Scoll to Discover</div>
 
     <div class="heroCards">
-      <div
-        class="heroCard"
-        :class="{ active: card.isActive }"
-        v-for="card in cardsWithPositions"
-        :key="card.originalIndex"
-        :style="card.style"
-      >
+      <template v-if="!hasLoaded">
         <div
-          class="heroCardInner"
-          :style="{ transform: `rotate(${-card.rotateDeg}deg)` }"
+          class="heroCard"
+          :class="{ active: card.isActive }"
+          v-for="card in cardsWithPositions"
+          :key="card.originalIndex"
+          :style="card.style"
         >
           <div
-            class="heroCardImg"
-            :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
+            class="heroCardInner"
+            :style="{ transform: `rotate(${-card.rotateDeg}deg)` }"
           >
-            <img :src="card.image" alt="" />
-          </div>
-
-          <div
-            class="heroCardContent"
-            :class="{ active: card.isActive }"
-            :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
-          >
-            <div class="heroCardContIcon">
-              <img :src="card.icon" alt="" />
+            <div
+              class="heroCardImg"
+              :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
+            >
+              <img :src="card.image" alt="" />
             </div>
-            <div class="heroCardTexts">
-              <div class="heroCardContTitle">{{ card.name }}</div>
-              <div class="heroCardContSubtitle">{{ card.position }}</div>
+
+            <div
+              class="heroCardContent"
+              :class="{ active: card.isActive }"
+              :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
+            >
+              <div class="heroCardContIcon">
+                <img :src="card.icon" alt="" />
+              </div>
+              <div class="heroCardTexts">
+                <div class="heroCardContTitle">{{ card.name }}</div>
+                <div class="heroCardContSubtitle">{{ card.position }}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

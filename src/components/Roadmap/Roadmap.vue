@@ -57,6 +57,7 @@ const RoadmapCards = [
 ];
 
 import { ref, onMounted, computed } from "vue";
+import AnimatedText from "../AnimatedText.vue";
 
 const activeIndex = ref(0);
 const pathLength = ref(0);
@@ -134,14 +135,17 @@ const getLineStyle = (index, total) => {
   <div class="roadmap">
     <div class="roadmapTexts">
       <div class="roadmapTitles">
-        <div class="UnderTitle"><Stars /> What's Ahead</div>
-        <div class="Title roadmapTitle">Our Roadmap</div>
+        <div class="UnderTitle">
+          <Stars />
+          <AnimatedText text="What's Ahead" />
+        </div>
+        <AnimatedText class="Title roadmapTitle" text="Our Roadmap" />
       </div>
 
-      <div class="Subtitle roadmapSubtitle">
-        Access the Deals Behind Silicon Valley's Greatest Success Stories—At the
-        Speed of Blockchain
-      </div>
+      <AnimatedText
+        class="Subtitle roadmapSubtitle"
+        text="Access the Deals Behind Silicon Valley's Greatest Success Stories—At the Speed of Blockchain"
+      />
     </div>
 
     <div class="roadmapCards">

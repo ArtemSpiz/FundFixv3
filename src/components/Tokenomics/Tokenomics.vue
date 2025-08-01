@@ -4,6 +4,7 @@ import Stars from "@/assets/svg/Stars.vue";
 import "./Tokenomics.css";
 import TokenomicsPercents from "./TokenomicsPercents/TokenomicsPercents.vue";
 import TokenomicsCards from "./TokenomicsCards/TokenomicsCards.vue";
+import AnimatedText from "../AnimatedText.vue";
 
 onMounted(() => {
   const observer = new IntersectionObserver(
@@ -30,9 +31,10 @@ onMounted(() => {
   <div class="tokenomics">
     <div class="tokenomicsTexts animate-on-scroll">
       <div class="UnderTitle animate-on-scroll">
-        <Stars /> Transparent Structure
+        <Stars />
+        <AnimatedText text="Transparent Structure" />
       </div>
-      <div class="Title tokenomicsTitle animate-on-scroll">Our Tokenomics</div>
+      <AnimatedText class="Title tokenomicsTitle" text="Our Tokenomics" />
     </div>
 
     <div class="animate-on-scroll">

@@ -8,6 +8,7 @@ import ExclusivityIcon6 from "@/assets/svg/ExclusivityIcon6.vue";
 import ExclusivityIcon7 from "@/assets/svg/ExclusivityIcon7.vue";
 import Stars from "@/assets/svg/Stars.vue";
 import "./Exclusivity.css";
+import AnimatedText from "../AnimatedText.vue";
 
 const ExclusivityCards = [
   {
@@ -45,15 +46,20 @@ const ExclusivityCards = [
   <div class="exclusivity">
     <div class="exclusivityTexts">
       <div class="exclusivityTitles">
-        <div class="UnderTitle"><Stars />Exclusivity</div>
-        <div class="exclusivityTitle Title">
-          Not for Everyone. That’s the Point.
+        <div class="UnderTitle">
+          <Stars />
+          <AnimatedText text="Exclusivity" />
         </div>
+        <AnimatedText
+          class="exclusivityTitle Title"
+          text="Not for Everyone. That’s the Point."
+        />
       </div>
 
-      <div class="Subtitle exclusivitySubtitle">
-        FundFix is built for serious capital allocators —not hype-chasers.
-      </div>
+      <AnimatedText
+        class="Subtitle exclusivitySubtitle"
+        text="FundFix is built for serious capital allocators —not hype-chasers."
+      />
     </div>
 
     <div class="exclusivityCards">

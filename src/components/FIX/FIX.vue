@@ -6,6 +6,7 @@ import imageCard2 from "@/assets/img/FIXCardContent2.png";
 import imageCard3 from "@/assets/img/FIXCardContent3.png";
 import "./FIX.css";
 import { ref, reactive, nextTick, computed } from "vue";
+import AnimatedText from "../AnimatedText.vue";
 
 const FixCards = [
   {
@@ -263,15 +264,21 @@ async function onPointerUp() {
     <div class="fixLeft">
       <div class="fixTexts">
         <div class="fixTitles">
-          <div class="UnderTitle"><Stars />Utility Token</div>
-          <div class="Title fixTitle">$FIX Token: Infinite Access.</div>
+          <div class="UnderTitle">
+            <Stars />
+            <AnimatedText text="Utility Token" />
+          </div>
+
+          <div class="Title">
+            <AnimatedText class="fixTitle" text="$FIX Token:" />
+            <AnimatedText class="fixTitleSpan" text="Infinite Access." />
+          </div>
         </div>
 
-        <div class="Subtitle fixSub">
-          At the core of the FundFix platform lies $FIX—a versatile utility
-          token designed to provide scalable, secure, and permissioned access to
-          a broad array of private market investment opportunities.
-        </div>
+        <AnimatedText
+          class="Subtitle fixSub"
+          text="At the core of the FundFix platform lies $FIX—a versatile utility token designed to provide scalable, secure, and permissioned access to a broad array of private market investment opportunities."
+        />
       </div>
 
       <div class="fixBtns">

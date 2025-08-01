@@ -33,11 +33,21 @@
 }
 
 .fixTitle {
-  max-width: 373px;
+  max-width: 300px;
+  justify-content: start !important;
+  align-items: start !important;
+}
+
+.fixTitleSpan {
+  max-width: 400px;
+  justify-content: start !important;
+  align-items: start !important;
 }
 
 .fixSub {
   max-width: 461px;
+  justify-content: start !important;
+  align-items: start !important;
 }
 
 .fixBtns {

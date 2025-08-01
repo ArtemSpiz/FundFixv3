@@ -65,9 +65,6 @@
   color: #0f0f0f;
 }
 
-.institutionsUnderTitle svg g path {
-  stroke: #0f0f0f;
-}
 
 .institutionsTitle {
   color: #0f0f0f;
@@ -82,7 +79,7 @@
 
 .institutionsSubtitle {
   color: #000;
-  max-width: 438px;
+  max-width: 440px;
 }
 
 .institutionsBtn {

@@ -5,8 +5,7 @@ import institutionsLogoRight from "@/assets/img/InstitutionsRightLogo.png";
 import Footer from "@/layout/Footer/Footer.vue";
 import ArrowBtn from "@/assets/svg/ArrowBtn.vue";
 import "./Institutions.css";
-const title = "This Is What the Institutions Never Wanted You to Access";
-const letters = title.split("");
+import AnimatedText from "@/components/AnimatedText.vue";
 </script>
 
 <template>
@@ -22,25 +21,20 @@ const letters = title.split("");
       <div class="institutionsTexts">
         <div class="institutionsTitles">
           <div class="UnderTitle institutionsUnderTitle">
-            <Stars />Exclusivity
+            <Stars color="#0f0f0f" />
+            <AnimatedText text="Exclusivity" />
           </div>
 
-          <div class="institutionsTitle animated-title">
-            <span
-              v-for="(letter, index) in letters"
-              :key="index"
-              class="letter"
-              :style="{ animationDelay: `${index * 0.03}s` }"
-            >
-              {{ letter === " " ? "\u00A0" : letter }}
-            </span>
-          </div>
+          <AnimatedText
+            class="institutionsTitle"
+            text="This Is What the Institutions Never Wanted You to Access"
+          />
         </div>
 
-        <div class="institutionsSubtitle Subtitle">
-          FundFix isn’t here to democratize hype — it brings discipline,
-          infrastructure, and upside to early movers.
-        </div>
+        <AnimatedText
+          class="institutionsSubtitle Subtitle"
+          text=" FundFix isn’t here to democratize hype — it brings discipline, infrastructure, and upside to early movers."
+        />
       </div>
 
       <button class="institutionsBtn">Join to FundFix <ArrowBtn /></button>
@@ -54,14 +48,19 @@ const letters = title.split("");
 .animated-title {
   display: flex;
   flex-wrap: wrap;
-  gap: 1px;
+  gap: 0.5px;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 .letter {
-  display: inline-block;
+  display: inline-flex;
   opacity: 0;
   transform: translateY(20px);
+}
+
+.letter.visible {
   animation: riseFadeIn 0.4s forwards ease-out;
 }
 

@@ -89,7 +89,7 @@ let intervalId = null;
 function updatePositions() {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-  const radius = screenWidth / 2.2;
+  const radius = screenWidth / 2.3;
   const centerX = screenWidth / 2;
   const centerY = screenHeight;
 

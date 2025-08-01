@@ -28,7 +28,7 @@ onMounted(() => {
 
 <template>
   <div class="tokenomics">
-    <div class="tokenomicsTexts">
+    <div class="tokenomicsTexts animate-on-scroll">
       <div class="UnderTitle animate-on-scroll">
         <Stars /> Transparent Structure
       </div>
@@ -39,7 +39,7 @@ onMounted(() => {
       <TokenomicsPercents />
     </div>
 
-    <div class="animate-on-scroll">
+    <div class="animate-on-scroll wrapperCardsToc">
       <TokenomicsCards />
     </div>
   </div>

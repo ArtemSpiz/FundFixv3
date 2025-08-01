@@ -18,12 +18,22 @@ const AccessibilityCard = [
     ],
   },
   {
-    title: "How FundFix Works",
-    text: "With $FIX and accreditation, anyone can access top private deals easily.",
+    title: "The Mission of FundFix",
+    text: "FundFix removes barriers through blockchain and tokenized equity.",
     subtitles: [
       { subtitle: "Mission" },
       { subtitle: "Accessibility" },
       { subtitle: "Blockchain" },
+    ],
+  },
+
+  {
+    title: "How FundFix Works",
+    text: "With $FIX and accreditation, anyone can access top private deals easily.",
+    subtitles: [
+      { subtitle: "Automation" },
+      { subtitle: "FIXtoken " },
+      { subtitle: "Investments" },
     ],
   },
 ];
@@ -55,7 +65,7 @@ onMounted(() => {
       id: "accessAnimation",
       trigger: section,
       start: "top top",
-      end: () => `+=${cards.length * 600 + 600}`,
+      end: () => `+=${cards.length * 500 + 200}`,
       scrub: 1,
       pin: true,
       onUpdate: () => {
@@ -92,7 +102,7 @@ onMounted(() => {
       ease: "power2.inOut",
       duration: 0.5,
     },
-    "-=0.4"
+    "-=0.8"
   );
 
   cards.forEach((card) => {
@@ -203,7 +213,7 @@ onUnmounted(() => {
         class="accessibilityCard"
         v-for="(card, index) in AccessibilityCard"
         :key="index"
-        :class="{ secondCard: index === 1 }"
+        :class="{ secondCard: index === 1, thirdCard: index === 2 }"
       >
         <div class="accessCardSubtitles">
           <div
@@ -217,6 +227,9 @@ onUnmounted(() => {
               firstSubSecCard: index === 1 && i === 0,
               secSubSecCard: index === 1 && i === 1,
               thirdSubSecCard: index === 1 && i === 2,
+              firstSubThiCard: index === 2 && i === 0,
+              secSubThiCard: index === 2 && i === 1,
+              thirdSubThiCard: index === 2 && i === 2,
             }"
           >
             {{ subtitle.subtitle }}

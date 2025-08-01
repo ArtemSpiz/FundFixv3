@@ -1,6 +1,9 @@
 <script setup>
 import Stars from "@/assets/svg/Stars.vue";
-import phone from "@/assets/img/iPhoneFuture.png";
+import phoneText from "@/assets/img/futurePhoneText.png";
+import phoneCont from "@/assets/img/futurePhoneCont.png";
+import phoneBorder from "@/assets/img/futurePhoneBg.png";
+
 import "./Future.css";
 
 const FutureCards = [
@@ -34,86 +37,144 @@ gsap.registerPlugin(ScrollTrigger);
 
 onMounted(() => {
   const cards = document.querySelectorAll(".futureCard");
-  const phoneImage = document.querySelector(".futurePhone img");
+  const phoneImage = document.querySelector(".futurePhone");
   const overlay = document.querySelector(".phoneOverlay");
+  const futureTexts = document.querySelector(".futureTexts");
+  const futureSection = document.querySelector(".future");
+  const tokenomics = document.querySelector(".tokenomicsInFuture");
+
+  // Адаптивні параметри
+  const isMobile = window.innerWidth <= 768;
+  const isTablet = window.innerWidth <= 1024;
 
   const initialWidth = phoneImage.offsetWidth;
   const targetWidth = window.innerWidth;
-  const scaleFactor = targetWidth / initialWidth + 0.2;
+
+  // Менше масштабування телефону
+  let scaleFactor;
+  if (isMobile) {
+    scaleFactor = (targetWidth / initialWidth) * 0.6; // Зменшено з 0.8
+  } else if (isTablet) {
+    scaleFactor = (targetWidth / initialWidth) * 0.7; // Зменшено з 0.9
+  } else {
+    scaleFactor = (targetWidth / initialWidth) * 1.1; // Зменшено з 1.1
+  }
+
   const tl = gsap.timeline({
     scrollTrigger: {
       id: "future-sequence",
-      trigger: ".futureTitle",
-      pin: ".future",
+      trigger: futureSection,
+      pin: futureSection,
       start: "top top",
-      end: `+=${cards.length * 800 + 800}`,
-      scrub: 1,
+      end: `+=${cards.length * 1000 + 800}`,
+      scrub: 1.2,
+      anticipatePin: 1,
     },
   });
 
-  tl.to(cards, {
-    yPercent: -300,
-    ease: "power3.out",
-    duration: 4,
+  // Початкові налаштування для Tokenomics - ЗНАЧНО менший розмір
+  gsap.set(tokenomics, {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    xPercent: -50,
+    yPercent: -50,
+    opacity: 0,
+    scale: isMobile ? 0.25 : isTablet ? 0.3 : 0.35, // ЗНАЧНО зменшено
+    transformOrigin: "center center",
   });
 
-  tl.fromTo(
+  gsap.set(overlay, {
+    scaleY: 0,
+    transformOrigin: "bottom center",
+    opacity: 1,
+  });
+
+  // Анімація карток і тексту
+  tl.to([futureTexts, cards], {
+    yPercent: -400,
+    opacity: 0,
+    ease: "power2.out",
+    duration: 3,
+  });
+
+  // Менший рух телефону
+  tl.to(
     phoneImage,
-    { scale: 1 },
     {
-      scale: scaleFactor,
-      transformOrigin: "center center",
-      ease: "power3.inOut",
-      duration: 2,
+      y: isMobile ? -50 : -200, // Зменшено рух
+      ease: "power2.inOut",
+      duration: 1,
     },
-    "-=3"
+    "<+0.2"
   );
 
-  tl.fromTo(
+  // Поява overlay
+  tl.to(
     overlay,
-    { scaleX: 0 },
     {
-      scaleX: 1,
-      duration: 4,
-      ease: "power3.inOut",
+      scaleY: 1,
+      opacity: 1,
+      duration: 2.5,
+      ease: "power2.inOut",
     },
-    "-=1.4"
+    "<+=0.3"
   );
 
   tl.to(
-    ".tokenomicsInFuture",
+    phoneImage,
     {
-      opacity: 1,
-      y: 0,
-      ease: "power2.out",
-      duration: 1.2,
+      scale: scaleFactor,
+      ease: "power2.inOut",
+      duration: 3.5,
     },
-    "-=0.5"
+    "<+=0.2"
   );
 
-  onMounted(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          } else {
-            entry.target.classList.remove("show");
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
+  tl.to(
+    tokenomics,
+    {
+      opacity: 1,
+      scale: isMobile ? 0.3 : isTablet ? 0.35 : 0.27,
+      y: 20,
+      ease: "power2.inOut",
+      duration: 2,
+    },
+    "<+=1"
+  );
 
-    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-      el.classList.add("hidden");
-      observer.observe(el);
-    });
+  // Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      });
+    },
+    {
+      threshold: 0.5,
+      rootMargin: "0px 0px -50px 0px",
+    }
+  );
+
+  const handleResize = () => {
+    ScrollTrigger.refresh();
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  onBeforeUnmount(() => {
+    window.removeEventListener("resize", handleResize);
+    observer.disconnect();
   });
 });
 
 onBeforeUnmount(() => {
   ScrollTrigger.getById("future-sequence")?.kill();
+  ScrollTrigger.refresh();
 });
 </script>
 
@@ -126,10 +187,23 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div class="futurePhone">
-      <img :src="phone" alt="" />
-      <div class="phoneOverlay">
-        <Tokenomics class="tokenomicsInFuture animate-on-scroll" />
+    <div class="futurePhoneWrap">
+      <div class="futurePhone">
+        <div class="futurePhoneBorder">
+          <img :src="phoneBorder" alt="" />
+        </div>
+        <div class="phoneContent">
+          <div class="futurePhoneText">
+            <img :src="phoneText" alt="" />
+          </div>
+          <img :src="phoneCont" alt="" />
+        </div>
+
+        <div class="phoneOverlay">
+          <div class="tokenomicsWrapper">
+            <Tokenomics class="tokenomicsInFuture" />
+          </div>
+        </div>
       </div>
     </div>
 

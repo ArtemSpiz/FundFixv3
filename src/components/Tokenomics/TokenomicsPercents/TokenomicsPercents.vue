@@ -34,7 +34,7 @@ watch(activeIndex, (newIndex) => {
     target = Number(TokenomicsPercents[newIndex].number.replace(/\./g, ""));
   }
 
-  const duration = 800;
+  const duration = 1000;
   const frameRate = 60;
   const totalFrames = Math.round((duration / 1000) * frameRate);
   let frame = 0;

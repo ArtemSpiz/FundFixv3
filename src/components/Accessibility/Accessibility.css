@@ -82,7 +82,6 @@
   backdrop-filter: blur(21.147891998291016px);
   opacity: 0;
   z-index: 1;
-  position: relative;
 }
 
 .accessibilityCard {
@@ -98,6 +97,12 @@
 .secondCard {
   position: relative;
   top: 520px;
+}
+
+.thirdCard {
+  position: absolute;
+  top: 70px;
+  right: 50px;
 }
 
 .accessCardSubtitles {
@@ -169,6 +174,27 @@
   left: 25px;
 }
 
+.firstSubThiCard {
+  background: #776ef3;
+  color: #372757;
+  position: relative;
+  left: 30px;
+}
+
+.secSubThiCard {
+  color: #27573d;
+  background: #91f36e;
+  position: relative;
+  right: 40px;
+}
+
+.thirdSubThiCard {
+  color: #6ef3ec;
+  background: #274157;
+  position: relative;
+  left: 25px;
+}
+
 .accessCardTexts {
   display: flex;
   flex-direction: column;
@@ -194,4 +220,10 @@
   line-height: 18px; /* 112.5% */
   width: 100%;
   max-width: 272px;
+}
+
+.fix-wrapper {
+  position: relative;
+  will-change: transform;
+  transition: transform 0.3s ease;
 }

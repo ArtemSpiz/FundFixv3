@@ -104,3 +104,32 @@
   font-weight: 500;
   line-height: 16px; /* 114.286% */
 }
+
+.burgerOpen {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .headerLinks {
+    display: none;
+  }
+
+  .burgerOpen {
+    display: flex;
+    cursor: pointer;
+  }
+
+  .header {
+    width: 90%;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 4px 4px 4px 24px;
+  }
+}
+
+@media (max-width:640px) {
+  .headerRight{
+    gap: 4px;
+  }
+}

@@ -86,52 +86,95 @@ const activeIndex = ref(0);
 
 let intervalId = null;
 
+const hasLoaded = ref(false);
+
 function updatePositions() {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-  const radius = screenWidth / 2.3;
+  let radius;
+
+  if (screenWidth >= 1285) {
+    radius = 620;
+  } else if (screenWidth >= 1024) {
+    radius = 630;
+  } else if (screenWidth >= 768) {
+    radius = 550;
+  } else {
+    radius = 550;
+  }
   const centerX = screenWidth / 2;
   const centerY = screenHeight;
 
   const total = HeroCards.length;
-  const visibleCount = 7;
+  const visibleCount = screenWidth < 640 ? 5 : 7;
   const centerIndex = Math.floor(visibleCount / 2);
-  const maxRotationDeg = 90;
+  const maxRotationDeg = screenWidth < 640 ? 50 : 90;
 
   const visibleCards = [];
 
   for (let i = 0; i < visibleCount; i++) {
     const realIndex = (activeIndex.value - centerIndex + i + total) % total;
+    const offsetFromCenter = i - centerIndex;
 
-    const angleStep = Math.PI / (visibleCount - 1);
-    const angle = angleStep * i;
+    const totalAngle = screenWidth < 640 ? Math.PI / 2 : Math.PI;
+    const angleStep = totalAngle / (visibleCount - 1);
+    const startAngle = Math.PI / 2 - totalAngle / 2;
+
+    const angle = startAngle + angleStep * i;
 
     const x = centerX + radius * Math.cos(angle);
     const y = centerY - radius * Math.sin(angle);
 
-    const offsetFromCenter = i - centerIndex;
     const rotateDeg = (-maxRotationDeg * offsetFromCenter) / centerIndex;
+    const isActive = offsetFromCenter === 0;
 
     visibleCards.push({
       ...HeroCards[realIndex],
       originalIndex: realIndex,
+      isActive,
+      rotateDeg,
+      delay: Math.max(50, Math.abs(offsetFromCenter) * 60),
+      visible: false,
+      loaded: false,
       style: {
         left: `${x}px`,
         top: `${y}px`,
         position: "absolute",
-        transition: "all 1.2s ease",
-        transform: `translate(-50%, -50%) rotate(${rotateDeg}deg) rotateY(${
-          offsetFromCenter === 0 ? 360 : 0
-        }deg)`,
-        zIndex: offsetFromCenter === 0 ? 10 : 1,
-        opacity: offsetFromCenter === 0 ? 1 : 0.7,
+        zIndex: isActive ? 10 : 1,
       },
-      rotateDeg,
-      isActive: offsetFromCenter === 0,
     });
   }
 
-  cardsWithPositions.value = visibleCards;
+  if (!hasLoaded.value) {
+    visibleCards.forEach((card) => {
+      if (card.isActive) {
+        card.visible = true;
+      }
+    });
+
+    cardsWithPositions.value = visibleCards;
+
+    setTimeout(() => {
+      cardsWithPositions.value = cardsWithPositions.value.map((card) => ({
+        ...card,
+        loaded: card.visible,
+      }));
+      setTimeout(() => {
+        hasLoaded.value = true;
+        cardsWithPositions.value = cardsWithPositions.value.map((card) => ({
+          ...card,
+          visible: true,
+          loaded: true,
+        }));
+      }, 800);
+    }, 50);
+  } else {
+    cardsWithPositions.value = visibleCards.map((card) => ({
+      ...card,
+      visible: true,
+      loaded: true,
+    }));
+  }
 }
 
 onMounted(() => {
@@ -212,9 +255,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="hero" ref="heroRef">
+  <div id="home" class="hero" ref="heroRef">
     <div class="heroTexts">
-      <AnimatedText class="heroTitle" text="FundFix backs what’s next" />
+      <AnimatedText
+        anim-delay="0.1"
+        class="heroTitle"
+        text="FundFix backs what’s next"
+      />
 
       <AnimatedText
         class="heroSubtitle"
@@ -226,43 +273,66 @@ onUnmounted(() => {
     <div class="heroBottom"><CompMouse /> Scoll to Discover</div>
 
     <div class="heroCards">
-      <template v-if="!hasLoaded">
+      <div
+        class="heroCard"
+        :class="{
+          active: card.isActive,
+          loaded: card.loaded,
+        }"
+        v-for="card in cardsWithPositions"
+        :key="card.originalIndex"
+        v-show="card.visible"
+        :style="{
+          left: card.style.left,
+          top: card.style.top,
+          zIndex: card.style.zIndex,
+          position: 'absolute',
+          transitionDelay: card.loaded ? `${card.delay}ms` : '0ms',
+          transform: `
+    translate(-50%, -50%)
+    translateY(${card.loaded ? '0px' : '100px'})
+    rotate(${card.rotateDeg}deg)
+    ${card.shouldSpin ? 'rotateY(360deg)' : ''}
+  `,
+        }"
+      >
         <div
-          class="heroCard"
-          :class="{ active: card.isActive }"
-          v-for="card in cardsWithPositions"
-          :key="card.originalIndex"
-          :style="card.style"
+          class="heroCardInner"
+          :style="{ transform: `rotate(${-card.rotateDeg}deg)` }"
         >
           <div
-            class="heroCardInner"
-            :style="{ transform: `rotate(${-card.rotateDeg}deg)` }"
+            class="heroCardImg"
+            :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
           >
-            <div
-              class="heroCardImg"
-              :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
-            >
-              <img :src="card.image" alt="" />
-            </div>
+            <img :src="card.image" alt="" />
+          </div>
 
-            <div
-              class="heroCardContent"
-              :class="{ active: card.isActive }"
-              :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
-            >
-              <div class="heroCardContIcon">
-                <img :src="card.icon" alt="" />
-              </div>
-              <div class="heroCardTexts">
-                <div class="heroCardContTitle">{{ card.name }}</div>
-                <div class="heroCardContSubtitle">{{ card.position }}</div>
-              </div>
+          <div
+            class="heroCardContent"
+            :class="{ active: card.isActive }"
+            :style="{ transform: `rotate(${card.rotateDeg}deg)` }"
+          >
+            <div class="heroCardContIcon">
+              <img :src="card.icon" alt="" />
+            </div>
+            <div class="heroCardTexts">
+              <div class="heroCardContTitle">{{ card.name }}</div>
+              <div class="heroCardContSubtitle">{{ card.position }}</div>
             </div>
           </div>
         </div>
-      </template>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.heroCard {
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.heroCard.loaded {
+  opacity: 1;
+}
+</style>

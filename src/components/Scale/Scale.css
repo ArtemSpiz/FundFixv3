@@ -168,3 +168,50 @@
   font-weight: 400;
   line-height: 16px; /* 114.286% */
 }
+
+@media (max-width: 1285px) {
+  .scaleTitle {
+    font-size: 110px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .scaleTitle {
+    font-size: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .scaleTitle {
+    font-size: 70px;
+  }
+
+  .scaleCardWrapper {
+    max-width: 310px;
+  }
+
+  .scaleCardTexts {
+    padding-left: 16px;
+    box-sizing: border-box;
+  }
+
+  .scaleCardBottom {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  .scaleCardImg {
+    overflow: hidden;
+  }
+
+  .scaleCardImg img {
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 640px) {
+  .scaleTitle {
+    font-size: 45px;
+  }
+}

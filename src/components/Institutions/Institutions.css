@@ -2,14 +2,14 @@
   position: relative;
   display: flex;
   align-items: center;
-
   flex-direction: column;
   justify-content: center;
   background-image: url("@/assets/img/InstitutionsBg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 0px 117px;
-  padding-bottom: 300px;
+  overflow: hidden;
+  padding-bottom: 80px;
 }
 
 .institutionsCard {
@@ -19,6 +19,7 @@
   border-radius: 18px;
   background-image: linear-gradient(180deg, #e7bfc1 0%, #94a0e8 100%),
     url("@/assets/img/bgCardInstitutions.png");
+  background-blend-mode: overlay;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +66,6 @@
   color: #0f0f0f;
 }
 
-
 .institutionsTitle {
   color: #0f0f0f;
   text-align: center;
@@ -103,19 +103,92 @@
   cursor: pointer;
 }
 
+.institutionsBtn::before,
+.institutionsBtn::after {
+  border: 0.5px solid #0f0f0f !important;
+}
+
 .institutionsBtn svg path {
   stroke: #97a1e7;
 }
 
-.institutionsBtn::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border-radius: 32px;
-  border: 1px solid #0f0f0f;
-  pointer-events: none;
-  z-index: 0;
+.instTitleMobil {
+  display: none;
+}
+
+@media (max-width: 1285px) {
+  .institutions {
+    padding: 0px 90px;
+    padding-bottom: 60px;
+  }
+
+  .institutionsCard {
+    z-index: 33;
+  }
+}
+
+@media (max-width: 1024px) {
+  .institutions {
+    padding: 0px 70px;
+    padding-bottom: 80px;
+  }
+
+  .institutionsSubtitle {
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 768px) {
+  .institutions {
+    padding: 0px 50px;
+    padding-bottom: 60px;
+  }
+
+  .institutionsTexts {
+    gap: 24px;
+  }
+
+  .institutionsCard {
+    gap: 68px;
+  }
+
+  .instTitleDesktop {
+    display: none !important;
+  }
+
+  .instTitleMobil {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .institutionsTitle {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .institutions {
+    padding: 0px 16px;
+    padding-bottom: 48px;
+  }
+
+  .institutionsLogoRight {
+    width: 224.336px;
+    height: 187.259px;
+    flex-shrink: 0;
+    top: -25px;
+  }
+
+  .institutionsLogoLeft {
+    left: -160px;
+    top: 210px;
+  }
+
+  .institutionsCard {
+    box-sizing: border-box;
+  }
+
+  .institutionsTitle {
+    font-size: 28px;
+  }
 }

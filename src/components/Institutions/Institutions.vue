@@ -2,7 +2,6 @@
 import Stars from "@/assets/svg/Stars.vue";
 import institutionsLogoLeft from "@/assets/img/InstitutionsLeftLogo.png";
 import institutionsLogoRight from "@/assets/img/InstitutionsRightLogo.png";
-import Footer from "@/layout/Footer/Footer.vue";
 import ArrowBtn from "@/assets/svg/ArrowBtn.vue";
 import "./Institutions.css";
 import AnimatedText from "@/components/AnimatedText.vue";
@@ -26,48 +25,41 @@ import AnimatedText from "@/components/AnimatedText.vue";
           </div>
 
           <AnimatedText
-            class="institutionsTitle"
+            class="institutionsTitle instTitleDesktop"
+            anim-delay="0.06"
             text="This Is What the Institutions Never Wanted You to Access"
           />
+
+          <div class="institutionsTitle instTitleMobil">
+            <AnimatedText
+              class="institutionsTitle"
+              anim-delay="0.1"
+              text="This Is What the"
+            />
+            <AnimatedText
+              class="institutionsTitle"
+              anim-delay="0.1"
+              text="Institutions Never"
+            />
+            <AnimatedText
+              class="institutionsTitle"
+              anim-delay="0.1"
+              text="Wanted You to Access"
+            />
+          </div>
         </div>
 
         <AnimatedText
           class="institutionsSubtitle Subtitle"
-          text=" FundFix isn’t here to democratize hype — it brings discipline, infrastructure, and upside to early movers."
+          text="FundFix isn’t here to democratize hype — it brings discipline, infrastructure, and upside to early movers."
         />
       </div>
 
-      <button class="institutionsBtn">Join to FundFix <ArrowBtn /></button>
+      <button class="institutionsBtn jelly-wave">
+        Join to FundFix <ArrowBtn />
+      </button>
     </div>
-
-    <Footer />
   </div>
 </template>
 
-<style scoped>
-.animated-title {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5px;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-}
-
-.letter {
-  display: inline-flex;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.letter.visible {
-  animation: riseFadeIn 0.4s forwards ease-out;
-}
-
-@keyframes riseFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
+<style scoped></style>

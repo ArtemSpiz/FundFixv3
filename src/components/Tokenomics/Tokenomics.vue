@@ -17,7 +17,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.7 }
   );
 
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {
@@ -28,7 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="tokenomics">
+  <div id="tokenomics" class="tokenomics">
     <div class="tokenomicsTexts animate-on-scroll">
       <div class="UnderTitle animate-on-scroll">
         <Stars />

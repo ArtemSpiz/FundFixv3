@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import "./TokenomicsPercents.css";
 
 const TokenomicsPercents = [
@@ -28,10 +28,28 @@ const TokenomicsPercents = [
 const activeIndex = ref(-1);
 const displayNumber = ref(0);
 
+function parseNumber(str) {
+  return Number(str.replace(/\./g, ""));
+}
+
+const total = TokenomicsPercents.reduce(
+  (acc, cur) => acc + parseNumber(cur.number),
+  0
+);
+
+onMounted(() => {
+  displayNumber.value = total;
+});
+
+const isMobile = window.innerWidth < 769;
+const isMiniMobile = window.innerWidth < 640;
+
 watch(activeIndex, (newIndex) => {
   let target = 0;
   if (newIndex !== -1) {
-    target = Number(TokenomicsPercents[newIndex].number.replace(/\./g, ""));
+    target = parseNumber(TokenomicsPercents[newIndex].number);
+  } else {
+    target = total;
   }
 
   const duration = 1000;
@@ -86,9 +104,18 @@ const centerY = svgHeight / 1.1;
     </div>
 
     <div class="tokenomicsArksWrap">
+      <div class="tokenomicsArksText">
+        <div class="tokenomicsArksTitle">Total</div>
+        <transition name="fade" mode="out-in">
+          <div class="tokenomicsArksSubtitle active" :key="activeIndex">
+            {{ displayNumber.toLocaleString("en-US") }}
+          </div>
+        </transition>
+      </div>
+
       <svg
-        :width="1000"
-        :height="800"
+        :width="isMiniMobile ? 343 : isMobile ? 500 : 1000"
+        :height="iisMiniMobile ? 343 : isMobile ? 500 : 800"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
       >
         <g v-for="(percent, index) in TokenomicsPercents" :key="index">
@@ -142,15 +169,6 @@ const centerY = svgHeight / 1.1;
           />
         </g>
       </svg>
-
-      <div class="tokenomicsArksText">
-        <div class="tokenomicsArksTitle">Total</div>
-        <transition name="fade" mode="out-in">
-          <div class="tokenomicsArksSubtitle active" :key="activeIndex">
-            {{ displayNumber.toLocaleString("en-US") }}
-          </div>
-        </transition>
-      </div>
     </div>
   </div>
 </template>

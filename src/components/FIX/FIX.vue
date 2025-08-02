@@ -5,7 +5,14 @@ import imageCard1 from "@/assets/img/FIXCardContent1.png";
 import imageCard2 from "@/assets/img/FIXCardContent2.png";
 import imageCard3 from "@/assets/img/FIXCardContent3.png";
 import "./FIX.css";
-import { ref, reactive, nextTick, computed } from "vue";
+import {
+  ref,
+  reactive,
+  nextTick,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+} from "vue";
 import AnimatedText from "../AnimatedText.vue";
 
 const FixCards = [
@@ -29,9 +36,88 @@ const FixCards = [
   },
 ];
 
+const mobileActiveIndex = ref(0);
+const isMobile = ref(window.innerWidth < 1024);
 const displayedCards = ref([...FixCards]);
 const activeCard = ref(null);
 const currentIndex = ref(0);
+
+function handleResize() {
+  isMobile.value = window.innerWidth < 1024;
+}
+
+function onMobileScroll(event) {
+  if (!isMobile.value) return;
+
+  const container = event.target;
+  const cards = container.querySelectorAll(".fixCard");
+
+  let closestIndex = 0;
+  let minDistance = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardRect = card.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const distance = Math.abs(cardCenter - containerCenter);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  if (closestIndex !== mobileActiveIndex.value) {
+    mobileActiveIndex.value = closestIndex;
+  }
+}
+
+function scrollToCard(index) {
+  if (!isMobile.value) return;
+
+  mobileActiveIndex.value = index;
+
+  nextTick(() => {
+    const container = document.querySelector(".carousel-mobile");
+    const cards = container?.querySelectorAll(".fixCard");
+
+    if (container && cards && cards[index]) {
+      const targetCard = cards[index];
+
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = targetCard.getBoundingClientRect();
+
+      const scrollLeft = container.scrollLeft;
+      const cardCenter =
+        cardRect.left + cardRect.width / 2 - containerRect.left + scrollLeft;
+      const containerCenter = containerRect.width / 2;
+
+      const targetScrollLeft = cardCenter - containerCenter;
+
+      container.scrollTo({
+        left: targetScrollLeft,
+        behavior: "smooth",
+      });
+    }
+  });
+}
+
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+
+  if (isMobile.value) {
+    mobileActiveIndex.value = 0;
+    setTimeout(() => {
+      scrollToCard(0);
+    }, 100);
+  }
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", handleResize);
+});
 
 const dragState = reactive({
   dragging: false,
@@ -44,6 +130,9 @@ const dragState = reactive({
 });
 
 const activeCardIndex = computed(() => {
+  if (isMobile.value) {
+    return mobileActiveIndex.value;
+  }
   const activeCardId = displayedCards.value[0]?.id;
   return FixCards.findIndex((card) => card.id === activeCardId);
 });
@@ -51,8 +140,13 @@ const activeCardIndex = computed(() => {
 async function nextCard() {
   if (dragState.animationInProgress || dragState.buttonAnimation) return;
 
-  dragState.buttonAnimation = true;
+  if (isMobile.value) {
+    const nextIndex = (mobileActiveIndex.value + 1) % FixCards.length;
+    scrollToCard(nextIndex);
+    return;
+  }
 
+  dragState.buttonAnimation = true;
   dragState.translateX = window.innerWidth * 1.2;
   dragState.rotate = 30;
 
@@ -63,7 +157,6 @@ async function nextCard() {
       newCards.push(first);
     }
     displayedCards.value = newCards;
-
     currentIndex.value = (currentIndex.value + 1) % FixCards.length;
 
     nextTick(() => {
@@ -77,8 +170,16 @@ async function nextCard() {
 async function prevCard() {
   if (dragState.animationInProgress || dragState.buttonAnimation) return;
 
-  dragState.buttonAnimation = true;
+  if (isMobile.value) {
+    const prevIndex =
+      mobileActiveIndex.value === 0
+        ? FixCards.length - 1
+        : mobileActiveIndex.value - 1;
+    scrollToCard(prevIndex);
+    return;
+  }
 
+  dragState.buttonAnimation = true;
   dragState.translateX = -window.innerWidth * 1.2;
   dragState.rotate = -30;
 
@@ -89,7 +190,6 @@ async function prevCard() {
       newCards.unshift(last);
     }
     displayedCards.value = newCards;
-
     currentIndex.value =
       currentIndex.value === 0 ? FixCards.length - 1 : currentIndex.value - 1;
 
@@ -102,6 +202,11 @@ async function prevCard() {
 }
 
 function goToCard(targetIndex) {
+  if (isMobile.value) {
+    scrollToCard(targetIndex);
+    return;
+  }
+
   if (
     dragState.animationInProgress ||
     dragState.buttonAnimation ||
@@ -176,6 +281,7 @@ function getCardStyle(index) {
 }
 
 function onPointerDown(event) {
+  if (isMobile.value) return;
   if (dragState.animationInProgress || dragState.buttonAnimation) return;
 
   dragState.dragging = true;
@@ -204,20 +310,18 @@ function onPointerMove(event) {
     -maxTranslate,
     Math.min(maxTranslate, dragState.translateX)
   );
-
   dragState.rotate = (dragState.translateX / window.innerWidth) * 20;
 }
 
 async function onPointerUp() {
+  if (isMobile.value) return;
   if (!dragState.dragging) return;
 
   dragState.dragging = false;
-
   const threshold = 50;
 
   if (Math.abs(dragState.translateX) > threshold) {
     const direction = dragState.translateX > 0 ? 1 : -1;
-
     dragState.animationInProgress = true;
 
     const exitTranslateX = direction * window.innerWidth * 1.2;
@@ -260,7 +364,7 @@ async function onPointerUp() {
 </script>
 
 <template>
-  <div class="fix">
+  <div id="product" class="fix">
     <div class="fixLeft">
       <div class="fixTexts">
         <div class="fixTitles">
@@ -270,18 +374,27 @@ async function onPointerUp() {
           </div>
 
           <div class="Title">
-            <AnimatedText class="fixTitle" text="$FIX Token:" />
-            <AnimatedText class="fixTitleSpan" text="Infinite Access." />
+            <AnimatedText
+              anim-delay="0.1"
+              class="fixTitle"
+              text="$FIX Token:"
+            />
+            <AnimatedText
+              anim-delay="0.1"
+              class="fixTitleSpan"
+              text="Infinite Access."
+            />
           </div>
         </div>
 
         <AnimatedText
+          anim-delay="0.02"
           class="Subtitle fixSub"
           text="At the core of the FundFix platform lies $FIX—a versatile utility token designed to provide scalable, secure, and permissioned access to a broad array of private market investment opportunities."
         />
       </div>
 
-      <div class="fixBtns">
+      <div class="fixBtns desktop">
         <div
           class="fixArrow active"
           :class="{ 'button-pressed': dragState.buttonAnimation }"
@@ -290,46 +403,74 @@ async function onPointerUp() {
           <Arrow />
         </div>
         <div
-          class="fixArrow rotate"
+          class="fixArrow"
           :class="{ 'button-pressed': dragState.buttonAnimation }"
           @click="prevCard"
         >
-          <Arrow />
+          <Arrow class="rotateArrowFix" />
         </div>
       </div>
     </div>
 
-    <div class="fixCards">
-      <div class="fixCardsPags">
-        <div class="fixCardsPag"></div>
+    <div class="fixCardsWrapper">
+      <div
+        class="fixCards"
+        :class="{ 'carousel-mobile': isMobile }"
+        @scroll="onMobileScroll"
+      >
+        <div class="fixCardsPags">
+          <div class="fixCardsPag"></div>
+        </div>
+
+        <div
+          class="fixCard"
+          v-for="(card, index) in isMobile ? FixCards : displayedCards"
+          :key="`${isMobile ? 'mobile' : 'desktop'}-${card.id}`"
+          :class="{
+            activeCard:
+              (isMobile && index === mobileActiveIndex) ||
+              (!isMobile && index === 0),
+          }"
+          :ref="index === 0 && !isMobile ? (el) => (activeCard = el) : null"
+          @pointerdown="!isMobile && index === 0 ? onPointerDown($event) : null"
+          :style="isMobile ? {} : getCardStyle(index)"
+        >
+          <div class="fixCardTexts">
+            <div class="fixCardTitle">{{ card.title }}</div>
+            <div class="fixCardSubtitle">{{ card.subtitle }}</div>
+          </div>
+
+          <div class="fixCardContent">
+            <img :src="card.content" alt="" draggable="false" />
+          </div>
+        </div>
+
+        <div class="fixCardsPags">
+          <div
+            v-for="(card, index) in FixCards"
+            :key="card.id"
+            class="fixCardsPag"
+            :class="{ active: index === activeCardIndex }"
+            @click="goToCard(index)"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fixBtns mobile">
+      <div
+        class="fixArrow active"
+        :class="{ 'button-pressed': dragState.buttonAnimation }"
+        @click="nextCard"
+      >
+        <Arrow />
       </div>
       <div
-        class="fixCard"
-        v-for="(card, index) in displayedCards"
-        :key="card.id"
-        :class="{ activeCard: index === 0 }"
-        :ref="index === 0 ? (el) => (activeCard = el) : null"
-        @pointerdown="index === 0 ? onPointerDown($event) : null"
-        :style="getCardStyle(index)"
+        class="fixArrow"
+        :class="{ 'button-pressed': dragState.buttonAnimation }"
+        @click="prevCard"
       >
-        <div class="fixCardTexts">
-          <div class="fixCardTitle">{{ card.title }}</div>
-          <div class="fixCardSubtitle">{{ card.subtitle }}</div>
-        </div>
-
-        <div class="fixCardContent">
-          <img :src="card.content" alt="" draggable="false" />
-        </div>
-      </div>
-
-      <div class="fixCardsPags">
-        <div
-          v-for="(card, index) in FixCards"
-          :key="card.id"
-          class="fixCardsPag"
-          :class="{ active: index === activeCardIndex }"
-          @click="goToCard(index)"
-        ></div>
+        <Arrow class="rotateArrowFix" />
       </div>
     </div>
   </div>

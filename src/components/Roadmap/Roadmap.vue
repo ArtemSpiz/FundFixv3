@@ -62,6 +62,8 @@ import AnimatedText from "../AnimatedText.vue";
 const activeIndex = ref(0);
 const pathLength = ref(0);
 
+const isTablet = window.innerWidth < 1024;
+
 const prev = () => {
   if (activeIndex.value > 0) activeIndex.value--;
 };
@@ -95,25 +97,45 @@ const activeStrokeStyle = computed(() => {
 });
 
 const getPointPosition = (index, total) => {
-  const radius = 450;
-  const centerX = 500;
-  const centerY = 450;
+  const radius = isTablet ? 380 : 450;
+  const centerX = isTablet ? 400 : 500;
+  const centerY = isTablet ? 400 : 450;
 
   const angle = Math.PI * (1 - index / (total - 1));
-  const x = centerX + radius * Math.cos(angle);
+  let x = centerX + radius * Math.cos(angle);
   let y = centerY - radius * Math.sin(angle);
 
   if (index === 0 || index === total - 1) {
-    y -= 50;
+    y -= isTablet ? 70 : 50;
+  }
+
+  if (index === 0) {
+    x += isTablet ? 30 : 0;
+  }
+
+  if (index === total - 1) {
+    x -= isTablet ? 30 : 0;
+  }
+
+  if (index === 1) {
+    x += isTablet ? 20 : 0;
+  }
+
+  if (index === total - 2) {
+    x -= isTablet ? 20 : 0;
+  }
+
+  if (index === 1 || (index === total - 2 && isTablet)) {
+    y -= 20;
   }
 
   return `position: absolute; left: ${x}px; top: ${y}px; transform: translate(-50%, -50%)`;
 };
 
 const getLineStyle = (index, total) => {
-  const radius = 387;
-  const centerX = 500;
-  const centerY = 450;
+  const radius = isTablet ? 340 : 387;
+  const centerX = isTablet ? 400 : 500;
+  const centerY = isTablet ? 400 : 450;
 
   const angle = Math.PI * (1 - index / (total - 1));
 
@@ -139,7 +161,11 @@ const getLineStyle = (index, total) => {
           <Stars />
           <AnimatedText text="What's Ahead" />
         </div>
-        <AnimatedText class="Title roadmapTitle" text="Our Roadmap" />
+        <AnimatedText
+          anim-delay="0.09"
+          class="Title roadmapTitle"
+          text="Our Roadmap"
+        />
       </div>
 
       <AnimatedText

@@ -41,6 +41,27 @@ img {
   width: 100%;
 }
 
+@media (max-width: 1024px) {
+  .Title {
+    font-size: 46px;
+  }
+  .UnderTitle {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .Title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 640px) {
+  .Title {
+    font-size: 40px;
+  }
+}
+
 .jelly-wave {
   position: relative;
   cursor: pointer;
@@ -141,7 +162,7 @@ img {
     opacity: 0.6;
   }
   100% {
-    transform: translate(-50%, -50%) scaleY(1.2);
+    transform: translate(-50%, -50%) scaleY(1.3);
     opacity: 0;
   }
 }

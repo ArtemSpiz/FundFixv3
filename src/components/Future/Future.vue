@@ -44,32 +44,15 @@ onMounted(() => {
   const futureSection = document.querySelector(".future");
   const tokenomics = document.querySelector(".tokenomicsInFuture");
 
-  const isMobile = window.innerWidth <= 768;
-  const isTablet = window.innerWidth <= 1024;
+  const isMobile = window.innerWidth < 768;
+  const isTablet = window.innerWidth < 1024;
 
   const initialWidth = phoneImage.offsetWidth;
   const targetWidth = window.innerWidth;
 
-  let scaleFactor;
-  if (isMobile) {
-    scaleFactor = (targetWidth / initialWidth) * 0.6;
-  } else if (isTablet) {
-    scaleFactor = (targetWidth / initialWidth) * 0.7;
-  } else {
-    scaleFactor = (targetWidth / initialWidth) * 1.1;
-  }
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      id: "future-sequence",
-      trigger: futureSection,
-      pin: futureSection,
-      start: "top top",
-      end: `+=${cards.length * 1000 + 800}`,
-      scrub: 1.2,
-      anticipatePin: 1,
-    },
-  });
+  const scaleFactor = isMobile
+    ? (targetWidth / initialWidth) * 1.1
+    : (targetWidth / initialWidth) * 1.1;
 
   gsap.set(tokenomics, {
     position: "absolute",
@@ -78,7 +61,7 @@ onMounted(() => {
     xPercent: -50,
     yPercent: -50,
     opacity: 0,
-    scale: isMobile ? 0.25 : isTablet ? 0.3 : 0.35,
+    scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.27,
     transformOrigin: "center center",
   });
 
@@ -88,72 +71,149 @@ onMounted(() => {
     opacity: 1,
   });
 
-  tl.to([futureTexts, cards], {
-    yPercent: -400,
-    opacity: 0,
-    ease: "power2.out",
-    duration: 3,
+  if (isMobile) {
+    cards.forEach((card) => {
+      gsap.set(card, {
+        position: "absolute",
+        bottom: 0,
+        left: "50%",
+        xPercent: -50,
+        yPercent: 200,
+        opacity: 0,
+      });
+    });
+  }
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      id: "future-sequence",
+      trigger: isMobile ? futureTexts : futureSection,
+      pin: futureSection,
+      start: "top top",
+      end: () =>
+        `+=${isMobile ? cards.length * 500 + 800 : cards.length * 1000 + 800}`,
+      scrub: 1.2,
+      anticipatePin: 1,
+    },
   });
 
-  // Менший рух телефону
-  tl.to(
-    phoneImage,
-    {
-      y: isMobile ? -50 : -200,
-      ease: "power2.inOut",
-      duration: 1,
-    },
-    "<+0.2"
-  );
-
-  tl.to(
-    overlay,
-    {
+  if (isMobile) {
+    tl.to(overlay, {
       scaleY: 1,
       opacity: 1,
-      duration: 2.5,
+      duration: 4,
       ease: "power2.inOut",
-    },
-    "<+=0.3"
-  );
+    });
 
-  tl.to(
-    phoneImage,
-    {
-      scale: scaleFactor,
-      ease: "power2.inOut",
-      duration: 3.5,
-    },
-    "<+=0.2"
-  );
+    tl.to(
+      cards,
+      {
+        y: 1,
+        opacity: 1,
+        duration: 4,
+        stagger: 0.25,
+        ease: "power3.out",
+      },
+      "<+=0.1"
+    );
 
-  tl.to(
-    tokenomics,
-    {
-      opacity: 1,
-      scale: isMobile ? 0.3 : isTablet ? 0.35 : 0.27,
-      y: 20,
-      ease: "power2.inOut",
-      duration: 2,
-    },
-    "<+=1"
-  );
+    cards.forEach((card, i) => {
+      tl.to(
+        card,
+        {
+          yPercent: -310,
+          opacity: 1,
+          duration: 8,
+          ease: "power3.inOut",
+        },
+        i === 0 ? "<-=0.5" : "<"
+      );
+    });
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        } else {
-          entry.target.classList.remove("show");
-        }
-      });
-    },
-    {
-      threshold: 0.5,
-      rootMargin: "0px 0px -50px 0px",
-    }
-  );
+    tl.to(
+      futureTexts,
+      {
+        y: -200,
+        opacity: 0,
+        duration: 2,
+        ease: "power2.inOut",
+      },
+      "<+=4.5"
+    );
+
+    tl.to(
+      phoneImage,
+      {
+        y: -280,
+        scale: scaleFactor,
+        duration: 4,
+        ease: "power2.inOut",
+      },
+      "<+=0.1"
+    );
+
+    tl.to(
+      tokenomics,
+      {
+        opacity: 1,
+        scale: 0.3,
+        y: 120,
+        duration: 1.5,
+        ease: "power2.inOut",
+      },
+      "<+=0.5"
+    );
+  } else {
+    tl.to([futureTexts, cards], {
+      yPercent: -400,
+      opacity: 0,
+      ease: "power2.out",
+      duration: 3,
+    });
+
+    tl.to(
+      phoneImage,
+      {
+        y: -200,
+        ease: "power2.inOut",
+        duration: 1,
+      },
+      "<+0.2"
+    );
+
+    tl.to(
+      overlay,
+      {
+        scaleY: 1,
+        opacity: 1,
+        duration: 2.5,
+        ease: "power2.inOut",
+      },
+      "<+=0.3"
+    );
+
+    tl.to(
+      phoneImage,
+      {
+        scale: scaleFactor,
+        ease: "power2.inOut",
+        duration: 3.5,
+      },
+      "<+=0.2"
+    );
+
+    tl.to(
+      tokenomics,
+      {
+        opacity: 1,
+        scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.27,
+        y: 20,
+        ease: "power2.inOut",
+        duration: 2,
+      },
+      "<+=1"
+    );
+  }
 
   const handleResize = () => {
     ScrollTrigger.refresh();
@@ -163,13 +223,9 @@ onMounted(() => {
 
   onBeforeUnmount(() => {
     window.removeEventListener("resize", handleResize);
-    observer.disconnect();
+    ScrollTrigger.getById("future-sequence")?.kill();
+    ScrollTrigger.refresh();
   });
-});
-
-onBeforeUnmount(() => {
-  ScrollTrigger.getById("future-sequence")?.kill();
-  ScrollTrigger.refresh();
 });
 </script>
 
@@ -181,13 +237,33 @@ onBeforeUnmount(() => {
         <AnimatedText text="Next-Gen Investing" />
       </div>
       <AnimatedText
-        class="Title futureTitle"
+        class="Title futureTitle desktopFutureTitle"
+        anim-delay="0.05"
         text="The Future of Private Investing — Today"
       />
+
+      <div class="Title futureTitle mobileFutureTitle">
+        <AnimatedText
+          class="Title futureTitle"
+          anim-delay="0.1"
+          text="The Future of"
+        />
+        <AnimatedText
+          class="Title futureTitle"
+          anim-delay="0.1"
+          text="Private Investing"
+        />
+        <AnimatedText
+          class="Title futureTitle"
+          anim-delay="0.2"
+          text="— Today"
+        />
+      </div>
     </div>
 
     <div class="futurePhoneWrap">
       <div class="futurePhone">
+        <div class="futurePhoneBg"></div>
         <div class="futurePhoneBorder">
           <img :src="phoneBorder" alt="" />
         </div>
@@ -203,11 +279,41 @@ onBeforeUnmount(() => {
             <Tokenomics class="tokenomicsInFuture" />
           </div>
         </div>
+
+        <div
+          class="futureCard mobileFutureCard"
+          v-for="(card, index) in FutureCards"
+          :key="index"
+          :class="{ left: index === 0, right: index === 1 }"
+        >
+          <div class="futureCardTexts">
+            <div class="futureCardTitle">{{ card.title }}</div>
+            <div class="futureCardText">{{ card.text }}</div>
+          </div>
+          <div class="futureCardSubtitles">
+            <div
+              class="futureCardSubtitle"
+              v-for="(sub, i) in card.subtitles"
+              :key="i"
+              :class="{
+                firstSubFut: index === 0 && i === 0,
+                secSubFut: index === 0 && i === 1,
+                thirdSubFut: index === 0 && i === 2,
+                fourthSubFut: index === 0 && i === 3,
+                firstSubSecCardFut: index === 1 && i === 0,
+                secSubSecCardFut: index === 1 && i === 1,
+                thirdSubSecCardFut: index === 1 && i === 2,
+              }"
+            >
+              {{ sub.subtitle }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div
-      class="futureCard"
+      class="futureCard desktopFutureCard"
       v-for="(card, index) in FutureCards"
       :key="index"
       :class="{ left: index === 0, right: index === 1 }"

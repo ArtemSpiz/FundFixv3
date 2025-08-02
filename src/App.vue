@@ -10,6 +10,8 @@ import Exclusivity from "./components/Exclusivity/Exclusivity.vue";
 import FIX from "./components/FIX/FIX.vue";
 import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
+import Footer from "./layout/Footer/Footer.vue";
+// import Tokenomics from "./components/Tokenomics/Tokenomics.vue";
 </script>
 
 <template>
@@ -19,10 +21,13 @@ import Institutions from "./components/Institutions/Institutions.vue";
   <FIX />
   <Scale />
   <Future />
+  <!-- <Tokenomics /> -->
   <Roadmap />
   <Exclusivity />
   <FAQ />
   <Institutions />
+
+  <Footer />
 </template>
 
 <style scoped></style>

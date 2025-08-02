@@ -48,6 +48,7 @@
   max-width: 461px;
   justify-content: start !important;
   align-items: start !important;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .fixBtns {
@@ -72,7 +73,7 @@
   opacity: 1;
 }
 
-.fixArrow.rotate {
+.rotateArrowFix {
   transform: rotate(180deg);
 }
 
@@ -82,7 +83,6 @@
   align-self: stretch;
   gap: 16px;
   width: 500px;
-  overflow-x: hidden;
   padding-inline: 117px;
   scrollbar-width: none;
   scroll-behavior: smooth;
@@ -118,6 +118,42 @@
   cursor: grab;
   user-select: none;
   transition: transform 0.3s ease;
+}
+
+.fixCard {
+  position: relative;
+}
+
+.fixCard::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 0.5px solid white;
+  border-radius: 18px;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.fixCard:hover::before {
+  opacity: 0.6;
+  animation: pulseWaveOnceFix 1s forwards ease-out;
+}
+
+@keyframes pulseWaveOnceFix {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.06);
+    opacity: 0;
+  }
 }
 
 .fixCard.activeCard {
@@ -202,6 +238,53 @@
 .fixArrow {
   transition: all 0.2s ease;
   cursor: pointer;
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+  overflow: visible;
+  transition: transform 0.3s;
+}
+
+.fixArrow:hover {
+  animation: jellyBounce 0.6s ease-in-out;
+}
+
+.fixArrow::before,
+.fixArrow::after {
+  border-radius: 30px;
+  content: "";
+  position: absolute;
+  border: 0.5px solid white;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%) scaleX(1) scaleY(1);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -2;
+  display: none;
+}
+
+.fixArrow:hover::before,
+.fixArrow:hover::after {
+  animation: pulseWaveFix 1s infinite ease-out;
+  display: flex;
+}
+
+.fixArrow::after {
+  animation-delay: 1s;
+}
+
+@keyframes pulseWaveFix {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0.9) scaleY(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(1) scaleY(1);
+    opacity: 0;
+  }
 }
 
 @keyframes cardEnter {
@@ -219,7 +302,7 @@
 
 .fixCardsPags {
   position: absolute;
-  bottom: 110px;
+  bottom: -50px;
   right: 56%;
   transform: translate(50%, 0);
   display: flex;
@@ -245,6 +328,156 @@
   transition: all 0.4s ease-in-out;
 }
 
+.fixCardsPag:hover {
+  animation: jellyBounce 0.6s ease-in-out;
+}
+
 .fixCardsPag.active {
   background-color: #dfdfdf;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 1285px) {
+  .fixTitleSpan {
+    width: 340px;
+  }
+
+  .fixSub {
+    max-width: 485px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .fix {
+    flex-direction: column;
+    height: 100%;
+    gap: 40px;
+    overflow: hidden;
+  }
+
+  .fixCardsPags {
+    right: 50%;
+    bottom: -50px;
+    display: none;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .fixTexts {
+    align-items: center;
+  }
+
+  .fixTitle {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .fixSub {
+    text-align: center;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .fixLeft {
+    padding: 0 60px;
+  }
+
+  .fixCards {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: visible;
+    position: relative;
+  }
+
+  .fixCard {
+    cursor: default;
+  }
+
+  .activeCard {
+    cursor: default;
+  }
+
+  .activeCard:active {
+    cursor: default;
+  }
+
+  .fixCardsWrapper {
+    overflow-x: scroll;
+    scrollbar-width: auto;
+    display: flex;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-mobile {
+    padding: 10px calc(50vw - 170px);
+    overflow-x: scroll;
+    scrollbar-width: auto;
+    display: flex;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-mobile .fixCard {
+    flex: 0 0 343px;
+    min-width: auto;
+    scroll-snap-align: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0.2;
+  }
+
+  .carousel-mobile .fixCard.activeCard {
+    opacity: 1;
+    animation: none;
+  }
+
+  .carousel-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-mobile {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .mobile {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+@media (max-width: 768px) {
+  .fixLeft {
+    padding: 0px 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fixLeft {
+    padding: 0px 16px;
+  }
+
+  .fixTitle {
+    max-width: auto;
+  }
+
+  .fixSub {
+    max-width: 338px;
+  }
+
+  .mobile {
+    margin-top: -22px;
+  }
 }

@@ -30,7 +30,7 @@
 }
 
 .roadmapSubtitle {
-  max-width: 410px;
+  max-width: 417px;
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -145,4 +145,42 @@
 .fade-leave-to {
   opacity: 0;
   transform: translateY(10px);
+}
+
+@media (max-width: 1024px) {
+  .roadmapSVG {
+    width: 800px;
+  }
+
+  .roadmapArk {
+    margin-bottom: -30px;
+  }
+
+  .roadmapLine {
+    display: none;
+  }
+
+  .roadmap {
+    gap: 64px;
+  }
+
+  .roadmapCardsSubtitle {
+    font-size: 20px;
+    line-height: 130%;
+  }
+
+  .roadmapCardsBottom {
+    bottom: 20px;
+    width: 345px;
+    gap: 28px;
+  }
+
+  .roadmapCardsTitle {
+    font-size: 18px;
+  }
+
+  .roadmapCardsArrow {
+    height: 48px;
+    width: 48px;
+  }
 }

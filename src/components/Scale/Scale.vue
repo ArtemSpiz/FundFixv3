@@ -3,6 +3,12 @@ import "./Scale.css";
 
 import scaleImage1 from "@/assets/img/scaleImage1.png";
 import scaleImgLines1 from "@/assets/img/scaleImgLines1.png";
+import scaleImage2 from "@/assets/img/scaleImage2.png";
+import scaleImgLines2 from "@/assets/img/scaleImgLines2.png";
+import scaleImage3 from "@/assets/img/scaleImage3.png";
+import scaleImgLines3 from "@/assets/img/scaleImgLines3.png";
+import scaleImage4 from "@/assets/img/scaleImage4.png";
+import scaleImgLines4 from "@/assets/img/scaleImgLines4.png";
 import { nextTick, reactive, ref } from "vue";
 
 const ScaleCards = [
@@ -14,25 +20,25 @@ const ScaleCards = [
     lines: scaleImgLines1,
   },
   {
-    image: scaleImage1,
+    image: scaleImage2,
     title: "Gold",
-    subtitle: "Co-investment, LP-style access, and full fund visibility.",
+    subtitle: "Early deals, founder briefings, and private investment rooms.",
     price: "50K",
-    lines: scaleImgLines1,
+    lines: scaleImgLines2,
   },
   {
-    image: scaleImage1,
+    image: scaleImage3,
     title: "Silver",
-    subtitle: "Co-investment, LP-style access, and full fund visibility.",
+    subtitle: "Top-tier allocations and deep deal analytics.",
     price: "10K",
-    lines: scaleImgLines1,
+    lines: scaleImgLines3,
   },
   {
-    image: scaleImage1,
+    image: scaleImage4,
     title: "Bronze",
-    subtitle: "Co-investment, LP-style access, and full fund visibility.",
+    subtitle: "Entry-level access to core curated deals and platform tools.",
     price: "1K",
-    lines: scaleImgLines1,
+    lines: scaleImgLines4,
   },
 ];
 
@@ -52,17 +58,20 @@ function getCardStyle(index) {
   const relativeIndex = (index - activeIndex.value + total) % total;
 
   const blur = relativeIndex * 2;
-  const rotate = 0 - relativeIndex * 5;
+  const isMobile = window.innerWidth < 768;
+  const rotate = isMobile ? 0 - relativeIndex * 3 : 0 - relativeIndex * 5;
   const z = 100 - relativeIndex;
+  const translateXPercent = isMobile ? 50 : 45;
 
   if (relativeIndex === 0) {
     return {
       position: "absolute",
       top: "50%",
       right: "50%",
-      transform: `translate(45%, -60%) translateX(${
+      transform: `translate(${translateXPercent}%, -60%) translateX(${
         dragState.translateX
       }px) rotate(${dragState.rotate + rotate}deg)`,
+
       filter: `blur(${blur}px)`,
       zIndex: z,
       cursor: dragState.dragging ? "grabbing" : "grab",
@@ -78,7 +87,7 @@ function getCardStyle(index) {
     position: "absolute",
     top: "50%",
     right: "50%",
-    transform: `translate(45%, -60%) rotate(${rotate}deg)`,
+    transform: `translate(${translateXPercent}%, -60%) rotate(${rotate}deg)`,
     filter: `blur(${blur}px)`,
     zIndex: z,
     transition: "all 0.3s ease",
@@ -168,7 +177,7 @@ function getEclipseStyle(index) {
 </script>
 
 <template>
-  <div class="scale">
+  <div id="about" class="scale">
     <div class="scaleTitle">Scale Your Access</div>
 
     <div class="scaleCards">

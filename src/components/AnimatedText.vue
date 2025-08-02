@@ -8,11 +8,15 @@ const props = defineProps({
   },
   threshold: {
     type: Number,
-    default: 0.5,
+    default: 1,
   },
   once: {
     type: Boolean,
     default: true,
+  },
+  animDelay: {
+    type: Number,
+    default: 0.04,
   },
 });
 
@@ -45,7 +49,7 @@ onMounted(() => {
       v-for="(letter, index) in letters"
       :key="index"
       :class="['letter', { visible: isVisible }]"
-      :style="isVisible ? { animationDelay: `${index * 0.03}s` } : {}"
+      :style="isVisible ? { animationDelay: `${index * animDelay}s` } : {}"
     >
       {{ letter === " " ? "\u00A0" : letter }}
     </span>
@@ -69,7 +73,7 @@ onMounted(() => {
 }
 
 .letter.visible {
-  animation: riseFadeIn 0.4s forwards ease-out;
+  animation: riseFadeIn 0.5s forwards ease-out;
 }
 
 @keyframes riseFadeIn {

@@ -11,6 +11,7 @@
   position: relative;
   flex-direction: column;
   overflow: hidden;
+  width: 100vw;
 }
 
 .future::before {
@@ -83,6 +84,10 @@
   transform: translate(50%, -50%);
   right: 50%;
   z-index: 333;
+}
+
+.futurePhoneBg {
+  display: none;
 }
 
 .futurePhoneText {
@@ -292,4 +297,110 @@
   transform: rotate(-12.761deg);
   bottom: 29px;
   left: -1px;
+}
+
+.mobileFutureCard {
+  display: none;
+}
+
+.mobileFutureTitle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .futureTitle {
+    max-width: 432px;
+  }
+  .futurePhoneWrap,
+  .futurePhone {
+    width: 363px;
+    height: 93vh;
+  }
+
+  .futurePhoneBorder {
+    width: 383px;
+    height: 95vh;
+  }
+
+  .phoneOverlay {
+    width: 345px;
+  }
+
+  .futurePhoneText {
+    width: 310px;
+  }
+
+  .phoneContent {
+    height: 91.5vh;
+    width: 320px;
+  }
+
+  .desktopFutureCard {
+    display: none;
+  }
+
+  .mobileFutureCard {
+    display: flex;
+  }
+
+  .futureCard.left {
+    position: absolute;
+    left: 50%;
+    transform: translate(0, 0);
+    bottom: 290px;
+  }
+
+  .futureCard.right {
+    position: absolute;
+    right: auto;
+    transform: translate(0%, 0);
+    top: auto;
+    bottom: -400px !important;
+  }
+
+  .mobileFutureCard {
+    position: relative;
+    margin: 16px auto 0 auto;
+    transform: translateY(100px);
+    opacity: 0;
+  }
+
+  .futurePhoneBg {
+    height: 60px;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    top: 10px;
+    right: 0;
+    width: 100%;
+    z-index: 55;
+  }
+
+  .tokenomicsWrapper {
+    padding: 0px 0px;
+  }
+}
+
+@media (max-width: 640px) {
+  .futureTitle {
+    max-width: 340px;
+  }
+
+  .future {
+    gap: 48px;
+  }
+
+  .future {
+    padding: 72px 16px;
+    box-sizing: border-box;
+  }
+
+  .desktopFutureTitle {
+    display: none !important;
+  }
+
+  .mobileFutureTitle {
+    display: flex;
+    flex-direction: column;
+  }
 }

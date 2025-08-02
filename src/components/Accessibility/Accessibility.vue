@@ -45,132 +45,206 @@ onMounted(() => {
   const section = document.querySelector(".accessibility");
   const cards = gsap.utils.toArray(".accessibilityCard");
   const texts = document.querySelector(".accessibilityTexts");
+  const isMobile = window.innerWidth < 769;
 
-  cards.forEach((card, i) => {
-    gsap.set(card, {
-      yPercent: i * 20,
-      opacity: 0,
-      scaleY: 1,
-      transformOrigin: "center center",
+  if (isMobile) {
+    const steps = cards.length;
+
+    gsap.set(cards, {
+      opacity: 1,
+      y: "100vh",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      xPercent: -50,
+      yPercent: -30,
+      width: "100%",
     });
-  });
 
-  gsap.set(texts, {
-    yPercent: 0,
-    opacity: 1,
-  });
+    gsap.set(cards[0], { opacity: 1, y: 0, zIndex: 3 });
 
-  const masterTimeline = gsap.timeline({
-    scrollTrigger: {
-      id: "accessAnimation",
+    ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: () => `+=${cards.length * 500 + 200}`,
+      end: `+=${steps * 50}% `,
       scrub: 1,
       pin: true,
-      onUpdate: () => {
-        isScrolling = true;
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const currentStep = progress * (steps - 1);
+        const currentIndex = Math.floor(currentStep);
+        const stepProgress = currentStep - currentIndex;
 
-        if (scrollTimeout) {
-          clearTimeout(scrollTimeout);
+        const enterY = "500vh";
+        const exitY = "-150vh";
+
+        cards.forEach((card, i) => {
+          if (i < currentIndex) {
+            gsap.set(card, {
+              opacity: 0,
+              y: exitY,
+              zIndex: 1,
+            });
+          } else if (i === currentIndex) {
+            gsap.set(card, {
+              opacity: gsap.utils.interpolate(1, 0, stepProgress),
+              y: gsap.utils.interpolate(0, exitY, stepProgress),
+              zIndex: 3,
+            });
+          } else if (i === currentIndex + 1) {
+            gsap.set(card, {
+              opacity: 1,
+              y: gsap.utils.interpolate(enterY, 0, stepProgress),
+              zIndex: 2,
+            });
+          } else {
+            gsap.set(card, {
+              opacity: 0,
+              y: enterY,
+              zIndex: 1,
+            });
+          }
+        });
+
+        if (progress >= 0.99) {
+          const lastCard = cards[cards.length - 1];
+          gsap.to(lastCard, {
+            opacity: 1,
+            y: 0,
+            zIndex: 3,
+            duration: 0.5,
+            ease: "power3.inOut",
+          });
         }
+      },
+    });
+  } else {
+    cards.forEach((card, i) => {
+      gsap.set(card, {
+        yPercent: i * 20,
+        opacity: 0,
+        scaleY: 1,
+        transformOrigin: "center center",
+      });
+    });
 
-        scrollTimeout = setTimeout(() => {
-          isScrolling = false;
-          cards.forEach((card) => {
+    gsap.set(texts, {
+      yPercent: 0,
+      opacity: 1,
+    });
+
+    const masterTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "accessAnimation",
+        trigger: section,
+        start: "top top",
+        end: () => `+=${cards.length * 500 + 200}`,
+        scrub: 1,
+        pin: true,
+        onUpdate: () => {
+          isScrolling = true;
+
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+          }
+
+          scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+            cards.forEach((card) => {
+              gsap.to(card, {
+                scaleY: 1,
+                duration: 0.6,
+                ease: "power2.out",
+              });
+            });
+          }, 100);
+        },
+      },
+    });
+
+    masterTimeline.to(cards, {
+      yPercent: "-=450",
+      ease: "none",
+      duration: 0.7,
+    });
+
+    masterTimeline.to(
+      texts,
+      {
+        yPercent: 100,
+        ease: "power2.inOut",
+        duration: 0.5,
+      },
+      "-=0.8"
+    );
+
+    cards.forEach((card) => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=50",
+            end: "bottom top+=100",
+            scrub: true,
+            onUpdate: (self) => {
+              if (isScrolling) {
+                const progress = self.progress;
+                let scaleValue = 1;
+
+                if (progress < 0.5) {
+                  scaleValue = 1 + progress * 0.4;
+                } else {
+                  scaleValue = 1.2 - (progress - 0.5) * 0.4;
+                }
+
+                gsap.set(card, { scaleY: scaleValue });
+              }
+            },
+          },
+        })
+        .to(card, {
+          opacity: 1,
+          ease: "power1.out",
+          duration: 1,
+        })
+        .to(
+          card,
+          {
+            opacity: 0,
+            ease: "power1.in",
+            duration: 1,
+          },
+          ">"
+        );
+    });
+
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      scrollVelocity = Math.abs(currentScrollY - lastScrollY);
+      lastScrollY = currentScrollY;
+
+      if (scrollVelocity > 1.2) {
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+          if (isVisible) {
             gsap.to(card, {
-              scaleY: 1,
+              scaleY: 1.2,
               duration: 0.6,
               ease: "power2.out",
             });
-          });
-        }, 100);
-      },
-    },
-  });
+          }
+        });
+      }
+    };
 
-  masterTimeline.to(cards, {
-    yPercent: "-=450",
-    ease: "none",
-    duration: 0.7,
-  });
-
-  masterTimeline.to(
-    texts,
-    {
-      yPercent: 100,
-      ease: "power2.inOut",
-      duration: 0.5,
-    },
-    "-=0.8"
-  );
-
-  cards.forEach((card) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: card,
-          start: "top bottom-=50",
-          end: "bottom top+=100",
-          scrub: true,
-          onUpdate: (self) => {
-            if (isScrolling) {
-              const progress = self.progress;
-              let scaleValue = 1;
-
-              if (progress < 0.5) {
-                scaleValue = 1 + progress * 0.4;
-              } else {
-                scaleValue = 1.2 - (progress - 0.5) * 0.4;
-              }
-
-              gsap.set(card, { scaleY: scaleValue });
-            }
-          },
-        },
-      })
-      .to(card, {
-        opacity: 1,
-        ease: "power1.out",
-        duration: 1,
-      })
-      .to(
-        card,
-        {
-          opacity: 0,
-          ease: "power1.in",
-          duration: 1,
-        },
-        ">"
-      );
-  });
-
-  let lastScrollY = window.scrollY;
-  let scrollVelocity = 0;
-
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    scrollVelocity = Math.abs(currentScrollY - lastScrollY);
-    lastScrollY = currentScrollY;
-
-    if (scrollVelocity > 1.2) {
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-        if (isVisible) {
-          gsap.to(card, {
-            scaleY: 1.2,
-            duration: 0.6,
-            ease: "power2.out",
-          });
-        }
-      });
-    }
-  };
-
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  section._scrollHandler = handleScroll;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    section._scrollHandler = handleScroll;
+  }
 });
 
 function killAnimations() {

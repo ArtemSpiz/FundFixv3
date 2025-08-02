@@ -43,7 +43,6 @@
   height: 100%;
 }
 
-
 .faqCard:hover {
   transform: translateY(-5px);
 }
@@ -104,4 +103,45 @@
 .faq-slide-leave-from {
   max-height: 300px;
   opacity: 1;
+}
+
+@media (max-width: 1285px) {
+  .faq {
+    padding: 64px 90px;
+  }
+
+  .faqCard {
+    width: -webkit-fill-available;
+  }
+}
+
+@media (max-width: 1024px) {
+  .faq {
+    padding: 60px 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .faq {
+    padding: 50px 50px;
+  }
+
+  .faqCard {
+    padding: 24px 32px;
+    gap: 40px;
+  }
+
+  .faqTitle {
+    max-width: 350px;
+  }
+
+  .faqCards {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq {
+    padding: 48px 16px;
+  }
 }

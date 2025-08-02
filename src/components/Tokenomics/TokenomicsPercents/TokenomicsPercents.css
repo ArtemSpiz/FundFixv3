@@ -165,3 +165,50 @@
 .fade-leave-to {
   transform: translateY(10px);
 }
+
+@media (max-width: 1285px) {
+  .tokenomicsPercents {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tokenomicsPercWrap {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tokenomicsArksWrap {
+    width: max-content;
+    margin-top: 0;
+  }
+
+  .tokenomicsArksWrap svg g use {
+    stroke-width: 12;
+  }
+
+  .tokenomicsArksText {
+    position: sticky;
+  }
+
+  .tokenomicsArksWrap {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tokenomicsPercents {
+    gap: 6px;
+  }
+
+  .tokenomicsPercent {
+    padding: 6px 16px;
+  }
+
+  .tokenomicsPercentSubtitle,
+  .tokenomicsPercentTitle {
+    font-size: 14px;
+  }
+}

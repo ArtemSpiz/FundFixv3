@@ -41,13 +41,17 @@ const toggle = (index) => {
 </script>
 
 <template>
-  <div class="faq">
+  <div id="how-it-works" class="faq">
     <div class="faqTexts">
       <div class="UnderTitle">
         <Stars />
         <AnimatedText text="FAQ" />
       </div>
-      <AnimatedText class="Title faqTitle" text="Frequently Asked Questions" />
+      <AnimatedText
+        anim-delay="0.1"
+        class="Title faqTitle"
+        text="Frequently Asked Questions"
+      />
     </div>
     <div class="faqCards">
       <div

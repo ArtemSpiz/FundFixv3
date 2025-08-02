@@ -52,6 +52,7 @@ const ExclusivityCards = [
         </div>
         <AnimatedText
           class="exclusivityTitle Title"
+          anim-delay="0.08"
           text="Not for Everyone. That’s the Point."
         />
       </div>

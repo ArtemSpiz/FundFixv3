@@ -289,7 +289,7 @@ function onPointerDown(event) {
     event.clientX || (event.touches && event.touches[0].clientX) || 0;
   dragState.currentX = dragState.startX;
 
-  event.preventDefault();
+  if (!isMobile.value) event.preventDefault();
 
   window.addEventListener("pointermove", onPointerMove, { passive: false });
   window.addEventListener("pointerup", onPointerUp);
@@ -299,7 +299,7 @@ function onPointerDown(event) {
 function onPointerMove(event) {
   if (!dragState.dragging) return;
 
-  event.preventDefault();
+  if (!isMobile.value) event.preventDefault();
 
   dragState.currentX =
     event.clientX || (event.touches && event.touches[0].clientX) || 0;

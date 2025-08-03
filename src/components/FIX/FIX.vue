@@ -41,6 +41,44 @@ const isMobile = ref(window.innerWidth < 1024);
 const displayedCards = ref([...FixCards]);
 const activeCard = ref(null);
 const currentIndex = ref(0);
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+const touchThreshold = 50; // Мінімальна дистанція свайпу в пікселях
+
+function onTouchStart(event) {
+  if (!isMobile.value) return;
+  touchStartX.value = event.touches[0].clientX;
+}
+
+function onTouchMove(event) {
+  if (!isMobile.value) return;
+  touchEndX.value = event.touches[0].clientX;
+}
+
+function onTouchEnd() {
+  if (!isMobile.value) return;
+
+  const deltaX = touchEndX.value - touchStartX.value;
+
+  if (Math.abs(deltaX) > touchThreshold) {
+    if (deltaX < 0) {
+      // свайп вліво
+      const nextIndex = (mobileActiveIndex.value + 1) % FixCards.length;
+      scrollToCard(nextIndex);
+    } else {
+      // свайп вправо
+      const prevIndex =
+        mobileActiveIndex.value === 0
+          ? FixCards.length - 1
+          : mobileActiveIndex.value - 1;
+      scrollToCard(prevIndex);
+    }
+  }
+
+  // скинути
+  touchStartX.value = 0;
+  touchEndX.value = 0;
+}
 
 function handleResize() {
   isMobile.value = window.innerWidth < 1024;
@@ -417,6 +455,9 @@ async function onPointerUp() {
         class="fixCards"
         :class="{ 'carousel-mobile': isMobile }"
         @scroll="onMobileScroll"
+        @touchstart="onTouchStart"
+        @touchmove="onTouchMove"
+        @touchend="onTouchEnd"
       >
         <div class="fixCardsPags">
           <div class="fixCardsPag"></div>

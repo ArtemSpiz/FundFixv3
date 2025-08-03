@@ -1,32 +1,29 @@
 <script setup>
 import "./style.css";
-// import HeaderLayout from "./layout/Header/HeaderLayout.vue";
-// import Hero from "./components/Hero/Hero.vue";
-// import Accessibility from "./components/Accessibility/Accessibility.vue";
-// import Scale from "./components/Scale/Scale.vue";
-// import Future from "./components/Future/Future.vue";
-// import Roadmap from "./components/Roadmap/Roadmap.vue";
+import HeaderLayout from "./layout/Header/HeaderLayout.vue";
+import Hero from "./components/Hero/Hero.vue";
+import Accessibility from "./components/Accessibility/Accessibility.vue";
+import Scale from "./components/Scale/Scale.vue";
+import Future from "./components/Future/Future.vue";
+import Roadmap from "./components/Roadmap/Roadmap.vue";
 import FIX from "./components/FIX/FIX.vue";
-// import FAQ from "./components/FAQ/FAQ.vue";
-// import Institutions from "./components/Institutions/Institutions.vue";
+import FAQ from "./components/FAQ/FAQ.vue";
+import Institutions from "./components/Institutions/Institutions.vue";
 import Footer from "./layout/Footer/Footer.vue";
-// import Exclusivity from "./components/Exclusivity/Exclusivity.vue";
-
-
+import Exclusivity from "./components/Exclusivity/Exclusivity.vue";
 </script>
 
 <template>
-  <!-- <HeaderLayout />
+  <HeaderLayout />
   <Hero />
-  <Accessibility /> -->
+  <Accessibility />
   <FIX />
-  <!-- <Scale /> -->
-  <!-- <Future /> -->
-  <!-- <Roadmap />
+  <Scale />
+  <Future />
+  <Roadmap />
   <Exclusivity />
   <FAQ />
-  <Institutions /> -->
-
+  <Institutions />
   <Footer />
 </template>
 

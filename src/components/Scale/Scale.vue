@@ -62,13 +62,14 @@ function getCardStyle(index) {
   const rotate = isMobile ? 0 - relativeIndex * 3 : 0 - relativeIndex * 5;
   const z = 100 - relativeIndex;
   const translateXPercent = isMobile ? 50 : 45;
+  const translateYPercent = isMobile ? 10 : -60;
 
   if (relativeIndex === 0) {
     return {
       position: "absolute",
       top: "50%",
       right: "50%",
-      transform: `translate(${translateXPercent}%, -60%) translateX(${
+      transform: `translate(${translateXPercent}%, ${translateYPercent}%) translateX(${
         dragState.translateX
       }px) rotate(${dragState.rotate + rotate}deg)`,
 
@@ -87,7 +88,7 @@ function getCardStyle(index) {
     position: "absolute",
     top: "50%",
     right: "50%",
-    transform: `translate(${translateXPercent}%, -60%) rotate(${rotate}deg)`,
+    transform: `translate(${translateXPercent}%, ${translateYPercent}%) rotate(${rotate}deg)`,
     filter: `blur(${blur}px)`,
     zIndex: z,
     transition: "all 0.3s ease",

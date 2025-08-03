@@ -257,7 +257,7 @@ onUnmounted(() => {
   <div id="home" class="hero" ref="heroRef">
     <div class="heroTexts">
       <AnimatedText
-        anim-delay="0.1"
+        anim-delay="0.08"
         class="heroTitle"
         text="FundFix backs what’s next"
       />

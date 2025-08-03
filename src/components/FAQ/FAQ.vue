@@ -48,7 +48,7 @@ const toggle = (index) => {
         <AnimatedText text="FAQ" />
       </div>
       <AnimatedText
-        anim-delay="0.1"
+        anim-delay="0.06"
         class="Title faqTitle"
         text="Frequently Asked Questions"
       />

@@ -375,12 +375,12 @@ async function onPointerUp() {
 
           <div class="Title">
             <AnimatedText
-              anim-delay="0.1"
+              anim-delay="0.07"
               class="fixTitle"
               text="$FIX Token:"
             />
             <AnimatedText
-              anim-delay="0.1"
+              anim-delay="0.07"
               class="fixTitleSpan"
               text="Infinite Access."
             />

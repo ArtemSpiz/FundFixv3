@@ -316,7 +316,7 @@ onUnmounted(() => {
           <AnimatedText text="What's Ahead" />
         </div>
         <AnimatedText
-          anim-delay="0.09"
+          anim-delay="0.07"
           class="Title roadmapTitle"
           text="Our Roadmap"
         />

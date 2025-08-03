@@ -33,17 +33,17 @@ import AnimatedText from "@/components/AnimatedText.vue";
           <div class="institutionsTitle instTitleMobil">
             <AnimatedText
               class="institutionsTitle"
-              anim-delay="0.1"
+              anim-delay="0.05"
               text="This Is What the"
             />
             <AnimatedText
               class="institutionsTitle"
-              anim-delay="0.1"
+              anim-delay="0.05"
               text="Institutions Never"
             />
             <AnimatedText
               class="institutionsTitle"
-              anim-delay="0.1"
+              anim-delay="0.05"
               text="Wanted You to Access"
             />
           </div>

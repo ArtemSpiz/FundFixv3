@@ -8,6 +8,10 @@ img {
   height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .UnderTitle {
   display: flex;
   align-items: center;

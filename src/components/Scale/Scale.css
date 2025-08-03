@@ -208,6 +208,18 @@
   .scaleCardImg img {
     object-fit: cover;
   }
+
+  .scaleTitle {
+    z-index: 68;
+    position: relative;
+    pointer-events: none;
+  }
+
+  .scale {
+    height: 600px;
+    padding: 48px 0px;
+    justify-content: start;
+  }
 }
 
 @media (max-width: 640px) {

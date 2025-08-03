@@ -6,6 +6,8 @@ import TokenomicsPercents from "./TokenomicsPercents/TokenomicsPercents.vue";
 import TokenomicsCards from "./TokenomicsCards/TokenomicsCards.vue";
 import AnimatedText from "../AnimatedText.vue";
 
+const isMobile = window.innerWidth < 769;
+
 onMounted(() => {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -17,7 +19,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: 0.7 }
+    { threshold: isMobile ? 1 : 0.7 }
   );
 
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {

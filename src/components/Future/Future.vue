@@ -261,17 +261,17 @@ onMounted(() => {
       <div class="Title futureTitle mobileFutureTitle">
         <AnimatedText
           class="Title futureTitle"
-          anim-delay="0.1"
+          anim-delay="0.07"
           text="The Future of"
         />
         <AnimatedText
           class="Title futureTitle"
-          anim-delay="0.1"
+          anim-delay="0.07"
           text="Private Investing"
         />
         <AnimatedText
           class="Title futureTitle"
-          anim-delay="0.2"
+          anim-delay="0.1"
           text="— Today"
         />
       </div>

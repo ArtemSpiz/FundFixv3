@@ -267,10 +267,12 @@ onUnmounted(() => {
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Exclusivity from "../Exclusivity/Exclusivity.vue";
 gsap.registerPlugin(ScrollTrigger);
 
 const roadmapRef = ref(null);
 const circleOverlay = ref(null);
+let animation = null;
 
 onMounted(() => {
   nextTick(() => {
@@ -281,160 +283,173 @@ onMounted(() => {
       { scale: 0, opacity: 1 },
       {
         scale: 30,
+        duration: 2,
         opacity: 1,
-        ease: "power2.out",
+        ease: "power3.inoOut",
         scrollTrigger: {
           trigger: roadmapRef.value,
-          start: "bottom bottom", // коли низ roadmap торкається низу viewport
-          end: "+=500", // на 500px скролу після початку анімації
+          start: "bottom bottom",
+          end: "+=1000",
+          pin: true,
+          id: "circleFillAnimation",
           scrub: true,
-          // markers: true, // для дебагу
         },
       }
     );
   });
 });
+
+onUnmounted(() => {
+  if (animation) {
+    animation.scrollTrigger.kill();
+    animation.kill();
+    animation = null;
+  }
+});
 </script>
 
 <template>
-  <div class="roadmap">
-    <div class="roadmapTexts">
-      <div class="roadmapTitles">
-        <div class="UnderTitle">
-          <Stars />
-          <AnimatedText text="What's Ahead" />
+  <div>
+    <div class="roadmap" ref="roadmapRef">
+      <div class="roadmapTexts">
+        <div class="roadmapTitles">
+          <div class="UnderTitle">
+            <Stars />
+            <AnimatedText text="What's Ahead" />
+          </div>
+          <AnimatedText
+            anim-delay="0.09"
+            class="Title roadmapTitle"
+            text="Our Roadmap"
+          />
         </div>
+
         <AnimatedText
-          anim-delay="0.09"
-          class="Title roadmapTitle"
-          text="Our Roadmap"
+          class="Subtitle roadmapSubtitle"
+          text="Access the Deals Behind Silicon Valley's Greatest Success Stories—At the Speed of Blockchain"
         />
       </div>
 
-      <AnimatedText
-        class="Subtitle roadmapSubtitle"
-        text="Access the Deals Behind Silicon Valley's Greatest Success Stories—At the Speed of Blockchain"
-      />
-    </div>
-
-    <div class="roadmapCircleOverlay" ref="circleOverlay">
-      <svg viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="50" fill="#0F0F0F" />
-      </svg>
-    </div>
-
-    <div class="roadmapCards">
-      <div v-if="!isMobile" class="roadmapArk">
-        <svg
-          class="roadmapSVG"
-          width="1000"
-          viewBox="0 0 1300 800"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <path
-            d="M 150 590 A 500 500 0 0 1 1150 590"
-            stroke="#F1F1F1"
-            stroke-width="20"
-            fill="none"
-            stroke-linecap="round"
-          />
-
-          <path
-            ref="activePath"
-            d="M 150 590 A 500 500 0 0 1 1150 590"
-            stroke="#151515"
-            stroke-width="20"
-            fill="none"
-            stroke-linecap="round"
-            :style="activeStrokeStyle"
-          />
+      <div class="roadmapCircleOverlay" ref="circleOverlay">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="50" fill="#0F0F0F" />
         </svg>
+      </div>
 
-        <div
-          v-for="(item, index) in RoadmapCards"
-          :key="index"
-          class="roadmapPoint"
-          :style="getPointPosition(index, RoadmapCards.length)"
-          @click="activeIndex = index"
-        >
-          {{ item.title }}
+      <div class="roadmapCards">
+        <div v-if="!isMobile" class="roadmapArk">
+          <svg
+            class="roadmapSVG"
+            width="1000"
+            viewBox="0 0 1300 800"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <path
+              d="M 150 590 A 500 500 0 0 1 1150 590"
+              stroke="#F1F1F1"
+              stroke-width="20"
+              fill="none"
+              stroke-linecap="round"
+            />
+
+            <path
+              ref="activePath"
+              d="M 150 590 A 500 500 0 0 1 1150 590"
+              stroke="#151515"
+              stroke-width="20"
+              fill="none"
+              stroke-linecap="round"
+              :style="activeStrokeStyle"
+            />
+          </svg>
+
+          <div
+            v-for="(item, index) in RoadmapCards"
+            :key="index"
+            class="roadmapPoint"
+            :style="getPointPosition(index, RoadmapCards.length)"
+            @click="activeIndex = index"
+          >
+            {{ item.title }}
+          </div>
+
+          <div
+            v-for="(item, index) in RoadmapCards"
+            :key="'line-' + index"
+            class="roadmapLine"
+            :style="getLineStyle(index, RoadmapCards.length)"
+            @click="activeIndex = index"
+            :class="{ active: activeIndex >= index }"
+          />
         </div>
 
-        <div
-          v-for="(item, index) in RoadmapCards"
-          :key="'line-' + index"
-          class="roadmapLine"
-          :style="getLineStyle(index, RoadmapCards.length)"
-          @click="activeIndex = index"
-          :class="{ active: activeIndex >= index }"
-        />
-      </div>
+        <div v-else class="roadmapLineMobile">
+          <div class="roadmapPointsScroll" ref="scrollWrapper">
+            <div class="roadmapPointWrapper">
+              <div
+                v-for="(item, index) in RoadmapCards"
+                :key="index"
+                class="roadmapPoint"
+                :class="{ active: activeIndex === index }"
+                @click="handleMobileClick(index)"
+              >
+                {{ item.title }}
+              </div>
 
-      <div v-else class="roadmapLineMobile">
-        <div class="roadmapPointsScroll" ref="scrollWrapper">
-          <div class="roadmapPointWrapper">
-            <div
-              v-for="(item, index) in RoadmapCards"
-              :key="index"
-              class="roadmapPoint"
-              :class="{ active: activeIndex === index }"
-              @click="handleMobileClick(index)"
-            >
-              {{ item.title }}
+              <div
+                v-for="(item, index) in RoadmapCards"
+                :key="'line-' + index"
+                class="roadmapLine"
+                :style="getLineStyle(index, RoadmapCards.length)"
+                @click="activeIndex = index"
+                :class="{ active: activeIndex >= index }"
+              />
             </div>
+          </div>
 
+          <div class="roadmapMobileProgressWrapper">
+            <div class="roadmapMobileProgressBg" />
             <div
-              v-for="(item, index) in RoadmapCards"
-              :key="'line-' + index"
-              class="roadmapLine"
-              :style="getLineStyle(index, RoadmapCards.length)"
-              @click="activeIndex = index"
-              :class="{ active: activeIndex >= index }"
+              class="roadmapMobileProgressActive"
+              :style="{
+                width: mobileProgressWidth + '%',
+                transition: 'width 0.3s ease-in-out',
+              }"
             />
           </div>
         </div>
 
-        <div class="roadmapMobileProgressWrapper">
-          <div class="roadmapMobileProgressBg" />
-          <div
-            class="roadmapMobileProgressActive"
-            :style="{
-              width: mobileProgressWidth + '%',
-              transition: 'width 0.3s ease-in-out',
-            }"
-          />
-        </div>
-      </div>
-
-      <div class="roadmapCardsBottom">
-        <div class="roadmapCardsTexts">
-          <transition name="fadeRoadmap" mode="out-in">
-            <div
-              class="roadmapCardsTitle"
-              :key="RoadmapCards[activeIndex].title"
-            >
-              {{ RoadmapCards[activeIndex].title }}
-            </div>
-          </transition>
-
-          <transition name="fadeRoadmap" mode="out-in">
-            <div
-              class="roadmapCardsSubtitle"
-              :key="RoadmapCards[activeIndex].subtitle"
-            >
-              {{ RoadmapCards[activeIndex].subtitle }}
+        <div class="roadmapCardsBottom">
+          <div class="roadmapCardsTexts">
+            <transition name="fadeRoadmap" mode="out-in">
+              <div
+                class="roadmapCardsTitle"
+                :key="RoadmapCards[activeIndex].title"
               >
-            </div>
-          </transition>
-        </div>
+                {{ RoadmapCards[activeIndex].title }}
+              </div>
+            </transition>
 
-        <div class="roadmapCardsBtns">
-          <div class="roadmapCardsArrow left" @click="prev"><Arrow /></div>
-          <div class="roadmapCardsArrow" @click="next"><Arrow /></div>
+            <transition name="fadeRoadmap" mode="out-in">
+              <div
+                class="roadmapCardsSubtitle"
+                :key="RoadmapCards[activeIndex].subtitle"
+              >
+                {{ RoadmapCards[activeIndex].subtitle }}
+                >
+              </div>
+            </transition>
+          </div>
+
+          <div class="roadmapCardsBtns">
+            <div class="roadmapCardsArrow left" @click="prev"><Arrow /></div>
+            <div class="roadmapCardsArrow" @click="next"><Arrow /></div>
+          </div>
         </div>
       </div>
     </div>
+    <Exclusivity />
   </div>
 </template>
 

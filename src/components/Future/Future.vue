@@ -222,7 +222,7 @@ onMounted(() => {
       tokenomics,
       {
         opacity: 1,
-        scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.27,
+        scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
         y: 20,
         ease: "power2.inOut",
         duration: 2,

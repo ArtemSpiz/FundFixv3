@@ -171,7 +171,7 @@ onMounted(() => {
     masterTimeline.to(
       texts,
       {
-        yPercent: 100,
+        yPercent: 0,
         ease: "power2.inOut",
         duration: 0.5,
       },

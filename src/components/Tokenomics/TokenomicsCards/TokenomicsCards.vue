@@ -42,17 +42,21 @@ const TokenomicsCards = [
 
 let scrollTimeout = null;
 const scrollContainer = ref(null);
+let step = 0;
+
+function updateStep() {
+  if (!scrollContainer.value) return;
+  const card = scrollContainer.value.querySelector(".tokenomicsCardWrapper");
+  if (card) {
+    const gap = 16;
+    step = card.offsetWidth + gap;
+  }
+}
 
 function alignToCard() {
-  if (!scrollContainer.value) return;
+  if (!scrollContainer.value || step === 0) return;
+
   const scrollLeft = scrollContainer.value.scrollLeft;
-  const cardWidth = scrollContainer.value.querySelector(
-    ".tokenomicsCardWrapper"
-  ).offsetWidth;
-  const gap = 16;
-
-  const step = cardWidth + gap;
-
   const nearest = Math.round(scrollLeft / step) * step;
 
   scrollContainer.value.scrollTo({
@@ -65,27 +69,51 @@ function onScroll() {
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
     alignToCard();
-  }, 150); 
+  }, 150);
+}
+
+function scrollNext() {
+  if (!scrollContainer.value || step === 0) return;
+
+  scrollContainer.value.scrollBy({
+    left: step,
+    behavior: "smooth",
+  });
+}
+
+function scrollPrev() {
+  if (!scrollContainer.value || step === 0) return;
+
+  scrollContainer.value.scrollBy({
+    left: -step,
+    behavior: "smooth",
+  });
 }
 
 onMounted(() => {
+  updateStep();
   if (scrollContainer.value) {
-    scrollContainer.value.scrollLeft = 50; 
+    scrollContainer.value.scrollLeft = 50;
     scrollContainer.value.addEventListener("scroll", onScroll);
   }
+  window.addEventListener("resize", updateStep);
 });
 
 onBeforeUnmount(() => {
   if (scrollContainer.value) {
     scrollContainer.value.removeEventListener("scroll", onScroll);
   }
+  window.removeEventListener("resize", updateStep);
 });
 </script>
 
 <template>
-  <div class="tokenomicsCardsWrapper">
+  <div class="tokenomicsCardsWrapper animate-on-scroll">
     <div class="tokenomicsCards">
-      <div class="tokenomicsCardsScroll" ref="scrollContainer">
+      <div
+        class="tokenomicsCardsScroll animate-on-scroll"
+        ref="scrollContainer"
+      >
         <div
           class="tokenomicsCardWrapper"
           v-for="(card, index) in TokenomicsCards"

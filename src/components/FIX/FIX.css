@@ -373,8 +373,15 @@
   }
 
   .fixTitle {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     justify-content: center !important;
     align-items: center !important;
+  }
+
+  .fixTitleSpan {
+    width: 100%;
   }
 
   .fixSub {

@@ -53,6 +53,7 @@ img {
 @media (max-width: 768px) {
   .Title {
     font-size: 42px;
+    line-height: 100%; /* 100% */
   }
 }
 

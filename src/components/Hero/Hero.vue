@@ -96,9 +96,9 @@ function updatePositions() {
   if (screenWidth >= 1285) {
     radius = 620;
   } else if (screenWidth >= 1024) {
-    radius = 630;
+    radius = 620;
   } else if (screenWidth >= 768) {
-    radius = 550;
+    radius = 570;
   } else {
     radius = 550;
   }

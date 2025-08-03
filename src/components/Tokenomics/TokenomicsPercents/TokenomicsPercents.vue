@@ -115,7 +115,7 @@ const centerY = svgHeight / 1.1;
 
       <svg
         :width="isMiniMobile ? 343 : isMobile ? 500 : 1000"
-        :height="iisMiniMobile ? 343 : isMobile ? 500 : 800"
+        :height="isMiniMobile ? 200 : isMobile ? 300 : 800"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
       >
         <g v-for="(percent, index) in TokenomicsPercents" :key="index">

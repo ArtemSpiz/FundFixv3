@@ -138,8 +138,8 @@
 }
 
 .tokenomicsInFuture {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 12px;
   pointer-events: all;
   &.hidden {

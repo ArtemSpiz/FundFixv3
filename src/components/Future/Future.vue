@@ -44,13 +44,16 @@ onMounted(() => {
   const futureSection = document.querySelector(".future");
   const tokenomics = document.querySelector(".tokenomicsInFuture");
 
-  const isMobile = window.innerWidth < 768;
+  const isMiniMobile = window.innerWidth < 641;
+  const isMobile = window.innerWidth < 769;
   const isTablet = window.innerWidth < 1024;
 
   const initialWidth = phoneImage.offsetWidth;
   const targetWidth = window.innerWidth;
 
-  const scaleFactor = isMobile
+  const scaleFactor = isMiniMobile
+    ? (targetWidth / initialWidth) * 1.83
+    : isMobile
     ? (targetWidth / initialWidth) * 1.1
     : (targetWidth / initialWidth) * 1.1;
 
@@ -70,6 +73,19 @@ onMounted(() => {
     transformOrigin: "bottom center",
     opacity: 1,
   });
+
+  if (isMobile) {
+    gsap.set(tokenomics, {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      xPercent: -53,
+      yPercent: -50,
+      opacity: 0,
+      scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.27,
+      transformOrigin: "center center",
+    });
+  }
 
   if (isMobile) {
     cards.forEach((card) => {
@@ -156,8 +172,8 @@ onMounted(() => {
       tokenomics,
       {
         opacity: 1,
-        scale: 0.3,
-        y: 120,
+        scale: isMiniMobile ? 0.5 : 0.4,
+        y: isMiniMobile ? 110 : 83,
         duration: 1.5,
         ease: "power2.inOut",
       },

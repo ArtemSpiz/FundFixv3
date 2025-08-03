@@ -56,11 +56,14 @@ const RoadmapCards = [
   },
 ];
 
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import AnimatedText from "../AnimatedText.vue";
 
 const activeIndex = ref(0);
 const pathLength = ref(0);
+const scrollWrapper = ref(null);
+
+const isMobile = ref(window.innerWidth < 769);
 
 const isTablet = window.innerWidth < 1024;
 
@@ -82,7 +85,10 @@ onMounted(() => {
 const activeStrokeStyle = computed(() => {
   const total = RoadmapCards.length;
   const segment = pathLength.value / (total - 1);
-  const visibleLength =
+
+  let visibleLength;
+
+  visibleLength =
     activeIndex.value === 0
       ? 70
       : activeIndex.value === 9
@@ -94,6 +100,26 @@ const activeStrokeStyle = computed(() => {
     strokeDashoffset: pathLength.value - visibleLength,
     transition: "stroke-dashoffset 0.6s ease-in-out",
   };
+});
+
+const mobileProgressWidth = computed(() => {
+  if (!isMobile.value || !scrollWrapper.value) return 0;
+
+  const pointEls = scrollWrapper.value.querySelectorAll(".roadmapPoint");
+  if (pointEls.length === 0) return 0;
+
+  const activePoint = pointEls[activeIndex.value];
+  if (!activePoint) return 0;
+
+  const wrapperRect = scrollWrapper.value.getBoundingClientRect();
+  const pointRect = activePoint.getBoundingClientRect();
+
+  const pointCenterX = pointRect.left + pointRect.width / 2 - wrapperRect.left;
+  const wrapperWidth = wrapperRect.width;
+
+  const progressPercent = (pointCenterX / wrapperWidth) * 100 + 2;
+
+  return Math.max(0, Math.min(progressPercent, 100));
 });
 
 const getPointPosition = (index, total) => {
@@ -133,6 +159,27 @@ const getPointPosition = (index, total) => {
 };
 
 const getLineStyle = (index, total) => {
+  if (isMobile.value && scrollWrapper.value) {
+    const pointEls = scrollWrapper.value.querySelectorAll(".roadmapPoint");
+    const point = pointEls[index];
+    if (!point) return "";
+
+    const rect = point.getBoundingClientRect();
+    const wrapperRect = scrollWrapper.value.getBoundingClientRect();
+
+    const centerX = rect.left + rect.width / 2 - wrapperRect.left - 10;
+
+    return `
+      position: absolute;
+      top: 18px;
+      left: ${centerX}px;
+      width: 20px;
+      height: 2px;
+      transform: rotate(-90deg) translateX(-50%);
+      transform-origin: center center;
+    `;
+  }
+
   const radius = isTablet ? 340 : 387;
   const centerX = isTablet ? 400 : 500;
   const centerY = isTablet ? 400 : 450;
@@ -151,6 +198,144 @@ const getLineStyle = (index, total) => {
 
   return `position: absolute; left: ${x1}px; top: ${y1}px; width: ${length}px; transform-origin: left center; transform: rotate(${-angleDeg}deg);`;
 };
+
+function adjustFirstLastMobileOffset() {
+  if (!scrollWrapper.value || !isMobile.value) return;
+
+  const pointEls = scrollWrapper.value.querySelectorAll(".roadmapPoint");
+  if (pointEls.length === 0) return;
+
+  const first = pointEls[0];
+  const last = pointEls[pointEls.length - 1];
+
+  first.style.marginLeft = "24px";
+  last.style.paddingRight = "24px";
+}
+
+function handleMobileClick(index) {
+  activeIndex.value = index;
+  scrollToCenter(index);
+}
+
+function scrollToCenter(index) {
+  if (!scrollWrapper.value) return;
+
+  const point = scrollWrapper.value.querySelectorAll(".roadmapPoint")[index];
+  if (!point) return;
+
+  const wrapperRect = scrollWrapper.value.getBoundingClientRect();
+  const pointRect = point.getBoundingClientRect();
+
+  const scrollLeft =
+    scrollWrapper.value.scrollLeft +
+    pointRect.left +
+    pointRect.width / 2 -
+    (wrapperRect.left + wrapperRect.width / 2);
+
+  scrollWrapper.value.scrollTo({
+    left: scrollLeft,
+    behavior: "smooth",
+  });
+}
+
+watch(activeIndex, (newIndex) => {
+  if (isMobile.value) scrollToCenter(newIndex);
+});
+
+const handleResize = () => {
+  isMobile.value = window.innerWidth < 769;
+};
+
+onMounted(() => {
+  const path = document.querySelector(".roadmapSVG path");
+  if (path) {
+    pathLength.value = path.getTotalLength();
+  }
+
+  window.addEventListener("resize", handleResize);
+  handleResize();
+  adjustFirstLastMobileOffset();
+});
+
+watch(isMobile, (val) => {
+  if (val) adjustFirstLastMobileOffset();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
+// let scrollTimeout = null;
+// let isSnapping = false;
+
+// function snapToNearestLine() {
+//   if (!scrollWrapper.value) return;
+//   if (isSnapping) return;
+
+//   const scrollLeft = scrollWrapper.value.scrollLeft;
+//   const wrapperWidth = scrollWrapper.value.clientWidth;
+
+//   const lines = scrollWrapper.value.querySelectorAll(".roadmapLine");
+//   if (!lines.length) return;
+
+//   const centerX = scrollLeft + wrapperWidth / 2;
+
+//   let nearestLine = null;
+//   let minDistance = Infinity;
+
+//   lines.forEach((line) => {
+//     const rect = line.getBoundingClientRect();
+//     const wrapperRect = scrollWrapper.value.getBoundingClientRect();
+
+//     const lineCenterX =
+//       rect.left + rect.width / 2 - wrapperRect.left + scrollLeft;
+
+//     const distance = Math.abs(lineCenterX - centerX);
+//     if (distance < minDistance) {
+//       minDistance = distance;
+//       nearestLine = line;
+//     }
+//   });
+
+//   if (!nearestLine) return;
+
+//   const rect = nearestLine.getBoundingClientRect();
+//   const wrapperRect = scrollWrapper.value.getBoundingClientRect();
+
+//   const lineCenterX =
+//     rect.left + rect.width / 2 - wrapperRect.left + scrollLeft;
+//   const targetScrollLeft = lineCenterX - wrapperWidth / 2;
+
+//   isSnapping = true;
+//   scrollWrapper.value.scrollTo({
+//     left: targetScrollLeft,
+//     behavior: "smooth",
+//   });
+
+//   setTimeout(() => {
+//     isSnapping = false;
+//   }, 400);
+// }
+
+// function onScroll() {
+//   if (scrollTimeout) clearTimeout(scrollTimeout);
+
+//   scrollTimeout = setTimeout(() => {
+//     snapToNearestLine();
+//   }, 150);
+// }
+
+// onMounted(() => {
+//   if (scrollWrapper.value) {
+//     scrollWrapper.value.addEventListener("scroll", onScroll, { passive: true });
+//   }
+// });
+
+// onUnmounted(() => {
+//   if (scrollWrapper.value) {
+//     scrollWrapper.value.removeEventListener("scroll", onScroll);
+//   }
+// });
 </script>
 
 <template>
@@ -175,7 +360,7 @@ const getLineStyle = (index, total) => {
     </div>
 
     <div class="roadmapCards">
-      <div class="roadmapArk">
+      <div v-if="!isMobile" class="roadmapArk">
         <svg
           class="roadmapSVG"
           width="1000"
@@ -221,9 +406,46 @@ const getLineStyle = (index, total) => {
           :class="{ active: activeIndex >= index }"
         />
       </div>
+
+      <div v-else class="roadmapLineMobile">
+        <div class="roadmapPointsScroll" ref="scrollWrapper">
+          <div class="roadmapPointWrapper">
+            <div
+              v-for="(item, index) in RoadmapCards"
+              :key="index"
+              class="roadmapPoint"
+              :class="{ active: activeIndex === index }"
+              @click="handleMobileClick(index)"
+            >
+              {{ item.title }}
+            </div>
+
+            <div
+              v-for="(item, index) in RoadmapCards"
+              :key="'line-' + index"
+              class="roadmapLine"
+              :style="getLineStyle(index, RoadmapCards.length)"
+              @click="activeIndex = index"
+              :class="{ active: activeIndex >= index }"
+            />
+          </div>
+        </div>
+
+        <div class="roadmapMobileProgressWrapper">
+          <div class="roadmapMobileProgressBg" />
+          <div
+            class="roadmapMobileProgressActive"
+            :style="{
+              width: mobileProgressWidth + '%',
+              transition: 'width 0.3s ease-in-out',
+            }"
+          />
+        </div>
+      </div>
+
       <div class="roadmapCardsBottom">
         <div class="roadmapCardsTexts">
-          <transition name="fade" mode="out-in">
+          <transition name="fadeRoadmap" mode="out-in">
             <div
               class="roadmapCardsTitle"
               :key="RoadmapCards[activeIndex].title"
@@ -232,12 +454,13 @@ const getLineStyle = (index, total) => {
             </div>
           </transition>
 
-          <transition name="fade" mode="out-in">
+          <transition name="fadeRoadmap" mode="out-in">
             <div
               class="roadmapCardsSubtitle"
               :key="RoadmapCards[activeIndex].subtitle"
             >
               {{ RoadmapCards[activeIndex].subtitle }}
+              >
             </div>
           </transition>
         </div>

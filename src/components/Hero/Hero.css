@@ -191,7 +191,7 @@
 
 @media (max-width: 1285px) {
   .heroCards {
-    top: calc(100vh - 150px);
+    top: 0;
   }
 
   .heroTitle {

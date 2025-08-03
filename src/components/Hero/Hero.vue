@@ -90,11 +90,10 @@ const hasLoaded = ref(false);
 
 function updatePositions() {
   const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
   let radius;
 
   if (screenWidth >= 1285) {
-    radius = 630;
+    radius = 610;
   } else if (screenWidth >= 1024) {
     radius = 620;
   } else if (screenWidth >= 768) {
@@ -103,7 +102,7 @@ function updatePositions() {
     radius = 550;
   }
   const centerX = screenWidth / 2;
-  const centerY = screenHeight;
+  const centerY = 800;
 
   const total = HeroCards.length;
   const visibleCount = screenWidth < 640 ? 5 : 7;

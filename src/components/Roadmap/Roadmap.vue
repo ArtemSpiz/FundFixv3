@@ -56,7 +56,7 @@ const RoadmapCards = [
   },
 ];
 
-import { ref, onMounted, onUnmounted, computed, watch } from "vue";
+import { ref, onMounted, onUnmounted, computed, watch, nextTick } from "vue";
 import AnimatedText from "../AnimatedText.vue";
 
 const activeIndex = ref(0);
@@ -265,77 +265,35 @@ onUnmounted(() => {
   window.removeEventListener("resize", handleResize);
 });
 
-// let scrollTimeout = null;
-// let isSnapping = false;
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
-// function snapToNearestLine() {
-//   if (!scrollWrapper.value) return;
-//   if (isSnapping) return;
+const roadmapRef = ref(null);
+const circleOverlay = ref(null);
 
-//   const scrollLeft = scrollWrapper.value.scrollLeft;
-//   const wrapperWidth = scrollWrapper.value.clientWidth;
+onMounted(() => {
+  nextTick(() => {
+    if (!roadmapRef.value || !circleOverlay.value) return;
 
-//   const lines = scrollWrapper.value.querySelectorAll(".roadmapLine");
-//   if (!lines.length) return;
-
-//   const centerX = scrollLeft + wrapperWidth / 2;
-
-//   let nearestLine = null;
-//   let minDistance = Infinity;
-
-//   lines.forEach((line) => {
-//     const rect = line.getBoundingClientRect();
-//     const wrapperRect = scrollWrapper.value.getBoundingClientRect();
-
-//     const lineCenterX =
-//       rect.left + rect.width / 2 - wrapperRect.left + scrollLeft;
-
-//     const distance = Math.abs(lineCenterX - centerX);
-//     if (distance < minDistance) {
-//       minDistance = distance;
-//       nearestLine = line;
-//     }
-//   });
-
-//   if (!nearestLine) return;
-
-//   const rect = nearestLine.getBoundingClientRect();
-//   const wrapperRect = scrollWrapper.value.getBoundingClientRect();
-
-//   const lineCenterX =
-//     rect.left + rect.width / 2 - wrapperRect.left + scrollLeft;
-//   const targetScrollLeft = lineCenterX - wrapperWidth / 2;
-
-//   isSnapping = true;
-//   scrollWrapper.value.scrollTo({
-//     left: targetScrollLeft,
-//     behavior: "smooth",
-//   });
-
-//   setTimeout(() => {
-//     isSnapping = false;
-//   }, 400);
-// }
-
-// function onScroll() {
-//   if (scrollTimeout) clearTimeout(scrollTimeout);
-
-//   scrollTimeout = setTimeout(() => {
-//     snapToNearestLine();
-//   }, 150);
-// }
-
-// onMounted(() => {
-//   if (scrollWrapper.value) {
-//     scrollWrapper.value.addEventListener("scroll", onScroll, { passive: true });
-//   }
-// });
-
-// onUnmounted(() => {
-//   if (scrollWrapper.value) {
-//     scrollWrapper.value.removeEventListener("scroll", onScroll);
-//   }
-// });
+    gsap.fromTo(
+      circleOverlay.value,
+      { scale: 0, opacity: 1 },
+      {
+        scale: 30,
+        opacity: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: roadmapRef.value,
+          start: "bottom bottom", // коли низ roadmap торкається низу viewport
+          end: "+=500", // на 500px скролу після початку анімації
+          scrub: true,
+          // markers: true, // для дебагу
+        },
+      }
+    );
+  });
+});
 </script>
 
 <template>
@@ -357,6 +315,12 @@ onUnmounted(() => {
         class="Subtitle roadmapSubtitle"
         text="Access the Deals Behind Silicon Valley's Greatest Success Stories—At the Speed of Blockchain"
       />
+    </div>
+
+    <div class="roadmapCircleOverlay" ref="circleOverlay">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="50" fill="#0F0F0F" />
+      </svg>
     </div>
 
     <div class="roadmapCards">

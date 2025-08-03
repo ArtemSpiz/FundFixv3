@@ -264,7 +264,6 @@ onUnmounted(() => {
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// Плавне GSAP-прокручування
 gsap.to(window, {
   duration: 1,
   scrollTo: { y: "#target-section", offsetY: 0 },

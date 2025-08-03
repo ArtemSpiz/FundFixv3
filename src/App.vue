@@ -10,7 +10,6 @@ import FIX from "./components/FIX/FIX.vue";
 import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
 import Footer from "./layout/Footer/Footer.vue";
-import Exclusivity from "./components/Exclusivity/Exclusivity.vue";
 </script>
 
 <template>
@@ -21,7 +20,6 @@ import Exclusivity from "./components/Exclusivity/Exclusivity.vue";
   <Scale />
   <Future />
   <Roadmap />
-  <Exclusivity />
   <FAQ />
   <Institutions />
   <Footer />

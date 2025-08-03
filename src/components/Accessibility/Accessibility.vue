@@ -4,7 +4,6 @@ import "./Accessibility.css";
 import { onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -260,14 +259,6 @@ function killAnimations() {
 
 onUnmounted(() => {
   killAnimations();
-});
-
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-gsap.to(window, {
-  duration: 1,
-  scrollTo: { y: "#target-section", offsetY: 0 },
-  ease: "power2.out",
 });
 </script>
 

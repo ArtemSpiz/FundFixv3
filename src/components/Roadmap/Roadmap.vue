@@ -267,15 +267,18 @@ onUnmounted(() => {
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Exclusivity from "../Exclusivity/Exclusivity.vue";
 gsap.registerPlugin(ScrollTrigger);
 
 const roadmapRef = ref(null);
 const circleOverlay = ref(null);
 let animation = null;
+const exclusivityWrapper = ref(null);
 
 onMounted(() => {
   nextTick(() => {
-    if (!roadmapRef.value || !circleOverlay.value) return;
+    if (!roadmapRef.value || !circleOverlay.value || !exclusivityWrapper.value)
+      return;
 
     gsap.fromTo(
       circleOverlay.value,
@@ -284,17 +287,28 @@ onMounted(() => {
         scale: 18,
         duration: 2,
         opacity: 1,
-        ease: "power3.inoOut",
+        ease: "power3.inOut",
         scrollTrigger: {
           trigger: roadmapRef.value,
           start: "bottom bottom",
           end: "+=1000",
           pin: true,
-          id: "circleFillAnimation",
           scrub: true,
         },
       }
     );
+
+    gsap.to(exclusivityWrapper.value, {
+      opacity: 1,
+      y: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: roadmapRef.value,
+        start: "bottom bottom",
+        end: "+=1000",
+        scrub: true,
+      },
+    });
   });
 });
 
@@ -446,6 +460,14 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+  </div>
+
+  <div
+    ref="exclusivityWrapper"
+    class="exclusivityWrapper"
+    style="margin-top: -100vh; opacity: 0; transform: translateY(100vh)"
+  >
+    <Exclusivity />
   </div>
 </template>
 

@@ -19,7 +19,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: isMobile ? 1 : 0.7 }
+    { threshold: isMobile ? 0.8 : 0.7 }
   );
 
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {

@@ -8,6 +8,7 @@
   background-image: url("@/assets/img/ExclusivityBg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  margin-top: -1px;
 }
 
 .exclusivity::before {

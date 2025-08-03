@@ -138,7 +138,7 @@ onMounted(() => {
         id: "accessAnimation",
         trigger: section,
         start: "top top",
-        end: () => `+=${cards.length * 500 + 200}`,
+        end: () => `+=${cards.length * 500 * 0.7}`,
         scrub: 1,
         pin: true,
         onUpdate: () => {
@@ -167,16 +167,6 @@ onMounted(() => {
       ease: "none",
       duration: 0.7,
     });
-
-    masterTimeline.to(
-      texts,
-      {
-        yPercent: 0,
-        ease: "power2.inOut",
-        duration: 0.5,
-      },
-      "-=0.8"
-    );
 
     cards.forEach((card) => {
       gsap

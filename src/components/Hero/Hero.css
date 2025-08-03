@@ -191,12 +191,13 @@
 
 @media (max-width: 1285px) {
   .heroCards {
-    top: 0px;
+    top: calc(100vh - 150);
   }
 
   .heroTitle {
     font-size: 85px;
     width: 600px;
+    line-height: 100%;
   }
 }
 

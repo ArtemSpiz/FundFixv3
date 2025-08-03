@@ -160,6 +160,19 @@
   transform: translateY(10px);
 }
 
+.fadeExclusivity-enter-active,
+.fadeExclusivity-leave-active {
+  transition: opacity 0.6s ease;
+}
+.fadeExclusivity-enter-from,
+.fadeExclusivity-leave-to {
+  opacity: 0;
+}
+.fadeExclusivity-enter-to,
+.fadeExclusivity-leave-from {
+  opacity: 1;
+}
+
 @media (max-width: 1024px) {
   .roadmapSVG {
     width: 800px;

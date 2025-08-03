@@ -94,7 +94,7 @@ function updatePositions() {
   let radius;
 
   if (screenWidth >= 1285) {
-    radius = 620;
+    radius = 630;
   } else if (screenWidth >= 1024) {
     radius = 620;
   } else if (screenWidth >= 768) {

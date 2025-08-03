@@ -10,6 +10,7 @@ import FIX from "./components/FIX/FIX.vue";
 import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
 import Footer from "./layout/Footer/Footer.vue";
+import Exclusivity from "./components/Exclusivity/Exclusivity.vue";
 // import Tokenomics from "./components/Tokenomics/Tokenomics.vue";
 </script>
 
@@ -22,6 +23,7 @@ import Footer from "./layout/Footer/Footer.vue";
   <Future />
   <!-- <Tokenomics /> -->
   <Roadmap />
+  <Exclusivity />
   <FAQ />
   <Institutions />
 

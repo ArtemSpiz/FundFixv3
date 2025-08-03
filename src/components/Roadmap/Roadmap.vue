@@ -267,7 +267,6 @@ onUnmounted(() => {
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Exclusivity from "../Exclusivity/Exclusivity.vue";
 gsap.registerPlugin(ScrollTrigger);
 
 const roadmapRef = ref(null);
@@ -282,7 +281,7 @@ onMounted(() => {
       circleOverlay.value,
       { scale: 0, opacity: 1 },
       {
-        scale: 30,
+        scale: 18,
         duration: 2,
         opacity: 1,
         ease: "power3.inoOut",
@@ -449,7 +448,6 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <Exclusivity />
   </div>
 </template>
 

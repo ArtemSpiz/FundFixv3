@@ -412,12 +412,12 @@ async function onPointerUp() {
       </div>
     </div>
 
-    <div
-      class="fixCardsWrapper"
-      :class="{ 'carousel-mobile': isMobile }"
-      @scroll="onMobileScroll"
-    >
-      <div class="fixCards">
+    <div class="fixCardsWrapper">
+      <div
+        class="fixCards"
+        :class="{ 'carousel-mobile': isMobile }"
+        @scroll="onMobileScroll"
+      >
         <div class="fixCardsPags">
           <div class="fixCardsPag"></div>
         </div>

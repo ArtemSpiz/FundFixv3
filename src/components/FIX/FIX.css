@@ -469,6 +469,13 @@
   .fixLeft {
     padding: 0px 30px;
   }
+
+  .carousel-mobile {
+    border: 2px dashed red;
+  }
+  .fixCard {
+    border: 2px solid lime;
+  }
 }
 
 @media (max-width: 640px) {

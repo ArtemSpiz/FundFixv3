@@ -43,7 +43,7 @@ const activeCard = ref(null);
 const currentIndex = ref(0);
 const touchStartX = ref(0);
 const touchEndX = ref(0);
-const touchThreshold = 50; // Мінімальна дистанція свайпу в пікселях
+const touchThreshold = 50;
 
 function onTouchStart(event) {
   if (!isMobile.value) return;
@@ -62,11 +62,9 @@ function onTouchEnd() {
 
   if (Math.abs(deltaX) > touchThreshold) {
     if (deltaX < 0) {
-      // свайп вліво
       const nextIndex = (mobileActiveIndex.value + 1) % FixCards.length;
       scrollToCard(nextIndex);
     } else {
-      // свайп вправо
       const prevIndex =
         mobileActiveIndex.value === 0
           ? FixCards.length - 1
@@ -75,7 +73,6 @@ function onTouchEnd() {
     }
   }
 
-  // скинути
   touchStartX.value = 0;
   touchEndX.value = 0;
 }

@@ -469,12 +469,13 @@
   .fixLeft {
     padding: 0px 30px;
   }
-
-  .carousel-mobile {
-    border: 2px dashed red;
+  .fixCard::before {
+    display: none;
   }
-  .fixCard {
-    border: 2px solid lime;
+
+  .fixCard:hover::before {
+    opacity: 0.6;
+    animation: none;
   }
 }
 

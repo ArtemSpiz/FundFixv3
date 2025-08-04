@@ -285,7 +285,7 @@ onMounted(() => {
       circleOverlay.value,
       { scale: 0, opacity: 1 },
       {
-        scale: bigDesktop ? 24 : 19,
+        scale: bigDesktop ? 30 : 19,
         duration: 2,
         opacity: 1,
         ease: "power3.inOut",

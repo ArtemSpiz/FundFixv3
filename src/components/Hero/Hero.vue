@@ -92,7 +92,9 @@ function updatePositions() {
   const screenWidth = window.innerWidth;
   let radius;
 
-  if (screenWidth >= 1285) {
+  if (screenWidth >= 1600) {
+    radius = 700;
+  } else if (screenWidth >= 1285) {
     radius = 610;
   } else if (screenWidth >= 1024) {
     radius = 620;
@@ -114,7 +116,7 @@ function updatePositions() {
   const total = HeroCards.length;
   const visibleCount = screenWidth < 640 ? 5 : 7;
   const centerIndex = Math.floor(visibleCount / 2);
-  const maxRotationDeg = screenWidth < 640 ? 50 : 90;
+  const maxRotationDeg = screenWidth < 640 ? 50 : 80;
 
   const visibleCards = [];
 
@@ -122,7 +124,12 @@ function updatePositions() {
     const realIndex = (activeIndex.value - centerIndex + i + total) % total;
     const offsetFromCenter = i - centerIndex;
 
-    const totalAngle = screenWidth < 640 ? Math.PI / 2 : Math.PI;
+    const totalAngle =
+      screenWidth > 1600
+        ? Math.PI / 1.1
+        : screenWidth < 640
+        ? Math.PI / 2
+        : Math.PI;
     const angleStep = totalAngle / (visibleCount - 1);
     const startAngle = Math.PI / 2 - totalAngle / 2;
 

@@ -47,6 +47,29 @@ onMounted(() => {
   const texts = document.querySelector(".accessibilityTexts");
   const isMobile = window.innerWidth < 769;
 
+  if (window.innerWidth > 1600) {
+    const accessibilitySection = document.querySelector(".accessibility");
+    const originalHeight = accessibilitySection.offsetHeight;
+
+    gsap.fromTo(
+      accessibilitySection,
+      {
+        height: originalHeight,
+      },
+      {
+        height: 900,
+        ease: "none",
+        scrollTrigger: {
+          trigger: accessibilitySection,
+          start: "top top",
+          end: "+=1000",
+          scrub: true,
+          id: "accessHeightShrink",
+        },
+      }
+    );
+  }
+
   if (isMobile) {
     const steps = cards.length;
 

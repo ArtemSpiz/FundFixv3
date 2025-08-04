@@ -56,13 +56,14 @@ const shouldStartTokenomicsAnimation = inject(
   "shouldStartTokenomicsAnimation",
   null
 );
+let manualPositions;
 
-let manualPositions = [
+manualPositions = [
   { x: -350, y: 100 },
-  { x: 150, y: 250 },
-  { x: -250, y: 400 },
   { x: 150, y: 150 },
-  { x: 250, y: 300 },
+  { x: -250, y: 200 },
+  { x: 150, y: 250 },
+  { x: 300, y: 300 },
 ];
 
 if (isMiniMobile) {
@@ -140,6 +141,7 @@ function initNormalTokenomicsAnimation() {
 
     tl.to(card, {
       opacity: 1,
+
       y: targetY,
       duration: 2,
       ease: "power3.inOut",
@@ -158,7 +160,7 @@ function initNormalTokenomicsAnimation() {
       {
         opacity: 1,
         y: targetY,
-        duration: 1.4, // трохи швидше
+        duration: 4, // трохи швидше
         ease: "power3.out",
       },
       i * 0.08 // майже одночасно (було 0.3)
@@ -191,62 +193,57 @@ function initFutureTokenomicsAnimation() {
 function startCardsAnimation(cards) {
   console.log("Starting cards animation with", cards.length, "cards");
 
-  // Блокуємо скрол на початку анімації
   disableScroll();
 
-  // Спочатку показуємо текстові елементи
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {
     el.classList.add("show");
   });
 
-  // Встановлюємо початкові позиції для карток
   cards.forEach((card, i) => {
     const pos = manualPositions[i] || { x: 0, y: 0 };
     gsap.set(card, {
       x: pos.x,
       y: window.innerHeight + pos.y,
-      opacity: 1,
+      opacity: 0,
+      display: "flex",
       position: "absolute",
       scale: 1,
     });
-    console.log(`Card ${i} set to position:`, pos);
   });
 
-  // Створюємо timeline для анімації карток
   const tl = gsap.timeline({
     onComplete: () => {
-      // Розблокуємо скрол після завершення анімації
       enableScroll();
       console.log("Animation completed, scroll enabled");
     },
   });
 
-  // Анімуємо картки одну за одною до їх цільових позицій
+  // Плавний вхід знизу
   cards.forEach((card, i) => {
     tl.to(
       card,
       {
         y: manualPositions[i]?.y || 0,
-        duration: 1.2,
-        ease: "power2.out",
+        opacity: 1,
+        duration: 1.8,
+        ease: "power1.out",
       },
-      i * 0.1 // Збільшена затримка між картками для плавності
+      i * 0
     );
   });
 
-  // Додаємо паузу перед рухом вгору
+  tl.to({}, { duration: 0.5 });
 
-  // Потім анімуємо картки вгору одну за одною
   cards.forEach((card, i) => {
     tl.to(
       card,
       {
-        y: -window.innerHeight - 600,
+        y: -window.innerHeight - 500,
         opacity: 1,
-        duration: 1.6,
-        ease: "power2.inOut",
+        duration: 2.2,
+        ease: "power1.inOut",
       },
-      `>-${1 - i * 0.15}` // ближче одне до одного
+      `>-${0.6 - i * 0}`
     );
   });
 

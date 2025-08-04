@@ -16,8 +16,7 @@
 }
 
 .tokenomicsCardWrapper {
-  opacity: 0;
-  display: flex;
+  display: none;
   flex: 1 0 0;
   height: 350px;
   min-width: 350px;
@@ -29,6 +28,11 @@
   border-radius: 18px;
   background: #e0e0e0;
   box-sizing: border-box;
+}
+
+.BgTokCards {
+  width: 400px;
+  height: 400px;
 }
 
 .tokenomicsCard {

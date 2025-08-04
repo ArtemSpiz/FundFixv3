@@ -93,7 +93,7 @@ function scrollPrev() {
 onMounted(() => {
   updateStep();
   if (scrollContainer.value) {
-    scrollContainer.value.scrollLeft = 50;
+    scrollContainer.value.scrollLeft = 0;
     scrollContainer.value.addEventListener("scroll", onScroll);
   }
   window.addEventListener("resize", updateStep);

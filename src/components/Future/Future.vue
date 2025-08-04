@@ -28,7 +28,7 @@ const FutureCards = [
   },
 ];
 
-import { onMounted, onBeforeUnmount } from "vue";
+import { onMounted, onBeforeUnmount, ref, defineExpose } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Tokenomics from "../Tokenomics/Tokenomics.vue";
@@ -47,6 +47,7 @@ onMounted(() => {
   const isMiniMobile = window.innerWidth < 641;
   const isMobile = window.innerWidth < 769;
   const isTablet = window.innerWidth < 1024;
+  const bigDesktop = window.innerWidth > 1600;
 
   const initialWidth = phoneImage.offsetWidth;
   const targetWidth = window.innerWidth;
@@ -173,7 +174,7 @@ onMounted(() => {
       {
         opacity: 1,
         scale: isMiniMobile ? 0.5 : 0.4,
-        y: isMiniMobile ? 110 : 83,
+        y: isMiniMobile ? 75 : 83,
         duration: 1.5,
         ease: "power2.inOut",
       },
@@ -190,7 +191,7 @@ onMounted(() => {
     tl.to(
       phoneImage,
       {
-        y: -200,
+        y: bigDesktop ? -100 : -200,
         ease: "power2.inOut",
         duration: 1,
       },
@@ -223,7 +224,7 @@ onMounted(() => {
       {
         opacity: 1,
         scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
-        y: 20,
+        y: bigDesktop ? 30 : 20,
         ease: "power2.inOut",
         duration: 2,
       },
@@ -243,6 +244,14 @@ onMounted(() => {
     ScrollTrigger.refresh();
   });
 });
+
+const tokenomicsRef = ref(null);
+
+function scrollToTokenomics() {
+  tokenomicsRef.value?.scrollIntoView({ behavior: "smooth" });
+}
+
+defineExpose({ scrollToTokenomics });
 </script>
 
 <template>
@@ -254,24 +263,20 @@ onMounted(() => {
       </div>
       <AnimatedText
         class="Title futureTitle desktopFutureTitle"
-        anim-delay="0.05"
         text="The Future of Private Investing — Today"
       />
 
       <div class="Title futureTitle mobileFutureTitle">
         <AnimatedText
           class="Title futureTitle"
-          anim-delay="0.07"
           text="The Future of"
         />
         <AnimatedText
           class="Title futureTitle"
-          anim-delay="0.07"
           text="Private Investing"
         />
         <AnimatedText
           class="Title futureTitle"
-          anim-delay="0.1"
           text="— Today"
         />
       </div>
@@ -291,7 +296,7 @@ onMounted(() => {
         </div>
 
         <div class="phoneOverlay">
-          <div class="tokenomicsWrapper">
+          <div class="tokenomicsWrapper" ref="tokenomicsRef">
             <Tokenomics class="tokenomicsInFuture" />
           </div>
         </div>

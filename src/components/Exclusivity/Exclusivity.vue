@@ -44,39 +44,60 @@ const ExclusivityCards = [
 
 <template>
   <div class="exclusivity">
-    <div class="exclusivityTexts">
-      <div class="exclusivityTitles">
-        <div class="UnderTitle">
-          <Stars />
-          <AnimatedText text="Exclusivity" />
+    <div class="container exclusivityCont">
+      <div class="exclusivityTexts">
+        <div class="exclusivityTitles">
+          <div class="UnderTitle">
+            <Stars />
+            <AnimatedText text="Exclusivity" />
+          </div>
+          <AnimatedText
+            class="exclusivityTitle Title"
+            text="Not for Everyone. That’s the Point."
+          />
         </div>
+
         <AnimatedText
-          class="exclusivityTitle Title"
-          anim-delay="0.05"
-          text="Not for Everyone. That’s the Point."
+          class="Subtitle exclusivitySubtitle"
+          text="FundFix is built for serious capital allocators —not hype-chasers."
         />
       </div>
 
-      <AnimatedText
-        class="Subtitle exclusivitySubtitle"
-        text="FundFix is built for serious capital allocators —not hype-chasers."
-      />
-    </div>
+      <div class="exclusivityCardsWrapper">
+        <div class="exclusivityCards">
+          <div
+            class="exclusivityCard"
+            v-for="(card, index) in ExclusivityCards"
+            :key="index"
+            :class="`card-${index}`"
+          >
+            <component
+              class="exclusivityCardIcon"
+              :is="card.icon"
+              :class="`cardIcon-${index}`"
+            />
+            <div class="exclusivityCardTitle" :class="`cardTitle-${index}`">
+              {{ card.title }}
+            </div>
+          </div>
+        </div>
 
-    <div class="exclusivityCards">
-      <div
-        class="exclusivityCard"
-        v-for="(card, index) in ExclusivityCards"
-        :key="index"
-        :class="`card-${index}`"
-      >
-        <component
-          class="exclusivityCardIcon"
-          :is="card.icon"
-          :class="`cardIcon-${index}`"
-        />
-        <div class="exclusivityCardTitle" :class="`cardTitle-${index}`">
-          {{ card.title }}
+        <div class="exclusivityCards exclusivityCardMobile">
+          <div
+            class="exclusivityCard"
+            v-for="(card, index) in ExclusivityCards"
+            :key="index"
+            :class="`card-${index}`"
+          >
+            <component
+              class="exclusivityCardIcon"
+              :is="card.icon"
+              :class="`cardIcon-${index}`"
+            />
+            <div class="exclusivityCardTitle" :class="`cardTitle-${index}`">
+              {{ card.title }}
+            </div>
+          </div>
         </div>
       </div>
     </div>

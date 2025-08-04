@@ -4,20 +4,21 @@
   background-size: 100% 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 260px 0px;
+  justify-content: start;
+  padding: 124px 0px;
   flex-direction: column;
   position: relative;
+  height: 600px;
 }
 
 .scaleTitle {
   color: #fff;
   text-align: center;
   font-family: "Helvetica Now Display";
-  font-size: 132px;
+  font-size: 80px;
   font-style: normal;
   font-weight: 500;
-  line-height: 132px; /* 100% */
+  line-height: 100%; /* 100% */
   touch-action: none;
   user-select: none;
   white-space: nowrap;
@@ -171,19 +172,19 @@
 
 @media (max-width: 1285px) {
   .scaleTitle {
-    font-size: 110px;
+    font-size: 70px;
   }
 }
 
 @media (max-width: 1024px) {
   .scaleTitle {
-    font-size: 90px;
+    font-size: 60px;
   }
 }
 
 @media (max-width: 768px) {
   .scaleTitle {
-    font-size: 70px;
+    font-size: 50px;
   }
 
   .scaleCardWrapper {
@@ -216,7 +217,7 @@
   }
 
   .scale {
-    height: 600px;
+    height: 550px;
     padding: 48px 0px;
     justify-content: start;
   }
@@ -224,6 +225,6 @@
 
 @media (max-width: 640px) {
   .scaleTitle {
-    font-size: 45px;
+    font-size: 40px;
   }
 }

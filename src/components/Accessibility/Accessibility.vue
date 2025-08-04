@@ -264,45 +264,47 @@ onUnmounted(() => {
 
 <template>
   <div class="accessibility">
-    <div class="accessibilityTexts">
-      <div class="UnderTitle"><Stars />Accessibility</div>
+    <div class="container">
+      <div class="accessibilityTexts">
+        <div class="UnderTitle"><Stars />Accessibility</div>
 
-      <div class="accessibilityTitle">
-        FundFix: Private Markets for Everyone
-      </div>
-    </div>
-
-    <div class="accessibilityCards">
-      <div
-        class="accessibilityCard"
-        v-for="(card, index) in AccessibilityCard"
-        :key="index"
-        :class="{ secondCard: index === 1, thirdCard: index === 2 }"
-      >
-        <div class="accessCardSubtitles">
-          <div
-            class="accessCardSubtitle"
-            v-for="(subtitle, i) in card.subtitles"
-            :key="i"
-            :class="{
-              firstSub: index === 0 && i === 0,
-              secSub: index === 0 && i === 1,
-              thirdSub: index === 0 && i === 2,
-              firstSubSecCard: index === 1 && i === 0,
-              secSubSecCard: index === 1 && i === 1,
-              thirdSubSecCard: index === 1 && i === 2,
-              firstSubThiCard: index === 2 && i === 0,
-              secSubThiCard: index === 2 && i === 1,
-              thirdSubThiCard: index === 2 && i === 2,
-            }"
-          >
-            {{ subtitle.subtitle }}
-          </div>
+        <div class="accessibilityTitle">
+          FundFix: Private Markets for Everyone
         </div>
+      </div>
 
-        <div class="accessCardTexts">
-          <div class="accessCardTitle">{{ card.title }}</div>
-          <div class="accessCardText">{{ card.text }}</div>
+      <div class="accessibilityCards">
+        <div
+          class="accessibilityCard"
+          v-for="(card, index) in AccessibilityCard"
+          :key="index"
+          :class="{ secondCard: index === 1, thirdCard: index === 2 }"
+        >
+          <div class="accessCardSubtitles">
+            <div
+              class="accessCardSubtitle"
+              v-for="(subtitle, i) in card.subtitles"
+              :key="i"
+              :class="{
+                firstSub: index === 0 && i === 0,
+                secSub: index === 0 && i === 1,
+                thirdSub: index === 0 && i === 2,
+                firstSubSecCard: index === 1 && i === 0,
+                secSubSecCard: index === 1 && i === 1,
+                thirdSubSecCard: index === 1 && i === 2,
+                firstSubThiCard: index === 2 && i === 0,
+                secSubThiCard: index === 2 && i === 1,
+                thirdSubThiCard: index === 2 && i === 2,
+              }"
+            >
+              {{ subtitle.subtitle }}
+            </div>
+          </div>
+
+          <div class="accessCardTexts">
+            <div class="accessCardTitle">{{ card.title }}</div>
+            <div class="accessCardText">{{ card.text }}</div>
+          </div>
         </div>
       </div>
     </div>

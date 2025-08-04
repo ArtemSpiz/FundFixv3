@@ -102,7 +102,14 @@ function updatePositions() {
     radius = 550;
   }
   const centerX = screenWidth / 2;
-  const centerY = 800;
+
+  let centerY;
+
+  if (screenWidth >= 1600) {
+    centerY = 1000;
+  } else {
+    centerY = 800;
+  }
 
   const total = HeroCards.length;
   const visibleCount = screenWidth < 640 ? 5 : 7;
@@ -256,11 +263,7 @@ onUnmounted(() => {
 <template>
   <div id="home" class="hero" ref="heroRef">
     <div class="heroTexts">
-      <AnimatedText
-        anim-delay="0.08"
-        class="heroTitle"
-        text="FundFix backs what’s next"
-      />
+      <AnimatedText class="heroTitle" text="Hedge Fund in a Token" />
 
       <AnimatedText
         class="heroSubtitle"

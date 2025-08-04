@@ -10,15 +10,22 @@ import FIX from "./components/FIX/FIX.vue";
 import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
 import Footer from "./layout/Footer/Footer.vue";
+import { ref } from "vue";
+
+const futureRef = ref(null);
+
+function handleScrollToTokenomics() {
+  futureRef.value?.scrollToTokenomics();
+}
 </script>
 
 <template>
-  <HeaderLayout />
+  <HeaderLayout :onScrollToTokenomics="handleScrollToTokenomics" />
   <Hero />
   <Accessibility />
   <FIX />
   <Scale />
-  <Future />
+  <Future ref="futureRef" />
   <Roadmap />
   <FAQ />
   <Institutions />

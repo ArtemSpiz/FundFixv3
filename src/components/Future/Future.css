@@ -307,6 +307,21 @@
   display: none;
 }
 
+@media (min-width: 1600px) {
+  .futureCard.left {
+    left: 200px;
+  }
+
+  .futureCard.right {
+    right: 200px;
+  }
+
+  .future {
+    height: 1400px !important;
+    justify-content: start;
+  }
+}
+
 @media (max-width: 768px) {
   .futureTitle {
     max-width: 432px;

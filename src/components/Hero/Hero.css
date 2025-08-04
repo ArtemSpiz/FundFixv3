@@ -44,7 +44,7 @@
   font-weight: 700;
   line-height: 96px; /* 100% */
   width: 100%;
-  max-width: 700px;
+  max-width: 570px;
 }
 
 .heroSubtitle {
@@ -189,6 +189,18 @@
   line-height: 16px; /* 133.333% */
 }
 
+@media (min-width: 1600px) {
+  .heroCard {
+    position: relative;
+    width: 180px;
+    height: 190px;
+  }
+
+  .heroCard.active {
+    height: 215px;
+    width: 235px;
+  }
+}
 @media (max-width: 1285px) {
   .heroCards {
     top: 0;
@@ -196,7 +208,7 @@
 
   .heroTitle {
     font-size: 85px;
-    width: 600px;
+    width: 510px;
     line-height: 100%;
   }
 }
@@ -204,7 +216,7 @@
 @media (max-width: 1024px) {
   .heroTitle {
     font-size: 70px;
-    width: 470px;
+    width: 420px;
     line-height: 100%; /* 100% */
   }
 }
@@ -212,6 +224,7 @@
 @media (max-width: 768px) {
   .heroTitle {
     font-size: 55px;
+    width: 330px;
   }
   .heroTexts {
     gap: 24px;
@@ -225,7 +238,7 @@
 
 @media (max-width: 640px) {
   .heroTitle {
-    width: 300px;
+    width: 240px;
     font-size: 40px;
   }
 

@@ -10,6 +10,7 @@
 .tokenomicsCardsScroll {
   display: flex;
   gap: 12px;
+  justify-content: center;
 }
 
 .tokenomicsCardWrapper {
@@ -17,6 +18,7 @@
   flex: 1 0 0;
   height: 250px;
   min-width: 234px;
+  max-width: 234px;
   padding: 8px;
   justify-content: center;
   align-items: center;
@@ -145,6 +147,8 @@
     gap: 16px;
     scroll-behavior: smooth;
     padding: 0px;
+    align-items: start;
+    justify-content: start;
   }
 
   .tokenomicsCardWrapper.centeredCardsSec,
@@ -254,10 +258,10 @@
 
 @media (max-width: 640px) {
   .tokenomicsCardsScroll:first-child {
-    padding-left: 25px;
+    padding-left: 16px;
   }
 
   .tokenomicsCardsScroll:last-child {
-    padding-right: 25px;
+    padding-right: 16px;
   }
 }

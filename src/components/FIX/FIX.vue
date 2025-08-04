@@ -400,36 +400,102 @@ async function onPointerUp() {
 
 <template>
   <div id="product" class="fix">
-    <div class="fixLeft">
-      <div class="fixTexts">
-        <div class="fixTitles">
-          <div class="UnderTitle">
-            <Stars />
-            <AnimatedText text="Utility Token" />
+    <div class="container containerFix">
+      <div class="fixLeft">
+        <div class="fixTexts">
+          <div class="fixTitles">
+            <div class="UnderTitle">
+              <Stars />
+              <AnimatedText text="Utility Token" />
+            </div>
+
+            <div class="Title">
+              <AnimatedText
+                class="fixTitle"
+                text="$FIX Token:"
+              />
+              <AnimatedText
+                class="fixTitleSpan"
+                text="Infinite Access."
+              />
+            </div>
           </div>
 
-          <div class="Title">
-            <AnimatedText
-              anim-delay="0.07"
-              class="fixTitle"
-              text="$FIX Token:"
-            />
-            <AnimatedText
-              anim-delay="0.07"
-              class="fixTitleSpan"
-              text="Infinite Access."
-            />
-          </div>
+          <AnimatedText
+            class="Subtitle fixSub"
+            text="At the core of the FundFix platform lies $FIX—a versatile utility token designed to provide scalable, secure, and permissioned access to a broad array of private market investment opportunities."
+          />
         </div>
 
-        <AnimatedText
-          anim-delay="0.02"
-          class="Subtitle fixSub"
-          text="At the core of the FundFix platform lies $FIX—a versatile utility token designed to provide scalable, secure, and permissioned access to a broad array of private market investment opportunities."
-        />
+        <div class="fixBtns desktop">
+          <div
+            class="fixArrow active"
+            :class="{ 'button-pressed': dragState.buttonAnimation }"
+            @click="nextCard"
+          >
+            <Arrow />
+          </div>
+          <div
+            class="fixArrow"
+            :class="{ 'button-pressed': dragState.buttonAnimation }"
+            @click="prevCard"
+          >
+            <Arrow class="rotateArrowFix" />
+          </div>
+        </div>
       </div>
 
-      <div class="fixBtns desktop">
+      <div class="fixCardsWrapper">
+        <div
+          class="fixCards"
+          :class="{ 'carousel-mobile': isMobile }"
+          @scroll="onMobileScroll"
+          @touchstart="onTouchStart"
+          @touchmove="onTouchMove"
+          @touchend="onTouchEnd"
+        >
+          <div class="fixCardsPags">
+            <div class="fixCardsPag"></div>
+          </div>
+
+          <div
+            class="fixCard"
+            v-for="(card, index) in isMobile ? FixCards : displayedCards"
+            :key="`${isMobile ? 'mobile' : 'desktop'}-${card.id}`"
+            :class="{
+              activeCard:
+                (isMobile && index === mobileActiveIndex) ||
+                (!isMobile && index === 0),
+            }"
+            :ref="index === 0 && !isMobile ? (el) => (activeCard = el) : null"
+            @pointerdown="
+              !isMobile && index === 0 ? onPointerDown($event) : null
+            "
+            :style="isMobile ? {} : getCardStyle(index)"
+          >
+            <div class="fixCardTexts">
+              <div class="fixCardTitle">{{ card.title }}</div>
+              <div class="fixCardSubtitle">{{ card.subtitle }}</div>
+            </div>
+
+            <div class="fixCardContent">
+              <img :src="card.content" alt="" draggable="false" />
+            </div>
+          </div>
+
+          <div class="fixCardsPags">
+            <div
+              v-for="(card, index) in FixCards"
+              :key="card.id"
+              class="fixCardsPag"
+              :class="{ active: index === activeCardIndex }"
+              @click="goToCard(index)"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fixBtns mobile">
         <div
           class="fixArrow active"
           :class="{ 'button-pressed': dragState.buttonAnimation }"
@@ -444,71 +510,6 @@ async function onPointerUp() {
         >
           <Arrow class="rotateArrowFix" />
         </div>
-      </div>
-    </div>
-
-    <div class="fixCardsWrapper">
-      <div
-        class="fixCards"
-        :class="{ 'carousel-mobile': isMobile }"
-        @scroll="onMobileScroll"
-        @touchstart="onTouchStart"
-        @touchmove="onTouchMove"
-        @touchend="onTouchEnd"
-      >
-        <div class="fixCardsPags">
-          <div class="fixCardsPag"></div>
-        </div>
-
-        <div
-          class="fixCard"
-          v-for="(card, index) in isMobile ? FixCards : displayedCards"
-          :key="`${isMobile ? 'mobile' : 'desktop'}-${card.id}`"
-          :class="{
-            activeCard:
-              (isMobile && index === mobileActiveIndex) ||
-              (!isMobile && index === 0),
-          }"
-          :ref="index === 0 && !isMobile ? (el) => (activeCard = el) : null"
-          @pointerdown="!isMobile && index === 0 ? onPointerDown($event) : null"
-          :style="isMobile ? {} : getCardStyle(index)"
-        >
-          <div class="fixCardTexts">
-            <div class="fixCardTitle">{{ card.title }}</div>
-            <div class="fixCardSubtitle">{{ card.subtitle }}</div>
-          </div>
-
-          <div class="fixCardContent">
-            <img :src="card.content" alt="" draggable="false" />
-          </div>
-        </div>
-
-        <div class="fixCardsPags">
-          <div
-            v-for="(card, index) in FixCards"
-            :key="card.id"
-            class="fixCardsPag"
-            :class="{ active: index === activeCardIndex }"
-            @click="goToCard(index)"
-          ></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fixBtns mobile">
-      <div
-        class="fixArrow active"
-        :class="{ 'button-pressed': dragState.buttonAnimation }"
-        @click="nextCard"
-      >
-        <Arrow />
-      </div>
-      <div
-        class="fixArrow"
-        :class="{ 'button-pressed': dragState.buttonAnimation }"
-        @click="prevCard"
-      >
-        <Arrow class="rotateArrowFix" />
       </div>
     </div>
   </div>

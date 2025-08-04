@@ -10,6 +10,10 @@
   background-repeat: no-repeat;
 }
 
+.containerFix {
+  display: flex;
+}
+
 .fixLeft {
   padding: 88px 0px 124px 117px;
   display: flex;
@@ -340,6 +344,12 @@
   display: none;
 }
 
+@media (min-width: 1600px) {
+  .containerFix {
+    gap: 120px;
+  }
+}
+
 @media (max-width: 1285px) {
   .fixTitleSpan {
     width: 340px;
@@ -356,6 +366,12 @@
     height: 100%;
     gap: 40px;
     overflow: hidden;
+  }
+
+  .containerFix {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
   }
 
   .fixCardsPags {
@@ -382,6 +398,8 @@
 
   .fixTitleSpan {
     width: 100%;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .fixSub {
@@ -485,7 +503,11 @@
   }
 
   .fixTitle {
-    max-width: auto;
+    max-width: none;
+  }
+
+  .fixTitleSpan {
+    max-width: none;
   }
 
   .fixSub {

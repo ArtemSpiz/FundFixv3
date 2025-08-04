@@ -26,24 +26,20 @@ import AnimatedText from "@/components/AnimatedText.vue";
 
           <AnimatedText
             class="institutionsTitle instTitleDesktop"
-            anim-delay="0.06"
             text="This Is What the Institutions Never Wanted You to Access"
           />
 
           <div class="institutionsTitle instTitleMobil">
             <AnimatedText
               class="institutionsTitle"
-              anim-delay="0.05"
               text="This Is What the"
             />
             <AnimatedText
               class="institutionsTitle"
-              anim-delay="0.05"
               text="Institutions Never"
             />
             <AnimatedText
               class="institutionsTitle"
-              anim-delay="0.05"
               text="Wanted You to Access"
             />
           </div>

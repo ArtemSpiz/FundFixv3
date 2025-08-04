@@ -274,6 +274,7 @@ const roadmapRef = ref(null);
 const circleOverlay = ref(null);
 let animation = null;
 const exclusivityWrapper = ref(null);
+const bigDesktop = window.innerWidth > 1600;
 
 onMounted(() => {
   nextTick(() => {
@@ -284,7 +285,7 @@ onMounted(() => {
       circleOverlay.value,
       { scale: 0, opacity: 1 },
       {
-        scale: 18,
+        scale: bigDesktop ? 24 : 19,
         duration: 2,
         opacity: 1,
         ease: "power3.inOut",
@@ -329,11 +330,7 @@ onUnmounted(() => {
           <Stars />
           <AnimatedText text="What's Ahead" />
         </div>
-        <AnimatedText
-          anim-delay="0.07"
-          class="Title roadmapTitle"
-          text="Our Roadmap"
-        />
+        <AnimatedText class="Title roadmapTitle" text="Our Roadmap" />
       </div>
 
       <AnimatedText

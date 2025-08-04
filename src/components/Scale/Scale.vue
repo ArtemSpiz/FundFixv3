@@ -10,6 +10,7 @@ import scaleImgLines3 from "@/assets/img/scaleImgLines3.png";
 import scaleImage4 from "@/assets/img/scaleImage4.png";
 import scaleImgLines4 from "@/assets/img/scaleImgLines4.png";
 import { nextTick, reactive, ref } from "vue";
+import AnimatedText from "../AnimatedText.vue";
 
 const ScaleCards = [
   {
@@ -59,10 +60,10 @@ function getCardStyle(index) {
 
   const blur = relativeIndex * 2;
   const isMobile = window.innerWidth < 768;
-  const rotate = isMobile ? 0 - relativeIndex * 3 : 0 - relativeIndex * 5;
+  const rotate = isMobile ? 0 - relativeIndex * 4 : 0 - relativeIndex * 10;
   const z = 100 - relativeIndex;
   const translateXPercent = isMobile ? 50 : 45;
-  const translateYPercent = isMobile ? 10 : -60;
+  const translateYPercent = isMobile ? 15 : 20;
 
   if (relativeIndex === 0) {
     return {
@@ -179,7 +180,7 @@ function getEclipseStyle(index) {
 
 <template>
   <div id="about" class="scale">
-    <div class="scaleTitle">Scale Your Access</div>
+    <AnimatedText text="Scale Your Access" class="Title scaleTitle" />
 
     <div class="scaleCards">
       <div

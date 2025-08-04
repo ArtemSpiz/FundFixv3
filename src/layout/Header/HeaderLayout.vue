@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import "./Header.css";
 import logo from "@/assets/img/logoHeader.png";
 import Buger from "@/assets/svg/Buger.vue";
@@ -18,7 +18,17 @@ function setActive(index) {
   activeLink.value = index;
 }
 
+const props = defineProps({
+  onScrollToTokenomics: Function,
+});
+
 function scrollToSection(target, index) {
+  if (target === "#tokenomics") {
+    props.onScrollToTokenomics?.();
+    activeLink.value = index;
+    return;
+  }
+
   const el = document.querySelector(target);
   if (el) {
     const top = el.getBoundingClientRect().top + window.pageYOffset;
@@ -51,7 +61,7 @@ function scrollToSection(target, index) {
 
       <button class="headerBtn jelly-wave">Connect Wallet</button>
 
-      <Buger class="burgerOpen"/>
+      <Buger class="burgerOpen" />
     </div>
   </div>
 </template>

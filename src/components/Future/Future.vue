@@ -28,13 +28,19 @@ const FutureCards = [
   },
 ];
 
-import { onMounted, onBeforeUnmount, ref, defineExpose } from "vue";
+import { onMounted, onBeforeUnmount, ref, defineExpose, provide } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Tokenomics from "../Tokenomics/Tokenomics.vue";
 import AnimatedText from "../AnimatedText.vue";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Створюємо реактивну змінну для контролю анімації токеноміки
+const shouldStartTokenomicsAnimation = ref(false);
+
+// Надаємо цю змінну дочірнім компонентам
+provide("shouldStartTokenomicsAnimation", shouldStartTokenomicsAnimation);
 
 onMounted(() => {
   const cards = document.querySelectorAll(".futureCard");
@@ -111,6 +117,13 @@ onMounted(() => {
         `+=${isMobile ? cards.length * 500 + 800 : cards.length * 1000 + 800}`,
       scrub: 1.2,
       anticipatePin: 1,
+      onUpdate: (self) => {
+        // Запускаємо анімацію токеноміки коли прогрес досягає 85%
+        if (self.progress >= 0.85 && !shouldStartTokenomicsAnimation.value) {
+          console.log("Future animation 85% complete, triggering tokenomics");
+          shouldStartTokenomicsAnimation.value = true;
+        }
+      },
     },
   });
 
@@ -174,7 +187,7 @@ onMounted(() => {
       {
         opacity: 1,
         scale: isMiniMobile ? 0.5 : 0.4,
-        y: isMiniMobile ? 75 : 83,
+        y: isMiniMobile ? 150 : 83,
         duration: 1.5,
         ease: "power2.inOut",
       },
@@ -267,18 +280,9 @@ defineExpose({ scrollToTokenomics });
       />
 
       <div class="Title futureTitle mobileFutureTitle">
-        <AnimatedText
-          class="Title futureTitle"
-          text="The Future of"
-        />
-        <AnimatedText
-          class="Title futureTitle"
-          text="Private Investing"
-        />
-        <AnimatedText
-          class="Title futureTitle"
-          text="— Today"
-        />
+        <AnimatedText class="Title futureTitle" text="The Future of" />
+        <AnimatedText class="Title futureTitle" text="Private Investing" />
+        <AnimatedText class="Title futureTitle" text="— Today" />
       </div>
     </div>
 

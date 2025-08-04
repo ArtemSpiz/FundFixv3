@@ -12,6 +12,8 @@ const HeaderLinks = [
   { title: "Tokenomics", target: "#tokenomics" },
 ];
 
+const isScaledIn = ref(false);
+
 const activeLink = ref(0);
 
 function setActive(index) {
@@ -55,6 +57,10 @@ onMounted(() => {
   if (whiteSection.value) {
     observer.observe(whiteSection.value);
   }
+
+  setTimeout(() => {
+    isScaledIn.value = true;
+  }, 100);
 });
 
 onUnmounted(() => {
@@ -65,7 +71,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="header single-pulse-wave">
+  <div class="header single-pulse-wave" :class="{ 'scaled-in': isScaledIn }">
     <div class="headerLogo"><img :src="logo" alt="" /></div>
     <div class="headerRight">
       <div class="headerLinks">

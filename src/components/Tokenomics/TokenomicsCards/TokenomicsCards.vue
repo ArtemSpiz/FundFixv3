@@ -108,12 +108,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="tokenomicsCardsWrapper animate-on-scroll">
+  <div class="tokenomicsCardsWrapper" ref="scrollContainer">
     <div class="tokenomicsCards">
-      <div
-        class="tokenomicsCardsScroll animate-on-scroll"
-        ref="scrollContainer"
-      >
+      <div class="tokenomicsCardsScroll" ref="scrollContainer">
         <div
           class="tokenomicsCardWrapper"
           v-for="(card, index) in TokenomicsCards"

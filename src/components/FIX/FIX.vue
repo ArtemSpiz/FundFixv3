@@ -410,18 +410,13 @@ async function onPointerUp() {
             </div>
 
             <div class="Title">
-              <AnimatedText
-                class="fixTitle"
-                text="$FIX Token:"
-              />
-              <AnimatedText
-                class="fixTitleSpan"
-                text="Infinite Access."
-              />
+              <AnimatedText class="fixTitle" text="$FIX Token:" />
+              <AnimatedText class="fixTitleSpan" text="Infinite Access." />
             </div>
           </div>
 
           <AnimatedText
+            anim-delay="0.02"
             class="Subtitle fixSub"
             text="At the core of the FundFix platform lies $FIX—a versatile utility token designed to provide scalable, secure, and permissioned access to a broad array of private market investment opportunities."
           />

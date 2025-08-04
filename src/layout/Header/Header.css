@@ -8,12 +8,18 @@
   background: transparent;
   position: fixed;
   top: 5px;
-  right: 50%;
-  transform: translate(50%, 0);
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: 4px 4px 4px 28px;
   z-index: 200;
   background-color: #0f0f0f;
   backdrop-filter: blur(6rem);
+  scale: 0.7;
+  transition: scale 1s ease-in-out;
+}
+
+.header.scaled-in {
+  scale: 1;
 }
 
 .headerLogo {

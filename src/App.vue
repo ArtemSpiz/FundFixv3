@@ -11,6 +11,7 @@ import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
 import Footer from "./layout/Footer/Footer.vue";
 import { ref } from "vue";
+// import Tokenomics from "./components/Tokenomics/Tokenomics.vue";
 
 const futureRef = ref(null);
 
@@ -25,7 +26,8 @@ function handleScrollToTokenomics() {
   <Accessibility />
   <FIX />
   <Scale />
-  <Future ref="futureRef" />
+  <Future />
+  <!-- <Tokenomics /> -->
   <Roadmap />
   <FAQ />
   <Institutions />

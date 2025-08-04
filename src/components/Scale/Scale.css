@@ -218,8 +218,10 @@
 
   .scale {
     height: 550px;
-    padding: 48px 0px;
+    padding: 48px 16px;
     justify-content: start;
+    max-width: 100vw;
+    overflow: hidden;
   }
 }
 

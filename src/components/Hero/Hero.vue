@@ -95,7 +95,7 @@ function updatePositions() {
   let radius;
 
   if (screenWidth >= 1600) {
-    radius = 700;
+    radius = 750;
   } else if (screenWidth >= 1285) {
     radius = 610;
   } else if (screenWidth >= 1024) {
@@ -118,7 +118,7 @@ function updatePositions() {
   const total = HeroCards.length;
   const visibleCount = screenWidth < 640 ? 5 : 7;
   const centerIndex = Math.floor(visibleCount / 2);
-  const maxRotationDeg = screenWidth < 640 ? 50 : 80;
+  const maxRotationDeg = screenWidth > 1600 ? 65 : screenWidth < 640 ? 50 : 80;
 
   const visibleCards = [];
 
@@ -137,7 +137,10 @@ function updatePositions() {
 
     const angle = startAngle + angleStep * i;
 
-    const x = centerX + radius * Math.cos(angle);
+    const x =
+      screenWidth > 1600
+        ? centerX + radius * Math.cos(angle) * 1.3
+        : centerX + radius * Math.cos(angle);
     const y = centerY - radius * Math.sin(angle);
 
     const rotateDeg = (-maxRotationDeg * offsetFromCenter) / centerIndex;
@@ -360,7 +363,7 @@ onUnmounted(() => {
 }
 
 .heroBtn {
-  transform: scale(0.8);
+  transform: scale(0.7);
   opacity: 0;
   transition: transform 0.6s ease-out, opacity 0.6s ease-out;
 }

@@ -189,15 +189,11 @@
   line-height: 16px; /* 133.333% */
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 12000px) {
   .heroCard {
     position: relative;
-    width: 180px;
-    height: 190px;
-  }
-
-  .hero {
-    justify-content: c;
+    width: 200px;
+    height: 210px;
   }
 
   .hero::after,
@@ -208,8 +204,8 @@
   }
 
   .heroCard.active {
-    height: 215px;
-    width: 235px;
+    height: 225px;
+    width: 245px;
   }
 }
 @media (max-width: 1285px) {

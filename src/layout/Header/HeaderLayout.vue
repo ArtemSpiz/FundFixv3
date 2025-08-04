@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, onMounted, onUnmounted } from "vue";
 import "./Header.css";
 import logo from "@/assets/img/logoHeader.png";
 import Buger from "@/assets/svg/Buger.vue";
@@ -39,6 +39,29 @@ function scrollToSection(target, index) {
     activeLink.value = index;
   }
 }
+
+const isOnWhite = ref(false);
+const whiteSection = ref(null);
+let observer = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      isOnWhite.value = entry.isIntersecting;
+    },
+    { threshold: 0.1 }
+  );
+
+  if (whiteSection.value) {
+    observer.observe(whiteSection.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer && whiteSection.value) {
+    observer.unobserve(whiteSection.value);
+  }
+});
 </script>
 
 <template>
@@ -59,7 +82,9 @@ function scrollToSection(target, index) {
         </div>
       </div>
 
-      <button class="headerBtn jelly-wave">Connect Wallet</button>
+      <button :class="{ 'on-white': isOnWhite }" class="headerBtn jelly-wave">
+        Connect Wallet
+      </button>
 
       <Buger class="burgerOpen" />
     </div>

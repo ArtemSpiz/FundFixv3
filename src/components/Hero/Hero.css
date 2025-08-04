@@ -10,6 +10,7 @@
   justify-content: end;
   overflow: hidden;
   gap: 100px;
+  max-height: 1000px;
 }
 
 .hero::after {
@@ -196,7 +197,7 @@
   }
 
   .hero {
-    height: 1000px;
+    justify-content: c;
   }
 
   .hero::after,

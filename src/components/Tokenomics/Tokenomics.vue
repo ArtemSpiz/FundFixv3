@@ -31,7 +31,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="tokenomics" class="tokenomics">
+  <div ref="whiteSection" id="tokenomics" class="tokenomics">
     <div class="tokenomicsTexts animate-on-scroll">
       <div class="UnderTitle animate-on-scroll">
         <Stars />

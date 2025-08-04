@@ -80,6 +80,8 @@ const HeroCards = [
 
 const heroRef = ref(null);
 const isVisible = ref(false);
+const isBtnLoaded = ref(false);
+const btnRef = ref(null);
 
 const cardsWithPositions = ref([]);
 const activeIndex = ref(0);
@@ -188,6 +190,10 @@ function updatePositions() {
       loaded: true,
     }));
   }
+
+  setTimeout(() => {
+    isBtnLoaded.value = true;
+  }, 500);
 }
 
 onMounted(() => {
@@ -277,7 +283,13 @@ onUnmounted(() => {
         text="FundFix opens up access to early investments through a tokenized platform."
       />
 
-      <button class="heroBtn jelly-wave">Join to FundFix <ArrowBtn /></button>
+      <button
+        ref="btnRef"
+        :class="{ loaded: isBtnLoaded }"
+        class="heroBtn jelly-wave"
+      >
+        Join to FundFix <ArrowBtn />
+      </button>
     </div>
     <div class="heroBottom"><CompMouse /> Scoll to Discover</div>
 
@@ -299,7 +311,7 @@ onUnmounted(() => {
           transitionDelay: card.loaded ? `${card.delay}ms` : '0ms',
           transform: `
     translate(-50%, -50%)
-    translateY(${card.loaded ? '0px' : '100px'})
+    translateY(${card.loaded ? '0px' : '200px'})
     rotate(${card.rotateDeg}deg)
     ${card.shouldSpin ? 'rotateY(360deg)' : ''}
   `,
@@ -339,9 +351,22 @@ onUnmounted(() => {
 .heroCard {
   opacity: 0;
   transition: all 0.8s ease;
+  scale: 0.8;
 }
 
 .heroCard.loaded {
+  opacity: 1;
+  scale: 1;
+}
+
+.heroBtn {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.heroBtn.loaded {
+  transform: scale(1);
   opacity: 1;
 }
 </style>

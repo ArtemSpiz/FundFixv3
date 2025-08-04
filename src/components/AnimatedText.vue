@@ -16,7 +16,7 @@ const props = defineProps({
   },
   animDelay: {
     type: Number,
-    default: 0.07,
+    default: 0.04,
   },
 });
 

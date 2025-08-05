@@ -16,11 +16,11 @@
 }
 
 .tokenomicsCardWrapper {
-  display: none;
+  display: flex;
   flex: 1 0 0;
-  height: 350px;
-  min-width: 350px;
-  max-width: 350px;
+  height: 250px;
+  min-width: 234px;
+  max-width: 234px;
   padding: 8px;
   justify-content: center;
   align-items: center;
@@ -28,11 +28,6 @@
   border-radius: 18px;
   background: #e0e0e0;
   box-sizing: border-box;
-}
-
-.BgTokCards {
-  width: 400px;
-  height: 400px;
 }
 
 .tokenomicsCard {
@@ -135,13 +130,6 @@
 }
 
 @media (max-width: 768px) {
-  .tokenomicsCardWrapper {
-    height: 300px;
-    width: 300px;
-  }
-}
-
-/* @media (max-width: 768px) {
   .tokenomicsCardWrapper {
     height: 152px;
     flex: 0 0 343px;
@@ -278,4 +266,4 @@
   .tokenomicsCardsScroll:last-child {
     padding-right: 16px;
   }
-} */
+}

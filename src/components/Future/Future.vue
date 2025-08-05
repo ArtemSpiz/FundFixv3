@@ -28,19 +28,13 @@ const FutureCards = [
   },
 ];
 
-import { onMounted, onBeforeUnmount, ref, defineExpose, provide } from "vue";
+import { onMounted, onBeforeUnmount, ref, defineExpose } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Tokenomics from "../Tokenomics/Tokenomics.vue";
 import AnimatedText from "../AnimatedText.vue";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// Створюємо реактивну змінну для контролю анімації токеноміки
-const shouldStartTokenomicsAnimation = ref(false);
-
-// Надаємо цю змінну дочірнім компонентам
-provide("shouldStartTokenomicsAnimation", shouldStartTokenomicsAnimation);
 
 onMounted(() => {
   const cards = document.querySelectorAll(".futureCard");
@@ -52,7 +46,7 @@ onMounted(() => {
 
   const isMiniMobile = window.innerWidth < 641;
   const isMobile = window.innerWidth < 769;
-  const isTablet = window.innerWidth < 1024;
+  const isTablet = window.innerWidth < 1025;
   const bigDesktop = window.innerWidth > 1600;
 
   const initialWidth = phoneImage.offsetWidth;
@@ -117,13 +111,6 @@ onMounted(() => {
         `+=${isMobile ? cards.length * 500 + 800 : cards.length * 1000 + 800}`,
       scrub: 1.2,
       anticipatePin: 1,
-      onUpdate: (self) => {
-        // Запускаємо анімацію токеноміки коли прогрес досягає 85%
-        if (self.progress >= 0.85 && !shouldStartTokenomicsAnimation.value) {
-          console.log("Future animation 85% complete, triggering tokenomics");
-          shouldStartTokenomicsAnimation.value = true;
-        }
-      },
     },
   });
 
@@ -187,7 +174,7 @@ onMounted(() => {
       {
         opacity: 1,
         scale: isMiniMobile ? 0.5 : 0.4,
-        y: isMiniMobile ? 150 : 83,
+        y: isMiniMobile ? 75 : 83,
         duration: 1.5,
         ease: "power2.inOut",
       },
@@ -237,7 +224,7 @@ onMounted(() => {
       {
         opacity: 1,
         scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
-        y: bigDesktop ? 30 : 20,
+        y: bigDesktop ? 30 : isTablet ? 34 : 23,
         ease: "power2.inOut",
         duration: 2,
       },

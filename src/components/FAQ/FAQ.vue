@@ -47,10 +47,7 @@ const toggle = (index) => {
         <Stars />
         <AnimatedText text="FAQ" />
       </div>
-      <AnimatedText
-        class="Title faqTitle"
-        text="Frequently Asked Questions"
-      />
+      <AnimatedText class="Title faqTitle" text="Frequently Asked Questions" />
     </div>
     <div class="faqCards">
       <div

@@ -225,6 +225,9 @@
 }
 
 @media (max-width: 768px) {
+  .roadmap {
+    margin-top: 10px !important;
+  }
   .roadmapCardsSubtitle {
     max-width: none;
     width: 100%;

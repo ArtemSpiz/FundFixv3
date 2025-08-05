@@ -112,6 +112,8 @@ function updatePositions() {
 
   if (screenWidth >= 1600) {
     centerY = 1000;
+  } else if (screenWidth <= 640) {
+    centerY = 1000;
   } else {
     centerY = 800;
   }

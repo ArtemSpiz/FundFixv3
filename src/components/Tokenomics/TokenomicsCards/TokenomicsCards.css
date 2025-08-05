@@ -127,6 +127,10 @@
     position: relative;
     right: -50%;
   }
+
+  .tokenomicsCardWrapper {
+    height: 200px;
+  }
 }
 
 @media (max-width: 768px) {

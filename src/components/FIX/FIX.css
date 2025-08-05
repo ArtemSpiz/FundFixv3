@@ -20,7 +20,7 @@
   padding: 88px 0px 124px 117px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 100px;
   height: 100%;
   align-items: start;
   box-sizing: border-box;

@@ -16,11 +16,11 @@ const props = defineProps({
   },
   animDelay: {
     type: Number,
-    default: 0.04,
+    default: 0.03,
   },
 });
 
-const letters = props.text.split("");
+const words = props.text.split(/(\s+)/);
 const isVisible = ref(false);
 const animatedRef = ref(null);
 
@@ -46,31 +46,41 @@ onMounted(() => {
 <template>
   <div class="animated-text" ref="animatedRef">
     <span
-      v-for="(letter, index) in letters"
-      :key="index"
-      :class="['letter', { visible: isVisible }]"
-      :style="
-        isVisible
-          ? {
-              animationDelay: `${index * props.animDelay}s`,
-              animationPlayState: 'running',
-            }
-          : { animationPlayState: 'paused' }
-      "
+      v-for="(word, wordIndex) in words"
+      :key="wordIndex"
+      class="word-wrapper"
     >
-      {{ letter === " " ? "\u00A0" : letter }}
+      <span
+        v-for="(letter, letterIndex) in word.split('')"
+        :key="`${wordIndex}-${letterIndex}`"
+        :class="['letter', { visible: isVisible }]"
+        :style="
+          isVisible
+            ? {
+                animationDelay: `${
+                  (wordIndex * 5 + letterIndex) * props.animDelay
+                }s`,
+                animationPlayState: 'running',
+              }
+            : { animationPlayState: 'paused' }
+        "
+      >
+        {{ letter === " " ? "\u00A0" : letter }}
+      </span>
     </span>
   </div>
 </template>
 
 <style scoped>
 .animated-text {
-  display: inline-flex;
-  gap: 0.5px;
-  overflow: hidden;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  display: inline;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.word-wrapper {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .letter {

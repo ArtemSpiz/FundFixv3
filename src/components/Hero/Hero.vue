@@ -13,6 +13,7 @@ import heroCard7 from "@/assets/img/heroCard2.png";
 import heroCardIcon from "@/assets/img/heroCardActive.png";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import AnimatedText from "../AnimatedText.vue";
+import Shadow from "@/assets/svg/Shadow.vue";
 
 const HeroCards = [
   {
@@ -131,7 +132,7 @@ function updatePositions() {
         ? Math.PI / 1.1
         : screenWidth < 640
         ? Math.PI / 2
-        : Math.PI;
+        : Math.PI / 1.15;
     const angleStep = totalAngle / (visibleCount - 1);
     const startAngle = Math.PI / 2 - totalAngle / 2;
 
@@ -140,7 +141,7 @@ function updatePositions() {
     const x =
       screenWidth > 1600
         ? centerX + radius * Math.cos(angle) * 1.3
-        : centerX + radius * Math.cos(angle);
+        : centerX + radius * Math.cos(angle) * 1.15;
     const y = centerY - radius * Math.sin(angle);
 
     const rotateDeg = (-maxRotationDeg * offsetFromCenter) / centerIndex;
@@ -164,28 +165,19 @@ function updatePositions() {
   }
 
   if (!hasLoaded.value) {
-    visibleCards.forEach((card) => {
-      if (card.isActive) {
-        card.visible = true;
-      }
-    });
-
-    cardsWithPositions.value = visibleCards;
+    cardsWithPositions.value = visibleCards.map((card) => ({
+      ...card,
+      visible: true,
+      loaded: false,
+    }));
 
     setTimeout(() => {
       cardsWithPositions.value = cardsWithPositions.value.map((card) => ({
         ...card,
-        loaded: card.visible,
+        loaded: true,
       }));
-      setTimeout(() => {
-        hasLoaded.value = true;
-        cardsWithPositions.value = cardsWithPositions.value.map((card) => ({
-          ...card,
-          visible: true,
-          loaded: true,
-        }));
-      }, 800);
-    }, 50);
+      hasLoaded.value = true;
+    }, 100);
   } else {
     cardsWithPositions.value = visibleCards.map((card) => ({
       ...card,
@@ -278,12 +270,17 @@ onUnmounted(() => {
 
 <template>
   <div id="home" class="hero" ref="heroRef">
+    <Shadow class="heroShadow" />
     <div class="heroTexts">
-      <AnimatedText class="heroTitle" text="Hedge Fund in a Token" />
+      <div class="heroTitleWrap">
+        <AnimatedText class="heroTitle" text="Web3's" />
+        <AnimatedText class="heroTitle" text="Wall Street" />
+      </div>
 
       <AnimatedText
         class="heroSubtitle"
-        text="FundFix opens up access to early investments through a tokenized platform."
+        anim-delay="0.01"
+        text="Your own hedge fund in a Token that open up access to early investments."
       />
 
       <button
@@ -363,7 +360,7 @@ onUnmounted(() => {
 }
 
 .heroBtn {
-  transform: scale(0.7);
+  transform: scale(0.9);
   opacity: 0;
   transition: transform 0.6s ease-out, opacity 0.6s ease-out;
 }

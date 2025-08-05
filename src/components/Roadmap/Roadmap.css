@@ -79,21 +79,23 @@
 .roadmapCardsTitle {
   color: rgba(21, 21, 21, 0.48);
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: "TeX Gyre Adventor";
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 26px; /* 108.333% */
+  letter-spacing: 0.48px;
 }
 
 .roadmapCardsSubtitle {
   color: #151515;
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 24px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 26px; /* 108.333% */
+  width: 566px;
 }
 
 .roadmapCardsBtns {
@@ -136,6 +138,13 @@
   white-space: nowrap;
   cursor: pointer;
   pointer-events: all;
+  color: rgba(0, 0, 0, 0.48);
+  font-family: "TeX Gyre Adventor";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 112.5% */
+  letter-spacing: 0.32px;
 }
 
 .roadmapLine {
@@ -215,6 +224,10 @@
 }
 
 @media (max-width: 768px) {
+  .roadmapCardsSubtitle {
+    max-width: none;
+    width: 100%;
+  }
   .roadmapLine {
     display: flex;
   }

@@ -97,8 +97,8 @@ const centerY = svgHeight / 1.1;
           :style="{ backgroundColor: percent.color }"
         />
         <div class="tokenomicsPercentTexts">
-          <div class="tokenomicsPercentTitle">{{ percent.title }}</div>
           <div class="tokenomicsPercentSubtitle">{{ percent.percent }}</div>
+          <div class="tokenomicsPercentTitle">{{ percent.title }}</div>
         </div>
       </div>
     </div>

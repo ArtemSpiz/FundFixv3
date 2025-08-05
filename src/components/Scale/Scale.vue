@@ -63,7 +63,7 @@ function getCardStyle(index) {
   const rotate = isMobile ? 0 - relativeIndex * 4 : 0 - relativeIndex * 10;
   const z = 100 - relativeIndex;
   const translateXPercent = isMobile ? 50 : 45;
-  const translateYPercent = isMobile ? 15 : 20;
+  const translateYPercent = isMobile ? 0 : 20;
 
   if (relativeIndex === 0) {
     return {

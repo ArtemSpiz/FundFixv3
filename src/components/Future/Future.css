@@ -52,7 +52,8 @@
 }
 
 .futureTitle {
-  max-width: 470px;
+  max-width: 600px;
+  line-height: 100%;
 }
 
 .futurePhoneWrap {
@@ -203,7 +204,7 @@
 
 .futureCardTitle {
   color: #fff;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 18px;
   font-style: normal;
   font-weight: 800;
@@ -212,7 +213,7 @@
 
 .futureCardText {
   color: rgba(255, 255, 255, 0.48);
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -240,7 +241,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 18px; /* 112.5% */
+  line-height: 20px; /* 112.5% */
   position: absolute;
   white-space: nowrap;
 }
@@ -409,10 +410,6 @@
   .future {
     padding: 72px 16px;
     box-sizing: border-box;
-  }
-
-  .desktopFutureTitle {
-    display: none !important;
   }
 
   .mobileFutureTitle {

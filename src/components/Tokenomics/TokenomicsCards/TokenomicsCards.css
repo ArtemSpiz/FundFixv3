@@ -19,8 +19,8 @@
   display: flex;
   flex: 1 0 0;
   height: 250px;
-  min-width: 234px;
-  max-width: 234px;
+  min-width: 240px;
+  max-width: 240px;
   padding: 8px;
   justify-content: center;
   align-items: center;
@@ -60,10 +60,10 @@
 
 .tokenomicsCardTitle {
   color: rgba(255, 255, 255, 0.48);
-  font-family: "Helvetica Now Display";
-  font-size: 20px;
+  font-family: Poppins;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 20px; /* 125% */
 }
 
@@ -90,7 +90,7 @@
 .tokenomicsCardSubtitle {
   color: rgba(255, 255, 255, 0.48);
   font-family: "Helvetica Now Display";
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px; /* 114.286% */
@@ -98,10 +98,10 @@
 
 .tokenomicsCardText {
   color: #fff;
-  font-family: "Helvetica Now Display";
-  font-size: 22px;
+  font-family: Poppins;
+  font-size: 18px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 20px; /* 111.111% */
 }
 

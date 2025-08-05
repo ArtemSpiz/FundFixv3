@@ -7,7 +7,7 @@ const RoadmapCards = [
   {
     title: "Q1 2025",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
   {
     title: "Q2 2025",
@@ -27,32 +27,32 @@ const RoadmapCards = [
   {
     title: "Q1 2026",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
   {
     title: "Q2 2026",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
   {
     title: "Q3 2026",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
   {
     title: "Q4 2026",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
   {
     title: "Q1 2027",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
   {
     title: "Q2 2027",
     subtitle:
-      "Team formation, regulatory onboarding, private investor roadshows ",
+      "Team formation, regulatory onboarding, private investor roadshows",
   },
 ];
 
@@ -285,7 +285,7 @@ onMounted(() => {
       circleOverlay.value,
       { scale: 0, opacity: 1 },
       {
-        scale: bigDesktop ? 35 : 19,
+        scale: bigDesktop ? 40 : 25,
         duration: 2,
         opacity: 1,
         ease: "power3.inOut",
@@ -323,7 +323,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="roadmap" ref="roadmapRef">
+  <div class="roadmap" id="roadmap" ref="roadmapRef">
     <div class="roadmapTexts">
       <div class="roadmapTitles">
         <div class="UnderTitle">
@@ -334,6 +334,7 @@ onUnmounted(() => {
       </div>
 
       <AnimatedText
+        anim-delay="0.02"
         class="Subtitle roadmapSubtitle"
         text="Access the Deals Behind Silicon Valley's Greatest Success Stories—At the Speed of Blockchain"
       />

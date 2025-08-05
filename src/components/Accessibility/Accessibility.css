@@ -53,7 +53,7 @@
 .accessibilityTitle {
   color: #fff;
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: "TeX Gyre Adventor";
   font-size: 96px;
   font-style: normal;
   font-weight: 700;
@@ -206,7 +206,7 @@
 
 .accessCardTitle {
   color: #fff;
-  font-family: "Helvetica Now Display";
+  font-family: "TeX Gyre Adventor";
   font-size: 18px;
   font-style: normal;
   font-weight: 800;
@@ -215,7 +215,7 @@
 
 .accessCardText {
   color: rgba(255, 255, 255, 0.48);
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

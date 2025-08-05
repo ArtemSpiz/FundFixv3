@@ -28,7 +28,7 @@ html {
   gap: 4px;
   color: #d06bff;
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -38,7 +38,7 @@ html {
 
 .Title {
   color: #fff;
-  font-family: "Helvetica Now Display";
+  font-family: "TeX Gyre Adventor";
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
@@ -48,7 +48,7 @@ html {
 
 .Subtitle {
   color: rgba(255, 255, 255, 0.8);
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -515,5 +515,21 @@ html {
     url("@/fonts/HelveticaNowDisplay/HelveticaNowDisplay-Hairline.ttf")
       format("truetype");
   font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "TeX Gyre Adventor";
+  src: url("@/fonts/tex-gyre-adventor/texgyreadventor-regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "TeX Gyre Adventor";
+  src: url("@/fonts/tex-gyre-adventor/texgyreadventor-bold.otf")
+    format("opentype");
+  font-weight: 700;
   font-style: normal;
 }

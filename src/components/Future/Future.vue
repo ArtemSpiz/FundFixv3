@@ -174,7 +174,7 @@ onMounted(() => {
       {
         opacity: 1,
         scale: isMiniMobile ? 0.5 : 0.4,
-        y: isMiniMobile ? 75 : 83,
+        y: isMiniMobile ? 110 : 83,
         duration: 1.5,
         ease: "power2.inOut",
       },
@@ -263,14 +263,8 @@ defineExpose({ scrollToTokenomics });
       </div>
       <AnimatedText
         class="Title futureTitle desktopFutureTitle"
-        text="The Future of Private Investing — Today"
+        text="The Future of Private Investing"
       />
-
-      <div class="Title futureTitle mobileFutureTitle">
-        <AnimatedText class="Title futureTitle" text="The Future of" />
-        <AnimatedText class="Title futureTitle" text="Private Investing" />
-        <AnimatedText class="Title futureTitle" text="— Today" />
-      </div>
     </div>
 
     <div class="futurePhoneWrap">

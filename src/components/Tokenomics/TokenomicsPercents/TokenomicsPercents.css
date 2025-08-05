@@ -39,8 +39,8 @@
 }
 
 .tokenomicsPercentTitle {
-  color: #000;
-  font-family: "Helvetica Now Display";
+  color: rgba(0, 0, 0, 0.48);
+  font-family: Poppins;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -48,8 +48,8 @@
 }
 
 .tokenomicsPercentSubtitle {
-  color: rgba(0, 0, 0, 0.48);
-  font-family: "Helvetica Now Display";
+  color: #000;
+  font-family: Poppins;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -76,7 +76,7 @@
 .tokenomicsArksTitle {
   color: rgba(0, 0, 0, 0.48);
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -85,7 +85,7 @@
 
 .tokenomicsArksSubtitle {
   color: #000;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 32px;
   font-style: normal;
   font-weight: 500;

@@ -92,10 +92,10 @@
 
 .exclusivityCardTitle {
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 18px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 22px; /* 122.222% */
 }
 
@@ -284,11 +284,13 @@
   .exclusivityTitle {
     justify-content: center !important;
     align-items: center !important;
+    text-align: center;
   }
 
   .exclusivitySubtitle {
     justify-content: center !important;
     align-items: center !important;
+    text-align: center;
   }
 
   .exclusivityTitles {

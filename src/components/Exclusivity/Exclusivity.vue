@@ -58,8 +58,9 @@ const ExclusivityCards = [
         </div>
 
         <AnimatedText
+          anim-delay="0.02"
           class="Subtitle exclusivitySubtitle"
-          text="FundFix is built for serious capital allocators —not hype-chasers."
+          text="FundFix is built for serious capital allocators — not hype-chasers."
         />
       </div>
 

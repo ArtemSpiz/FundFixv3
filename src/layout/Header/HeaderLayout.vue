@@ -22,6 +22,8 @@ function setActive(index) {
 
 const props = defineProps({
   onScrollToTokenomics: Function,
+  isOnRoadmap: Boolean,
+  isOnTokenomics: Boolean,
 });
 
 function scrollToSection(target, index) {
@@ -71,28 +73,38 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="header single-pulse-wave" :class="{ 'scaled-in': isScaledIn }">
-    <div class="headerLogo"><img :src="logo" alt="" /></div>
-    <div class="headerRight">
-      <div class="headerLinks">
-        <div v-for="(link, index) in HeaderLinks" :key="index">
-          <div
-            class="headerLink"
-            @click="scrollToSection(link.target, index)"
-            @mouseenter="setActive(index)"
-            @mouseleave="setActive(0)"
-            :class="{ active: index === activeLink }"
-          >
-            {{ link.title }}
+  <div class="headerWrapper">
+    <div class="header single-pulse-wave" :class="{ 'scaled-in': isScaledIn }">
+      <div class="headerLogo"><img :src="logo" alt="" /></div>
+      <div class="headerRight">
+        <div class="headerLinks">
+          <div v-for="(link, index) in HeaderLinks" :key="index">
+            <div
+              class="headerLink"
+              @click="scrollToSection(link.target, index)"
+              @mouseenter="setActive(index)"
+              @mouseleave="setActive(0)"
+              :class="{
+                active: index === activeLink,
+                'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+              }"
+            >
+              {{ link.title }}
+            </div>
           </div>
         </div>
+
+        <button
+          :class="{
+            'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+          }"
+          class="headerBtn jelly-wave"
+        >
+          Connect Wallet
+        </button>
+
+        <Buger class="burgerOpen" />
       </div>
-
-      <button :class="{ 'on-white': isOnWhite }" class="headerBtn jelly-wave">
-        Connect Wallet
-      </button>
-
-      <Buger class="burgerOpen" />
     </div>
   </div>
 </template>

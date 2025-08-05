@@ -161,7 +161,7 @@ onMounted(() => {
         id: "accessAnimation",
         trigger: section,
         start: "top top",
-        end: () => `+=${cards.length * 500 * 0.7}`,
+        end: () => `+=${cards.length * 350 * 0.7}`,
         scrub: 1,
         pin: true,
         onUpdate: () => {
@@ -186,7 +186,7 @@ onMounted(() => {
     });
 
     masterTimeline.to(cards, {
-      yPercent: "-=450",
+      yPercent: "-=250",
       ease: "none",
       duration: 0.7,
     });
@@ -291,9 +291,7 @@ onUnmounted(() => {
       <div class="accessibilityTexts">
         <div class="UnderTitle"><Stars />Accessibility</div>
 
-        <div class="accessibilityTitle">
-          FundFix: Private Markets for Everyone
-        </div>
+        <div class="accessibilityTitle">Private Markets for Everyone</div>
       </div>
 
       <div class="accessibilityCards">

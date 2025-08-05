@@ -128,17 +128,6 @@ onMounted(() => {
             });
           }
         });
-
-        if (progress >= 0.99) {
-          const lastCard = cards[cards.length - 1];
-          gsap.to(lastCard, {
-            opacity: 1,
-            y: 0,
-            zIndex: 3,
-            duration: 0.5,
-            ease: "power3.inOut",
-          });
-        }
       },
     });
   } else {

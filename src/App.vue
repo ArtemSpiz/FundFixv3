@@ -46,6 +46,7 @@ onMounted(() => {
 
   observer.observe(tokenomicsEl);
 });
+
 </script>
 
 <template>

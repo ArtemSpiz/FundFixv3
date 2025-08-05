@@ -13,6 +13,7 @@
 
 .containerFix {
   display: flex;
+  max-height: 1000px;
 }
 
 .fixLeft {

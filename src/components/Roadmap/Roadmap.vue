@@ -327,6 +327,8 @@ onMounted(() => {
       },
     });
   });
+
+  ScrollTrigger.refresh();
 });
 
 onUnmounted(() => {

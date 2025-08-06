@@ -83,7 +83,15 @@ function toggleBurger() {
   <div class="headerWrapper">
     <div class="header single-pulse-wave" :class="{ 'scaled-in': isScaledIn }">
       <div class="headerMobWrapper">
-        <div class="headerLogo"><img :src="logo" alt="" /></div>
+        <div class="headerLogo">
+          <img
+            :src="logo"
+            alt=""
+            :class="{
+              'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+            }"
+          />
+        </div>
         <div class="headerRight">
           <div class="headerLinks">
             <div v-for="(link, index) in HeaderLinks" :key="index">
@@ -112,7 +120,13 @@ function toggleBurger() {
           </button>
 
           <div class="burgerOpen" @click="toggleBurger">
-            <component :is="isBurgerOpen ? Cross : Burger" />
+            <component
+              class="burgerOpenSvg"
+              :is="isBurgerOpen ? Cross : Burger"
+              :class="{
+                'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+              }"
+            />
           </div>
         </div>
       </div>

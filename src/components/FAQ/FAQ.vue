@@ -42,6 +42,7 @@ const toggle = (index) => {
 
 <template>
   <div id="how-it-works" class="faq">
+    <div class="faqBg" />
     <div class="faqTexts">
       <div class="UnderTitle">
         <Stars />

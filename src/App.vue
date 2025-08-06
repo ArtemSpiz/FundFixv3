@@ -15,6 +15,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const isMobile = window.innerWidth < 641;
 const isOnRoadmapScroll = ref(false);
 const isOnTokenomics = ref(false);
 
@@ -29,7 +30,7 @@ onMounted(async () => {
     ScrollTrigger.create({
       trigger: "#roadmap",
       start: "top 80%",
-      end: "bottom 50%", 
+      end: "bottom 50%",
       onEnter: () => {
         console.log("Roadmap entered");
         isOnRoadmapScroll.value = true;
@@ -50,11 +51,31 @@ onMounted(async () => {
 
     const tokenomicsEl = document.querySelector("#tokenomics");
     if (tokenomicsEl) {
+      let tokenomicsTimeout = null;
+
       const observer = new IntersectionObserver(
         ([entry]) => {
-          isOnTokenomics.value = entry.isIntersecting;
+          if (entry.isIntersecting) {
+            const delay = isMobile ? 800 : 0;
+
+            tokenomicsTimeout = setTimeout(() => {
+              console.log("Tokenomics state set to true with delay:", delay);
+              isOnTokenomics.value = true;
+            }, delay);
+          } else {
+            if (tokenomicsTimeout) {
+              clearTimeout(tokenomicsTimeout);
+              tokenomicsTimeout = null;
+            }
+
+            console.log("Tokenomics state set to false immediately");
+            isOnTokenomics.value = false;
+          }
         },
-        { threshold: 0.1 }
+        {
+          threshold: isMobile ? 0.3 : 0.1,
+          rootMargin: isMobile ? "-10% 0px -10% 0px" : "0px",
+        }
       );
 
       observer.observe(tokenomicsEl);

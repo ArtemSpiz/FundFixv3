@@ -2,7 +2,8 @@
 import { ref, defineProps, onMounted, onUnmounted } from "vue";
 import "./Header.css";
 import logo from "@/assets/img/logoHeader.png";
-import Buger from "@/assets/svg/Buger.vue";
+import Burger from "@/assets/svg/Buger.vue";
+import Cross from "@/assets/svg/Cross.vue";
 
 const HeaderLinks = [
   { title: "Home", target: "#home" },
@@ -70,18 +71,63 @@ onUnmounted(() => {
     observer.unobserve(whiteSection.value);
   }
 });
+
+const isBurgerOpen = ref(false);
+
+function toggleBurger() {
+  isBurgerOpen.value = !isBurgerOpen.value;
+}
 </script>
 
 <template>
   <div class="headerWrapper">
     <div class="header single-pulse-wave" :class="{ 'scaled-in': isScaledIn }">
-      <div class="headerLogo"><img :src="logo" alt="" /></div>
-      <div class="headerRight">
-        <div class="headerLinks">
-          <div v-for="(link, index) in HeaderLinks" :key="index">
+      <div class="headerMobWrapper">
+        <div class="headerLogo"><img :src="logo" alt="" /></div>
+        <div class="headerRight">
+          <div class="headerLinks">
+            <div v-for="(link, index) in HeaderLinks" :key="index">
+              <div
+                class="headerLink"
+                @click="scrollToSection(link.target, index)"
+                @mouseenter="setActive(index)"
+                @mouseleave="setActive(0)"
+                :class="{
+                  active: index === activeLink,
+                  'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+                }"
+              >
+                {{ link.title }}
+              </div>
+            </div>
+          </div>
+
+          <button
+            :class="{
+              'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+            }"
+            class="headerBtn jelly-wave"
+          >
+            Connect Wallet
+          </button>
+
+          <div class="burgerOpen" @click="toggleBurger">
+            <component :is="isBurgerOpen ? Cross : Burger" />
+          </div>
+        </div>
+      </div>
+
+      <transition name="burger-slide">
+        <div class="burgerMenu" v-if="isBurgerOpen">
+          <div class="headerLinks headerLinksMob">
             <div
+              v-for="(link, index) in HeaderLinks"
+              :key="index"
               class="headerLink"
-              @click="scrollToSection(link.target, index)"
+              @click="
+                scrollToSection(link.target, index);
+                isBurgerOpen = false;
+              "
               @mouseenter="setActive(index)"
               @mouseleave="setActive(0)"
               :class="{
@@ -93,18 +139,7 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
-
-        <button
-          :class="{
-            'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
-          }"
-          class="headerBtn jelly-wave"
-        >
-          Connect Wallet
-        </button>
-
-        <Buger class="burgerOpen" />
-      </div>
+      </transition>
     </div>
   </div>
 </template>

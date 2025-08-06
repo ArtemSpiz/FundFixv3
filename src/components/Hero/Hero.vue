@@ -83,6 +83,7 @@ const heroRef = ref(null);
 const isVisible = ref(false);
 const isBtnLoaded = ref(false);
 const btnRef = ref(null);
+const isMobile = window.innerWidth < 641;
 
 const cardsWithPositions = ref([]);
 const activeIndex = ref(0);
@@ -194,9 +195,12 @@ function updatePositions() {
 }
 
 onMounted(() => {
-  intervalId = setInterval(() => {
-    activeIndex.value = (activeIndex.value - 1) % HeroCards.length;
-  }, 5000);
+  intervalId = setInterval(
+    () => {
+      activeIndex.value = (activeIndex.value - 1) % HeroCards.length;
+    },
+    isMobile ? 3000 : 5000
+  );
 
   updatePositions();
 });
@@ -213,9 +217,12 @@ let observer = null;
 
 function startAutoScroll() {
   if (!intervalId) {
-    intervalId = setInterval(() => {
-      activeIndex.value = (activeIndex.value - 1) % HeroCards.length;
-    }, 5000);
+    intervalId = setInterval(
+      () => {
+        activeIndex.value = (activeIndex.value - 1) % HeroCards.length;
+      },
+      isMobile ? 3000 : 5000
+    );
   }
 }
 

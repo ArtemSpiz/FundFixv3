@@ -28,7 +28,7 @@ const FutureCards = [
   },
 ];
 
-import { onMounted, onBeforeUnmount, ref, defineExpose } from "vue";
+import { onMounted, onBeforeUnmount, ref, defineExpose, nextTick } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Tokenomics from "../Tokenomics/Tokenomics.vue";
@@ -36,13 +36,30 @@ import AnimatedText from "../AnimatedText.vue";
 
 gsap.registerPlugin(ScrollTrigger);
 
-onMounted(() => {
+let scrollTriggerInstance = null;
+
+onMounted(async () => {
+  await nextTick();
+
   const cards = document.querySelectorAll(".futureCard");
   const phoneImage = document.querySelector(".futurePhone");
   const overlay = document.querySelector(".phoneOverlay");
   const futureTexts = document.querySelector(".futureTexts");
   const futureSection = document.querySelector(".future");
   const tokenomics = document.querySelector(".tokenomicsInFuture");
+
+  // Перевіряємо чи всі елементи існують
+  if (
+    !cards.length ||
+    !phoneImage ||
+    !overlay ||
+    !futureTexts ||
+    !futureSection ||
+    !tokenomics
+  ) {
+    console.warn("Some elements not found, skipping animation");
+    return;
+  }
 
   const isMiniMobile = window.innerWidth < 641;
   const isMobile = window.innerWidth < 769;
@@ -58,11 +75,12 @@ onMounted(() => {
     ? (targetWidth / initialWidth) * 1.1
     : (targetWidth / initialWidth) * 1.1;
 
+  // Початкові налаштування
   gsap.set(tokenomics, {
     position: "absolute",
     top: "50%",
     left: "50%",
-    xPercent: -50,
+    xPercent: isMobile ? -53 : -50,
     yPercent: -50,
     opacity: 0,
     scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.27,
@@ -74,19 +92,6 @@ onMounted(() => {
     transformOrigin: "bottom center",
     opacity: 1,
   });
-
-  if (isMobile) {
-    gsap.set(tokenomics, {
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      xPercent: -53,
-      yPercent: -50,
-      opacity: 0,
-      scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.27,
-      transformOrigin: "center center",
-    });
-  }
 
   if (isMobile) {
     cards.forEach((card) => {
@@ -101,6 +106,7 @@ onMounted(() => {
     });
   }
 
+  // Створюємо timeline з покращеними налаштуваннями для мобільних
   const tl = gsap.timeline({
     scrollTrigger: {
       id: "future-sequence",
@@ -108,17 +114,44 @@ onMounted(() => {
       pin: futureSection,
       start: "top top",
       end: () =>
-        `+=${isMobile ? cards.length * 500 + 800 : cards.length * 1000 + 800}`,
-      scrub: 1.2,
+        `+=${isMobile ? cards.length * 400 + 600 : cards.length * 1000 + 800}`,
+      scrub: isMobile ? 0.8 : 1.2, // Менший scrub для мобільних
       anticipatePin: 1,
+      invalidateOnRefresh: true,
+      // Додаткові налаштування для мобільних
+      ...(isMobile && {
+        normalizeScroll: false,
+        fastScrollEnd: true,
+        preventOverlaps: true,
+      }),
+      onUpdate: (self) => {
+        // Запобігаємо блокуванню скролу
+        if (isMobile && self.isActive) {
+          document.body.style.touchAction = "pan-y";
+        }
+      },
+      onToggle: (self) => {
+        if (isMobile) {
+          if (self.isActive) {
+            document.body.style.touchAction = "pan-y";
+            document.body.style.overscrollBehavior = "contain";
+          } else {
+            document.body.style.touchAction = "";
+            document.body.style.overscrollBehavior = "";
+          }
+        }
+      },
     },
   });
 
+  scrollTriggerInstance = ScrollTrigger.getById("future-sequence");
+
   if (isMobile) {
+    // Оптимізована анімація для мобільних
     tl.to(overlay, {
       scaleY: 1,
       opacity: 1,
-      duration: 4,
+      duration: 3,
       ease: "power2.inOut",
     });
 
@@ -127,8 +160,8 @@ onMounted(() => {
       {
         y: 1,
         opacity: 1,
-        duration: 4,
-        stagger: 0.25,
+        duration: 3,
+        stagger: 0.2,
         ease: "power3.out",
       },
       "<+=0.1"
@@ -140,10 +173,10 @@ onMounted(() => {
         {
           yPercent: -310,
           opacity: 1,
-          duration: 8,
+          duration: 6,
           ease: "power3.inOut",
         },
-        i === 0 ? "<-=0.5" : "<"
+        i === 0 ? "<-=0.3" : "<"
       );
     });
 
@@ -152,10 +185,10 @@ onMounted(() => {
       {
         y: -200,
         opacity: 0,
-        duration: 2,
+        duration: 1.5,
         ease: "power2.inOut",
       },
-      "<+=4.5"
+      "<+=3"
     );
 
     tl.to(
@@ -163,7 +196,7 @@ onMounted(() => {
       {
         y: -280,
         scale: scaleFactor,
-        duration: 4,
+        duration: 3,
         ease: "power2.inOut",
       },
       "<+=0.1"
@@ -175,12 +208,13 @@ onMounted(() => {
         opacity: 1,
         scale: isMiniMobile ? 0.5 : 0.4,
         y: isMiniMobile ? 110 : 83,
-        duration: 1.5,
+        duration: 1.2,
         ease: "power2.inOut",
       },
-      "<+=0.5"
+      "<+=0.3"
     );
   } else {
+    // Десктопна анімація залишається без змін
     tl.to([futureTexts, cards], {
       yPercent: -400,
       opacity: 0,
@@ -231,18 +265,29 @@ onMounted(() => {
       "<+=1"
     );
   }
+});
 
-  const handleResize = () => {
-    ScrollTrigger.refresh();
-  };
+// Покращена функція очищення
+onBeforeUnmount(() => {
+  // Відновлюємо стилі body
+  document.body.style.touchAction = "";
+  document.body.style.overscrollBehavior = "";
 
-  window.addEventListener("resize", handleResize);
+  // Очищуємо ScrollTrigger
+  if (scrollTriggerInstance) {
+    scrollTriggerInstance.kill();
+    scrollTriggerInstance = null;
+  }
 
-  onBeforeUnmount(() => {
-    window.removeEventListener("resize", handleResize);
-    ScrollTrigger.getById("future-sequence")?.kill();
-    ScrollTrigger.refresh();
+  // Очищуємо всі ScrollTrigger з цим ID
+  ScrollTrigger.getAll().forEach((trigger) => {
+    if (trigger.vars.id === "future-sequence") {
+      trigger.kill();
+    }
   });
+
+  // Рефрешимо ScrollTrigger
+  ScrollTrigger.refresh();
 });
 
 const tokenomicsRef = ref(null);

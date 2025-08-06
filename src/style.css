@@ -183,6 +183,18 @@ html {
   }
 }
 
+@media (max-width: 768px) {
+  .future {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.gsap-scrolltrigger-pin-spacer {
+    touch-action: pan-y !important;
+    overflow: auto !important;
+  }
+}
+
 @font-face {
   font-family: "Helvetica Now Display";
   src: url("@/fonts/HelveticaNowDisplay/HelveticaNowDisplay-ThinIta.eot");

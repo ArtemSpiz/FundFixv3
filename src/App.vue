@@ -2,14 +2,14 @@
 import "./style.css";
 import HeaderLayout from "./layout/Header/HeaderLayout.vue";
 import Hero from "./components/Hero/Hero.vue";
-// import Accessibility from "./components/Accessibility/Accessibility.vue";
+import Accessibility from "./components/Accessibility/Accessibility.vue";
 import Scale from "./components/Scale/Scale.vue";
 import Future from "./components/Future/Future.vue";
-// import Roadmap from "./components/Roadmap/Roadmap.vue";
+import Roadmap from "./components/Roadmap/Roadmap.vue";
 import FIX from "./components/FIX/FIX.vue";
 import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, nextTick } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -22,29 +22,44 @@ const isHeaderDark = computed(
   () => isOnRoadmapScroll.value || isOnTokenomics.value
 );
 
-onMounted(() => {
-  ScrollTrigger.create({
-    trigger: "#roadmap",
-    start: "top center",
-    end: "+=1000",
-    scrub: true,
-    onEnter: () => (isOnRoadmapScroll.value = true),
-    onEnterBack: () => (isOnRoadmapScroll.value = true),
-    onLeave: () => (isOnRoadmapScroll.value = false),
-    onLeaveBack: () => (isOnRoadmapScroll.value = false),
-  });
+onMounted(async () => {
+  await nextTick();
 
-  const tokenomicsEl = document.querySelector("#tokenomics");
-  if (!tokenomicsEl) return;
+  setTimeout(() => {
+    ScrollTrigger.create({
+      trigger: "#roadmap",
+      start: "top 80%",
+      end: "bottom 50%", 
+      onEnter: () => {
+        console.log("Roadmap entered");
+        isOnRoadmapScroll.value = true;
+      },
+      onEnterBack: () => {
+        console.log("Roadmap entered back");
+        isOnRoadmapScroll.value = true;
+      },
+      onLeave: () => {
+        console.log("Roadmap left");
+        isOnRoadmapScroll.value = false;
+      },
+      onLeaveBack: () => {
+        console.log("Roadmap left back");
+        isOnRoadmapScroll.value = false;
+      },
+    });
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      isOnTokenomics.value = entry.isIntersecting;
-    },
-    { threshold: 0.1 }
-  );
+    const tokenomicsEl = document.querySelector("#tokenomics");
+    if (tokenomicsEl) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          isOnTokenomics.value = entry.isIntersecting;
+        },
+        { threshold: 0.1 }
+      );
 
-  observer.observe(tokenomicsEl);
+      observer.observe(tokenomicsEl);
+    }
+  }, 100);
 });
 </script>
 
@@ -54,11 +69,11 @@ onMounted(() => {
     :isOnRoadmap="isHeaderDark"
   />
   <Hero />
-  <!-- <Accessibility /> -->
+  <Accessibility />
   <FIX />
   <Scale />
   <Future />
-  <!-- <Roadmap /> -->
+  <Roadmap />
   <FAQ />
   <Institutions />
 </template>

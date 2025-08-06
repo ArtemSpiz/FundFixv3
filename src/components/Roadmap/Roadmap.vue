@@ -290,6 +290,7 @@ onMounted(() => {
         opacity: 1,
         ease: "power3.inOut",
         scrollTrigger: {
+          id: "roadmap-circle-animation",
           trigger: roadmapRef.value,
           start: "bottom bottom",
           end: "+=1000",
@@ -314,8 +315,17 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  ScrollTrigger.getAll().forEach((trigger) => {
+    if (
+      trigger.vars.id === "roadmap-circle-animation" ||
+      trigger.vars.id === "roadmap-exclusivity-animation"
+    ) {
+      trigger.kill();
+    }
+  });
+
   if (animation) {
-    animation.scrollTrigger.kill();
+    animation.scrollTrigger?.kill();
     animation.kill();
     animation = null;
   }

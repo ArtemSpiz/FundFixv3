@@ -199,7 +199,7 @@ onMounted(() => {
     () => {
       activeIndex.value = (activeIndex.value - 1) % HeroCards.length;
     },
-    isMobile ? 3000 : 5000
+    isMobile ? 2500 : 5000
   );
 
   updatePositions();
@@ -221,7 +221,7 @@ function startAutoScroll() {
       () => {
         activeIndex.value = (activeIndex.value - 1) % HeroCards.length;
       },
-      isMobile ? 3000 : 5000
+      isMobile ? 2500 : 5000
     );
   }
 }

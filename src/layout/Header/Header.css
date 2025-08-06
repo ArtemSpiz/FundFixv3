@@ -21,9 +21,12 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-
   scale: 0.7;
-  transition: scale 1s ease-in-out;
+  transition: scale 1s ease-in-out, background 0.5s ease-in-out;
+}
+
+.header.burgerOpen {
+  background: rgba(15, 15, 15, 0.8);
 }
 
 .headerMobWrapper {
@@ -50,6 +53,10 @@
 
 .headerLogo img.on-roadmap {
   filter: invert(1) brightness(1.2) contrast(1.2);
+}
+
+.headerLogo img.burgerOpen {
+  filter: none;
 }
 
 .headerRight {
@@ -151,7 +158,7 @@
 
 .headerBtn.on-roadmap {
   background: #0f0f0f;
-  color: #97a1e7;
+  color: #fff;
 }
 
 .burgerOpen {
@@ -172,6 +179,19 @@
 }
 
 @media (max-width: 768px) {
+  .headerLink.on-roadmap {
+    color: #fff;
+  }
+
+  .burgerOpenSvg.burgerOpen path {
+    stroke: #fff;
+  }
+
+  .headerBtn.on-roadmap.burgerOpen {
+    background: #fff;
+    color: #000;
+  }
+
   .headerLinks {
     display: none;
   }
@@ -247,6 +267,20 @@
     opacity: 0;
     transform: translateY(-16px);
     max-height: 0;
+  }
+
+  .headerLink.active.burgerOpen {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(12px);
+  }
+
+  .headerLink.burgerOpen::before {
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.05) 60%,
+      transparent 100%
+    );
   }
 }
 

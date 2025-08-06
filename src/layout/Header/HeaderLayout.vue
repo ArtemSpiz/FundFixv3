@@ -81,7 +81,10 @@ function toggleBurger() {
 
 <template>
   <div class="headerWrapper">
-    <div class="header single-pulse-wave" :class="{ 'scaled-in': isScaledIn }">
+    <div
+      class="header single-pulse-wave"
+      :class="{ 'scaled-in': isScaledIn, burgerOpen: isBurgerOpen }"
+    >
       <div class="headerMobWrapper">
         <div class="headerLogo">
           <img
@@ -89,6 +92,7 @@ function toggleBurger() {
             alt=""
             :class="{
               'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+              burgerOpen: isBurgerOpen,
             }"
           />
         </div>
@@ -113,6 +117,7 @@ function toggleBurger() {
           <button
             :class="{
               'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+              burgerOpen: isBurgerOpen,
             }"
             class="headerBtn jelly-wave"
           >
@@ -125,6 +130,7 @@ function toggleBurger() {
               :is="isBurgerOpen ? Cross : Burger"
               :class="{
                 'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+                burgerOpen: isBurgerOpen,
               }"
             />
           </div>
@@ -147,6 +153,7 @@ function toggleBurger() {
               :class="{
                 active: index === activeLink,
                 'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
+                burgerOpen: isBurgerOpen,
               }"
             >
               {{ link.title }}

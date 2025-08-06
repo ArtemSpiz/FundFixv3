@@ -283,7 +283,7 @@ onMounted(() => {
 
     gsap.fromTo(
       roadmapRef.value,
-      { y: isMobile.value ? 45 : 10 },
+      { y: isMobile.value ? 40 : 10 },
       {
         y: 0,
         ease: "none",
@@ -327,8 +327,6 @@ onMounted(() => {
       },
     });
   });
-
-  ScrollTrigger.refresh();
 });
 
 onUnmounted(() => {

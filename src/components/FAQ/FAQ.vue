@@ -55,6 +55,7 @@ const toggle = (index) => {
         v-for="(card, index) in FaqCards"
         :key="index"
         @click="toggle(index)"
+        :class="{ 'faq-opened': opened[index] }"
       >
         <div class="faqCardTop">
           <div class="faqCardTitle">{{ card.title }}</div>
@@ -63,11 +64,13 @@ const toggle = (index) => {
           </div>
         </div>
 
-        <transition name="faq-slide">
-          <div v-show="opened[index]" class="faqCardSubtitle">
-            {{ card.subtitle }}
+        <div class="faq-content-wrapper" :class="{ 'is-open': opened[index] }">
+          <div class="faq-content-inner">
+            <div class="faqCardSubtitle">
+              {{ card.subtitle }}
+            </div>
           </div>
-        </transition>
+        </div>
       </div>
     </div>
   </div>

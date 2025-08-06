@@ -282,6 +282,21 @@ onMounted(() => {
       return;
 
     gsap.fromTo(
+      roadmapRef.value,
+      { y: 45 },
+      {
+        y: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: roadmapRef.value,
+          start: "bottom bottom",
+          end: "+=500",
+          scrub: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
       circleOverlay.value,
       { scale: 0, opacity: 1 },
       {

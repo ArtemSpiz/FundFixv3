@@ -65,7 +65,7 @@ const ExclusivityCards = [
       </div>
 
       <div class="exclusivityCardsWrapper">
-        <div class="exclusivityCards">
+        <div class="exclusivityCards exclusivityCardsDesktop">
           <div
             class="exclusivityCard"
             v-for="(card, index) in ExclusivityCards"
@@ -83,19 +83,49 @@ const ExclusivityCards = [
           </div>
         </div>
 
-        <div class="exclusivityCards exclusivityCardMobile">
+        <div class="exclusivityCards exclusivityScrollLeft">
           <div
             class="exclusivityCard"
-            v-for="(card, index) in ExclusivityCards"
-            :key="index"
-            :class="`card-${index}`"
+            v-for="(card, index) in ExclusivityCards.concat(
+              ExclusivityCards,
+              ExclusivityCards
+            )"
+            :key="'left-' + index"
+            :class="`card-${index % ExclusivityCards.length}`"
           >
             <component
               class="exclusivityCardIcon"
               :is="card.icon"
-              :class="`cardIcon-${index}`"
+              :class="`cardIcon-${index % ExclusivityCards.length}`"
             />
-            <div class="exclusivityCardTitle" :class="`cardTitle-${index}`">
+            <div
+              class="exclusivityCardTitle"
+              :class="`cardTitle-${index % ExclusivityCards.length}`"
+            >
+              {{ card.title }}
+            </div>
+          </div>
+        </div>
+
+        <div class="exclusivityCards exclusivityScrollRight">
+          <div
+            class="exclusivityCard"
+            v-for="(card, index) in ExclusivityCards.concat(
+              ExclusivityCards,
+              ExclusivityCards
+            )"
+            :key="'right-' + index"
+            :class="`card-${index % ExclusivityCards.length}`"
+          >
+            <component
+              class="exclusivityCardIcon"
+              :is="card.icon"
+              :class="`cardIcon-${index % ExclusivityCards.length}`"
+            />
+            <div
+              class="exclusivityCardTitle"
+              :class="`cardTitle-${index % ExclusivityCards.length}`"
+            >
               {{ card.title }}
             </div>
           </div>

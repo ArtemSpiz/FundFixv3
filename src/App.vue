@@ -56,7 +56,7 @@ onMounted(async () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            const delay = isMobile ? 800 : 0;
+            const delay = isMobile ? 800 : 800;
 
             tokenomicsTimeout = setTimeout(() => {
               console.log("Tokenomics state set to true with delay:", delay);

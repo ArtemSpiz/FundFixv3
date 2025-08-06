@@ -44,6 +44,10 @@
   flex-shrink: 0;
 }
 
+.headerLogo img {
+  transition: all 0.5s ease-in-out;
+}
+
 .headerLogo img.on-roadmap {
   filter: invert(1) brightness(1.2) contrast(1.2);
 }

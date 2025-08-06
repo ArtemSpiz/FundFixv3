@@ -283,7 +283,7 @@ onMounted(() => {
 
     gsap.fromTo(
       roadmapRef.value,
-      { y: 45 },
+      { y: isMobile.value ? 45 : 10 },
       {
         y: 0,
         ease: "none",

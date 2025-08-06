@@ -5,7 +5,7 @@ import Hero from "./components/Hero/Hero.vue";
 import Accessibility from "./components/Accessibility/Accessibility.vue";
 import Scale from "./components/Scale/Scale.vue";
 // import Future from "./components/Future/Future.vue";
-// import Roadmap from "./components/Roadmap/Roadmap.vue";
+import Roadmap from "./components/Roadmap/Roadmap.vue";
 import FIX from "./components/FIX/FIX.vue";
 import FAQ from "./components/FAQ/FAQ.vue";
 import Institutions from "./components/Institutions/Institutions.vue";
@@ -57,8 +57,8 @@ onMounted(() => {
   <Accessibility />
   <FIX />
   <Scale />
-  <!-- <Future />
-  <Roadmap /> -->
+  <!-- <Future /> -->
+  <Roadmap />
   <FAQ />
   <Institutions />
 </template>

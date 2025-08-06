@@ -56,13 +56,36 @@ function updateStep() {
 function alignToCard() {
   if (!scrollContainer.value || step === 0) return;
 
-  const scrollLeft = scrollContainer.value.scrollLeft;
-  const nearest = Math.round(scrollLeft / step) * step;
+  const container = scrollContainer.value;
+  const containerCenter = container.offsetWidth / 2;
 
-  scrollContainer.value.scrollTo({
-    left: nearest,
-    behavior: "smooth",
+  const cards = container.querySelectorAll(".tokenomicsCardWrapper");
+
+  let closestCard = null;
+  let closestDistance = Infinity;
+
+  cards.forEach((card) => {
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const distance = Math.abs(cardCenter - containerCenter);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestCard = card;
+    }
   });
+
+  if (closestCard) {
+    const leftOffset =
+      closestCard.offsetLeft +
+      closestCard.offsetWidth / 2 -
+      container.offsetWidth / 2;
+
+    container.scrollTo({
+      left: leftOffset,
+      behavior: "smooth",
+    });
+  }
 }
 
 function onScroll() {
@@ -108,7 +131,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="tokenomicsCardsWrapper" ref="scrollContainer">
+  <div class="tokenomicsCardsWrapper">
     <div class="tokenomicsCards">
       <div class="tokenomicsCardsScroll" ref="scrollContainer">
         <div

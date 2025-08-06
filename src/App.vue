@@ -2,7 +2,7 @@
 import "./style.css";
 import HeaderLayout from "./layout/Header/HeaderLayout.vue";
 import Hero from "./components/Hero/Hero.vue";
-// import Accessibility from "./components/Accessibility/Accessibility.vue";
+import Accessibility from "./components/Accessibility/Accessibility.vue";
 import Scale from "./components/Scale/Scale.vue";
 // import Future from "./components/Future/Future.vue";
 // import Roadmap from "./components/Roadmap/Roadmap.vue";
@@ -46,7 +46,6 @@ onMounted(() => {
 
   observer.observe(tokenomicsEl);
 });
-
 </script>
 
 <template>
@@ -55,7 +54,7 @@ onMounted(() => {
     :isOnRoadmap="isHeaderDark"
   />
   <Hero />
-  <!-- <Accessibility /> -->
+  <Accessibility />
   <FIX />
   <Scale />
   <!-- <Future />

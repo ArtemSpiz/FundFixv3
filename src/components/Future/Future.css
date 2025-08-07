@@ -317,10 +317,10 @@
   }
 
   .future {
-    max-height: none !important;
     gap: 100px;
-    height: 100vh !important;
-    justify-content: center;
+    height: 130vh !important;
+    max-height: 2000px !important;
+    justify-content: start;
     align-items: center;
   }
 

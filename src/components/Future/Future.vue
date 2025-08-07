@@ -68,7 +68,9 @@ onMounted(async () => {
   const initialWidth = phoneImage.offsetWidth;
   const targetWidth = window.innerWidth;
 
-  const scaleFactor = isMiniMobile
+  const scaleFactor = bigDesktop
+    ? (targetWidth / initialWidth) * 1.2
+    : isMiniMobile
     ? (targetWidth / initialWidth) * 1.83
     : isMobile
     ? (targetWidth / initialWidth) * 1.1
@@ -250,8 +252,8 @@ onMounted(async () => {
       tokenomics,
       {
         opacity: 1,
-        scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
-        y: bigDesktop ? -20 : isTablet ? 30 : 23,
+        scale: bigDesktop ? 0.18 : isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
+        y: bigDesktop ? 0 : isTablet ? 30 : 23,
         ease: "power2.inOut",
         duration: 2,
       },

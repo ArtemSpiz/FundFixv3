@@ -251,7 +251,7 @@ onMounted(async () => {
       {
         opacity: 1,
         scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
-        y: bigDesktop ? 10 : isTablet ? 30 : 23,
+        y: bigDesktop ? -20 : isTablet ? 30 : 23,
         ease: "power2.inOut",
         duration: 2,
       },

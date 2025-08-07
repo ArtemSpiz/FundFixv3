@@ -185,6 +185,12 @@
   will-change: transform, opacity;
 }
 
+@media (min-width: 1600px) {
+  .roadmap {
+    top: -11px;
+  }
+}
+
 @media (max-width: 1024px) {
   .roadmapSVG {
     width: 800px;

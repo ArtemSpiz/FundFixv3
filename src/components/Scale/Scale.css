@@ -171,6 +171,20 @@
   line-height: 16px; /* 114.286% */
 }
 
+@media (min-width: 1600px) {
+  .scaleCard {
+    scale: 1.6;
+  }
+
+  .scaleCards {
+    margin-top: 100px;
+  }
+
+  .scale {
+    height: 1000px;
+  }
+}
+
 @media (max-width: 1285px) {
   .scaleTitle {
     font-size: 70px;

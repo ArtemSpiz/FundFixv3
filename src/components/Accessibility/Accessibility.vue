@@ -46,6 +46,7 @@ onMounted(() => {
   const cards = gsap.utils.toArray(".accessibilityCard");
   const texts = document.querySelector(".accessibilityTexts");
   const isMobile = window.innerWidth < 769;
+  const isBigDesktop = window.innerWidth > 1599;
 
   if (window.innerWidth > 1600) {
     const accessibilitySection = document.querySelector(".accessibility");
@@ -57,7 +58,6 @@ onMounted(() => {
         height: originalHeight,
       },
       {
-        height: 900,
         ease: "none",
         scrollTrigger: {
           trigger: accessibilitySection,
@@ -175,7 +175,7 @@ onMounted(() => {
     });
 
     masterTimeline.to(cards, {
-      yPercent: "-=250",
+      yPercent: isBigDesktop ? "-=250" : "-=250",
       ease: "none",
       duration: 0.7,
     });

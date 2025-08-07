@@ -311,16 +311,22 @@
 
 @media (min-width: 1600px) {
   .futureCard.left {
-    left: 200px;
-  }
-
-  .futureCard.right {
-    right: 200px;
+    left: 300px;
+    bottom: auto;
+    top: 600px;
   }
 
   .future {
-    height: 1400px !important;
-    justify-content: start;
+    max-height: none !important;
+    gap: 100px;
+    height: 100vh !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .futureCard.right {
+    right: 300px;
   }
 }
 

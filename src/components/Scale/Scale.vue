@@ -60,9 +60,11 @@ function getCardStyle(index) {
 
   const blur = relativeIndex * 2;
   const isMobile = window.innerWidth < 768;
+  const isBigDesktop = window.innerWidth >= 1600;
+
   const rotate = isMobile ? 0 - relativeIndex * 4 : 0 - relativeIndex * 10;
   const z = 100 - relativeIndex;
-  const translateXPercent = isMobile ? 50 : 45;
+  const translateXPercent = isMobile ? 50 : isBigDesktop ? 35 : 45;
   const translateYPercent = isMobile ? 0 : 20;
 
   if (relativeIndex === 0) {

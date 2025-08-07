@@ -238,6 +238,12 @@
   display: none;
 }
 
+@media (min-width: 1600px) {
+  .exclusivity {
+    height: 100vh;
+  }
+}
+
 @media (max-width: 1285px) {
   .exclusivity {
     padding: 100px 90px;
@@ -368,7 +374,7 @@
     }
     100% {
       transform: translateX(-33.333%);
-    } 
+    }
   }
 
   @keyframes scroll-right {
@@ -377,7 +383,7 @@
     }
     100% {
       transform: translateX(33.333%);
-    } 
+    }
   }
 }
 

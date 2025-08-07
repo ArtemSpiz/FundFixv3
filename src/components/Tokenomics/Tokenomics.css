@@ -39,6 +39,7 @@
   width: 100vw;
 }
 
+
 @media (max-width: 1285px) {
   .tokenomics {
     gap: 40px;

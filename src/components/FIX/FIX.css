@@ -8,7 +8,6 @@
   background-image: url("@/assets/img/FIXBg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  max-height: 1100px;
 }
 
 .containerFix {
@@ -355,6 +354,11 @@
 @media (min-width: 1600px) {
   .containerFix {
     gap: 120px;
+  }
+
+  .fix {
+    height: 100vh;
+    justify-content: center;
   }
 }
 

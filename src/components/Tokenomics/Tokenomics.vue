@@ -8,6 +8,7 @@ import AnimatedText from "../AnimatedText.vue";
 
 const isMobile = window.innerWidth < 769;
 const isMiniMobile = window.innerWidth < 641;
+const bigDesktop = window.innerWidth > 1600;
 
 onMounted(() => {
   const observer = new IntersectionObserver(
@@ -20,7 +21,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: isMiniMobile ? 0.5 : isMobile ? 0.8 : 0.7 }
+    { threshold: bigDesktop ? 0.5 : isMiniMobile ? 0.5 : isMobile ? 0.8 : 0.7 }
   );
 
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {

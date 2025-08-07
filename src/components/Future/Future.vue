@@ -48,7 +48,6 @@ onMounted(async () => {
   const futureSection = document.querySelector(".future");
   const tokenomics = document.querySelector(".tokenomicsInFuture");
 
-  // Перевіряємо чи всі елементи існують
   if (
     !cards.length ||
     !phoneImage ||
@@ -75,7 +74,6 @@ onMounted(async () => {
     ? (targetWidth / initialWidth) * 1.1
     : (targetWidth / initialWidth) * 1.1;
 
-  // Початкові налаштування
   gsap.set(tokenomics, {
     position: "absolute",
     top: "50%",
@@ -106,7 +104,6 @@ onMounted(async () => {
     });
   }
 
-  // Створюємо timeline з покращеними налаштуваннями для мобільних
   const tl = gsap.timeline({
     scrollTrigger: {
       id: "future-sequence",
@@ -115,17 +112,15 @@ onMounted(async () => {
       start: "top top",
       end: () =>
         `+=${isMobile ? cards.length * 400 + 600 : cards.length * 1000 + 800}`,
-      scrub: isMobile ? 0.8 : 1.2, // Менший scrub для мобільних
+      scrub: isMobile ? 0.8 : 1.2,
       anticipatePin: 1,
       invalidateOnRefresh: true,
-      // Додаткові налаштування для мобільних
       ...(isMobile && {
         normalizeScroll: false,
         fastScrollEnd: true,
         preventOverlaps: true,
       }),
       onUpdate: (self) => {
-        // Запобігаємо блокуванню скролу
         if (isMobile && self.isActive) {
           document.body.style.touchAction = "pan-y";
         }
@@ -147,7 +142,6 @@ onMounted(async () => {
   scrollTriggerInstance = ScrollTrigger.getById("future-sequence");
 
   if (isMobile) {
-    // Оптимізована анімація для мобільних
     tl.to(overlay, {
       scaleY: 1,
       opacity: 1,
@@ -214,7 +208,6 @@ onMounted(async () => {
       "<+=0.3"
     );
   } else {
-    // Десктопна анімація залишається без змін
     tl.to([futureTexts, cards], {
       yPercent: -400,
       opacity: 0,
@@ -258,7 +251,7 @@ onMounted(async () => {
       {
         opacity: 1,
         scale: isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
-        y: bigDesktop ? 30 : isTablet ? 30 : 23,
+        y: bigDesktop ? 10 : isTablet ? 30 : 23,
         ease: "power2.inOut",
         duration: 2,
       },
@@ -267,26 +260,21 @@ onMounted(async () => {
   }
 });
 
-// Покращена функція очищення
 onBeforeUnmount(() => {
-  // Відновлюємо стилі body
   document.body.style.touchAction = "";
   document.body.style.overscrollBehavior = "";
 
-  // Очищуємо ScrollTrigger
   if (scrollTriggerInstance) {
     scrollTriggerInstance.kill();
     scrollTriggerInstance = null;
   }
 
-  // Очищуємо всі ScrollTrigger з цим ID
   ScrollTrigger.getAll().forEach((trigger) => {
     if (trigger.vars.id === "future-sequence") {
       trigger.kill();
     }
   });
 
-  // Рефрешимо ScrollTrigger
   ScrollTrigger.refresh();
 });
 

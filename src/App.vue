@@ -16,6 +16,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const isMobile = window.innerWidth < 641;
+const bigDesktop = window.innerWidth > 1600;
 const isOnRoadmapScroll = ref(false);
 const isOnTokenomics = ref(false);
 
@@ -56,7 +57,7 @@ onMounted(async () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            const delay = isMobile ? 800 : 800;
+            const delay = bigDesktop ? 1000 : isMobile ? 800 : 800;
 
             tokenomicsTimeout = setTimeout(() => {
               console.log("Tokenomics state set to true with delay:", delay);

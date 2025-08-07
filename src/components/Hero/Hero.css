@@ -10,7 +10,7 @@
   justify-content: end;
   overflow: hidden;
   gap: 100px;
-  max-height: 1000px;
+  max-height: 1100px;
 }
 
 .heroShadow {
@@ -189,11 +189,11 @@
   line-height: 16px; /* 133.333% */
 }
 
-@media (min-width: 12000px) {
+@media (min-width: 1600px) {
   .heroCard {
     position: relative;
-    width: 200px;
-    height: 210px;
+    width: 220px;
+    height: 240px;
   }
 
   .hero::after,
@@ -204,8 +204,8 @@
   }
 
   .heroCard.active {
-    height: 225px;
-    width: 245px;
+    height: 255px;
+    width: 275px;
   }
 }
 @media (max-width: 1285px) {

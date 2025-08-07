@@ -21,7 +21,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: bigDesktop ? 0.5 : isMiniMobile ? 0.5 : isMobile ? 0.8 : 0.7 }
+    { threshold: bigDesktop ? 0.5 : isMiniMobile ? 0.5 : isMobile ? 0.8 : 0.8 }
   );
 
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {

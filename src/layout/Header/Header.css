@@ -45,6 +45,7 @@
   width: 28px;
   height: 24px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .headerLogo img {
@@ -80,9 +81,9 @@
   border-radius: 32px;
   cursor: pointer;
 
-  color: #fff;
+  color: rgba(255, 255, 255, 0.48);
   text-align: center;
-  font-family: "Helvetica Now Display";
+  font-family: Poppins;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -176,7 +177,17 @@
   stroke: #000;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1285px) {
+  .headerLink {
+    padding: 14px;
+  }
+
+  .headerRight {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
   .headerLink.on-roadmap {
     color: #fff;
   }

@@ -1,21 +1,68 @@
 <script setup>
-import { ref, defineProps, onMounted, onUnmounted } from "vue";
+import { ref, defineProps, onMounted, onUnmounted, watch } from "vue";
 import "./Header.css";
 import logo from "@/assets/img/logoHeader.png";
 import Burger from "@/assets/svg/Buger.vue";
 import Cross from "@/assets/svg/Cross.vue";
+import { useRoute, useRouter } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
 
 const HeaderLinks = [
-  { title: "Home", target: "#home" },
-  { title: "Product", target: "#product" },
-  { title: "About", target: "#about" },
+  { title: "Wallet", target: "#home" },
+  { title: "Banks & Institutions", target: "#product" },
+  { title: "dVPN", target: "#about" },
   { title: "How it works", target: "#how-it-works" },
   { title: "Tokenomics", target: "#tokenomics" },
+  { title: "Roadmap", target: "#roadmap" },
+  { title: "How to Buy", target: "/how-to-buy" },
 ];
 
 const isScaledIn = ref(false);
 
 const activeLink = ref(0);
+
+function updateActiveLinkByRoute() {
+  const currentPath = route.path;
+  const index = HeaderLinks.findIndex((link) => {
+    if (link.target.startsWith("/")) {
+      return link.target === currentPath;
+    }
+    return false;
+  });
+  if (index !== -1) {
+    activeLink.value = index;
+  } else {
+    activeLink.value = 0;
+  }
+}
+
+onMounted(() => {
+  updateActiveLinkByRoute();
+});
+
+watch(
+  () => route.path,
+  () => {
+    updateActiveLinkByRoute();
+  }
+);
+
+function resetActiveToRoute() {
+  const currentPath = route.path;
+  const index = HeaderLinks.findIndex((link) => {
+    if (link.target.startsWith("/")) {
+      return link.target === currentPath;
+    }
+    return false;
+  });
+  if (index !== -1) {
+    activeLink.value = index;
+  } else {
+    activeLink.value = 0;
+  }
+}
 
 function setActive(index) {
   activeLink.value = index;
@@ -28,8 +75,8 @@ const props = defineProps({
 });
 
 function scrollToSection(target, index) {
-  if (target === "#tokenomics") {
-    props.onScrollToTokenomics?.();
+  if (target.startsWith("/")) {
+    router.push(target);
     activeLink.value = index;
     return;
   }
@@ -86,7 +133,7 @@ function toggleBurger() {
       :class="{ 'scaled-in': isScaledIn, burgerOpen: isBurgerOpen }"
     >
       <div class="headerMobWrapper">
-        <div class="headerLogo">
+        <router-link to="/" class="headerLogo">
           <img
             :src="logo"
             alt=""
@@ -95,7 +142,7 @@ function toggleBurger() {
               burgerOpen: isBurgerOpen,
             }"
           />
-        </div>
+        </router-link>
         <div class="headerRight">
           <div class="headerLinks">
             <div v-for="(link, index) in HeaderLinks" :key="index">
@@ -103,7 +150,7 @@ function toggleBurger() {
                 class="headerLink"
                 @click="scrollToSection(link.target, index)"
                 @mouseenter="setActive(index)"
-                @mouseleave="setActive(0)"
+                @mouseleave="resetActiveToRoute"
                 :class="{
                   active: index === activeLink,
                   'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,
@@ -149,7 +196,7 @@ function toggleBurger() {
                 isBurgerOpen = false;
               "
               @mouseenter="setActive(index)"
-              @mouseleave="setActive(0)"
+              @mouseleave="resetActiveToRoute"
               :class="{
                 active: index === activeLink,
                 'on-roadmap': props.isOnRoadmap || props.isOnTokenomics,

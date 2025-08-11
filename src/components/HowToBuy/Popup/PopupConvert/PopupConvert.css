@@ -417,6 +417,15 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   align-items: center;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease,
+    background 0.4s ease;
+}
+
+.convertCenterBotBtn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .convertCenterBotBtnTitle {
@@ -504,24 +513,66 @@
 }
 
 .popupBtnTransparent {
+  position: relative;
   display: flex;
   max-height: 48px;
-  padding: 16px 0;
+  padding: 16px 32px;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
   border: none;
   background: transparent;
   border-radius: 32px;
-
   color: #fff;
-  text-align: center;
   font-family: "Helvetica Now Display";
   font-size: 14px;
-  font-style: normal;
   font-weight: 700;
-  line-height: 16px; /* 114.286% */
   cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s ease;
+}
+
+.popupBtnTransparent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s ease-in-out;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.popupBtnTransparent:hover {
+  color: black;
+  animation: jelly 0.6s ease;
+}
+
+.popupBtnTransparent:hover::before {
+  transform: scaleX(1);
+}
+
+.popupBtnTransparent:active::before {
+  animation: jelly 0.6s ease;
+}
+
+@keyframes jelly {
+  0% {
+    transform: scaleX(1);
+  }
+  25% {
+    transform: scaleX(1.1);
+  }
+  50% {
+    transform: scaleX(0.95);
+  }
+  75% {
+    transform: scaleX(1.05);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 .jelly-wavePopup {
@@ -533,7 +584,7 @@
 }
 
 .jelly-wavePopup:hover {
-  animation: jellyBouncePopup 0.6s ease-in-out;
+  animation: jelly 0.6s ease-in-out;
 }
 
 .jelly-wavePopup::before,
@@ -571,24 +622,6 @@
   100% {
     transform: translate(-50%, -50%) scaleX(0.95) scaleY(1.1);
     opacity: 0;
-  }
-}
-
-@keyframes jellyBouncePopup {
-  0% {
-    transform: scale(1, 1);
-  }
-  30% {
-    transform: scale(1.1, 0.85);
-  }
-  50% {
-    transform: scale(0.9, 1.1);
-  }
-  70% {
-    transform: scale(1.05, 0.95);
-  }
-  100% {
-    transform: scale(1, 1);
   }
 }
 

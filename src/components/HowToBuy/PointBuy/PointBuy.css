@@ -192,6 +192,25 @@
   font-weight: 700;
   line-height: 16px; /* 114.286% */
   transition: opacity 0.5s ease-in-out, transform 0.7s ease-in-out;
+  animation: premiumFloat 4s ease-in-out infinite;
+}
+
+@keyframes premiumFloat {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  25% {
+    transform: translateY(-4px) scale(1.02);
+  }
+  50% {
+    transform: translateY(0px) scale(1);
+  }
+  75% {
+    transform: translateY(4px) scale(0.98);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
 }
 
 .pointBuyCardSubtitle.inactive {

@@ -11,7 +11,7 @@ import ConvertCenter from "./ConvertCenter.vue";
 
     <div class="popupBtns">
       <button class="popupBtnColor jelly-wavePopup">Connect Wallet</button>
-      <button class="popupBtnTransparent jelly-wavePopup">How to buy?</button>
+      <button class="popupBtnTransparent">How to buy?</button>
     </div>
   </div>
 </template>

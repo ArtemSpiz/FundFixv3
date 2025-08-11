@@ -15,16 +15,13 @@ const hoursFlip = ref(false);
 const minutesFlip = ref(false);
 const secondsFlip = ref(false);
 
-// Добавляем реактивное значение для прогресса
-const progress = ref(52); // 52% начальное значение
-const rangeInput = ref(null); // ссылка на input элемент
+const progress = ref(52); 
+const rangeInput = ref(null); 
 
-// Вычисляемое свойство для отображения процентов
 const progressPercent = computed(() => {
   return (progress.value / 100).toFixed(2) + "%";
 });
 
-// Функция для обновления стиля input range
 function updateRangeBackground() {
   if (rangeInput.value) {
     const value = progress.value;
@@ -39,7 +36,6 @@ function updateRangeBackground() {
   }
 }
 
-// Обработчик изменения значения input
 function handleRangeChange() {
   updateRangeBackground();
 }
@@ -107,7 +103,6 @@ function startTimer() {
 
 onMounted(() => {
   startTimer();
-  // Устанавливаем начальный стиль после монтирования
   nextTick(() => {
     updateRangeBackground();
   });

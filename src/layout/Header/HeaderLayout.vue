@@ -10,12 +10,11 @@ const router = useRouter();
 const route = useRoute();
 
 const HeaderLinks = [
-  { title: "Wallet", target: "#home" },
-  { title: "Banks & Institutions", target: "#product" },
-  { title: "dVPN", target: "#about" },
+  { title: "Home", target: "/" },
+  { title: "Product", target: "#product" },
+  { title: "About", target: "#about" },
   { title: "How it works", target: "#how-it-works" },
   { title: "Tokenomics", target: "#tokenomics" },
-  { title: "Roadmap", target: "#roadmap" },
   { title: "How to Buy", target: "/how-to-buy" },
 ];
 

@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, computed, nextTick } from "vue";
 import "./PopupTimer.css";
-import Range from "@/assets/img/inputRange.png";
+import ClockLine from "@/assets/svg/ClockLine.vue";
 
 const hours = ref("12");
 const minutes = ref("12");
@@ -14,6 +14,35 @@ const nextSeconds = ref("32");
 const hoursFlip = ref(false);
 const minutesFlip = ref(false);
 const secondsFlip = ref(false);
+
+// Добавляем реактивное значение для прогресса
+const progress = ref(52); // 52% начальное значение
+const rangeInput = ref(null); // ссылка на input элемент
+
+// Вычисляемое свойство для отображения процентов
+const progressPercent = computed(() => {
+  return (progress.value / 100).toFixed(2) + "%";
+});
+
+// Функция для обновления стиля input range
+function updateRangeBackground() {
+  if (rangeInput.value) {
+    const value = progress.value;
+    const background = `linear-gradient(
+      to right,
+      rgba(238, 193, 190, 0.92) 0%,
+      rgba(148, 160, 232, 0.92) ${value}%,
+      transparent ${value}%,
+      transparent 100%
+    )`;
+    rangeInput.value.style.background = background;
+  }
+}
+
+// Обработчик изменения значения input
+function handleRangeChange() {
+  updateRangeBackground();
+}
 
 let timerInterval;
 
@@ -78,6 +107,10 @@ function startTimer() {
 
 onMounted(() => {
   startTimer();
+  // Устанавливаем начальный стиль после монтирования
+  nextTick(() => {
+    updateRangeBackground();
+  });
 });
 
 onUnmounted(() => {
@@ -87,56 +120,68 @@ onUnmounted(() => {
 
 <template>
   <div class="popupTop">
-    <div class="flip-clock">
-      <div class="flip-unit" :class="{ flipping: hoursFlip }">
-        <div class="flip-unit-static-top">
-          <div class="flip-digit">{{ hours }}</div>
+    <div class="popupClock">
+      <div class="popupClockTitle">BUY $FIX</div>
+
+      <div class="flip-clock">
+        <div class="flipUnitWrapper">
+          <div class="flip-unit" :class="{ flipping: hoursFlip }">
+            <div class="flip-unit-static-top">
+              <div class="flip-digit">{{ hours }}</div>
+            </div>
+            <div class="flip-unit-static-bottom">
+              <div class="flip-digit">{{ nextHours }}</div>
+            </div>
+            <div class="flip-unit-flip-top">
+              <div class="flip-digit">{{ hours }}</div>
+            </div>
+            <div class="flip-unit-flip-bottom">
+              <div class="flip-digit">{{ nextHours }}</div>
+            </div>
+            <ClockLine class="flip-unit-line" />
+            <div class="flip-unit-shadow"></div>
+          </div>
+
+          <div class="flip-clock-title">Days</div>
         </div>
-        <div class="flip-unit-static-bottom">
-          <div class="flip-digit">{{ nextHours }}</div>
+        <div class="flipUnitWrapper">
+          <div class="flip-unit" :class="{ flipping: minutesFlip }">
+            <div class="flip-unit-static-top">
+              <div class="flip-digit">{{ minutes }}</div>
+            </div>
+            <div class="flip-unit-static-bottom">
+              <div class="flip-digit">{{ nextMinutes }}</div>
+            </div>
+            <div class="flip-unit-flip-top">
+              <div class="flip-digit">{{ minutes }}</div>
+            </div>
+            <div class="flip-unit-flip-bottom">
+              <div class="flip-digit">{{ nextMinutes }}</div>
+            </div>
+            <ClockLine class="flip-unit-line" />
+            <div class="flip-unit-shadow"></div>
+          </div>
+          <div class="flip-clock-title">Hours</div>
         </div>
-        <div class="flip-unit-flip-top">
-          <div class="flip-digit">{{ hours }}</div>
+        <div class="flipUnitWrapper">
+          <div class="flip-unit" :class="{ flipping: secondsFlip }">
+            <div class="flip-unit-static-top">
+              <div class="flip-digit">{{ seconds }}</div>
+            </div>
+            <div class="flip-unit-static-bottom">
+              <div class="flip-digit">{{ nextSeconds }}</div>
+            </div>
+            <div class="flip-unit-flip-top">
+              <div class="flip-digit">{{ seconds }}</div>
+            </div>
+            <div class="flip-unit-flip-bottom">
+              <div class="flip-digit">{{ nextSeconds }}</div>
+            </div>
+            <ClockLine class="flip-unit-line" />
+            <div class="flip-unit-shadow"></div>
+          </div>
+          <div class="flip-clock-title">Mins</div>
         </div>
-        <div class="flip-unit-flip-bottom">
-          <div class="flip-digit">{{ nextHours }}</div>
-        </div>
-        <div class="flip-unit-line"></div>
-        <div class="flip-unit-shadow"></div>
-      </div>
-      <div class="separator">:</div>
-      <div class="flip-unit" :class="{ flipping: minutesFlip }">
-        <div class="flip-unit-static-top">
-          <div class="flip-digit">{{ minutes }}</div>
-        </div>
-        <div class="flip-unit-static-bottom">
-          <div class="flip-digit">{{ nextMinutes }}</div>
-        </div>
-        <div class="flip-unit-flip-top">
-          <div class="flip-digit">{{ minutes }}</div>
-        </div>
-        <div class="flip-unit-flip-bottom">
-          <div class="flip-digit">{{ nextMinutes }}</div>
-        </div>
-        <div class="flip-unit-line"></div>
-        <div class="flip-unit-shadow"></div>
-      </div>
-      <div class="separator">:</div>
-      <div class="flip-unit" :class="{ flipping: secondsFlip }">
-        <div class="flip-unit-static-top">
-          <div class="flip-digit">{{ seconds }}</div>
-        </div>
-        <div class="flip-unit-static-bottom">
-          <div class="flip-digit">{{ nextSeconds }}</div>
-        </div>
-        <div class="flip-unit-flip-top">
-          <div class="flip-digit">{{ seconds }}</div>
-        </div>
-        <div class="flip-unit-flip-bottom">
-          <div class="flip-digit">{{ nextSeconds }}</div>
-        </div>
-        <div class="flip-unit-line"></div>
-        <div class="flip-unit-shadow"></div>
       </div>
     </div>
 
@@ -146,12 +191,19 @@ onUnmounted(() => {
           <div class="popupTopTitle">USD Raised</div>
           <div class="popupTopSubtitle">$18,434,064</div>
         </div>
-        <div class="popupTopSubtitle">0.52%</div>
+        <div class="popupTopSubtitle">{{ progressPercent }}</div>
       </div>
       <div class="popupTopInputRangeWrapper">
-        <div class="popupInputRange">
-          <img :src="Range" alt=" " />
-        </div>
+        <input
+          ref="rangeInput"
+          class="popupInputRange"
+          min="0"
+          max="100"
+          v-model="progress"
+          type="range"
+          @input="handleRangeChange"
+          @change="handleRangeChange"
+        />
       </div>
     </div>
   </div>

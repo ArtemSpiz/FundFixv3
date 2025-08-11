@@ -1,40 +1,58 @@
 <script setup>
+import ArrowBtn from "@/assets/svg/ArrowBtn.vue";
 import Stars from "@/assets/svg/Stars.vue";
-import "./HowToBuySection.css";
 
-import HowBuyCardImage1 from "@/assets/img/HowBuyCardImage1.png";
-import HowBuyCardImage2 from "@/assets/img/HowBuyCardImage2.png";
-import HowBuyCardImage3 from "@/assets/img/HowBuyCardImage3.png";
-import HowBuyCardImage4 from "@/assets/img/HowBuyCardImage4.png";
-import AnimatedText from "@/components/AnimatedText.vue";
+import "./Invest.css";
+
+import InvestCardsBg1 from "@/assets/img/InvestCardsBg1.png";
+import InvestCardsBg2 from "@/assets/img/InvestCardsBg2.png";
+import InvestCardsBg3 from "@/assets/img/InvestCardsBg3.png";
+import InvestCardsBg4 from "@/assets/img/InvestCardsBg4.png";
+
+import InvestCardsImg1 from "@/assets/img/InvestCardsImg1.png";
+import InvestCardsImg2 from "@/assets/img/InvestCardsImg2.png";
+import InvestCardsImg3 from "@/assets/img/InvestCardsImg3.png";
+import InvestCardsImg4 from "@/assets/img/InvestCardsImg4.png";
+import InvestCardsImg2Mob from "@/assets/img/InvestCardsImg2Mob.png";
+
 import { ref, reactive, nextTick } from "vue";
-const isNotMobile = window.innerWidth >= 769;
+const isMobile = window.innerWidth <= 640;
+const isMiniDesk = window.innerWidth <= 1285;
+const isTablet = window.innerWidth <= 1024;
 
-const HowBuyCards = [
+const InvestCards = [
   {
-    image: HowBuyCardImage1,
-    title: "Setup Wallet",
-    subtitle: "Connect via Wallet Connect if needed",
-    number: "01",
+    id: 1,
+    bgImage: InvestCardsBg1,
+    image: InvestCardsImg1,
+    title: "Browse Curated Opportunities",
+    subtitle: "Pre-vetted, institution-backed startups and assets",
+    number: "1",
   },
   {
-    image: HowBuyCardImage2,
-    title: "Choose Currency",
-    subtitle: "Supported: ETH, BNB, MATIC, USDT, BUSD, USDC",
-    number: "02",
+    id: 2,
+    bgImage: InvestCardsBg2,
+    image: isMiniDesk ? InvestCardsImg2Mob : InvestCardsImg2,
+    title: "Browse Curated Opportunities",
+    subtitle: "Pre-vetted, institution-backed startups and assets",
+    number: "2",
   },
   {
-    image: HowBuyCardImage3,
-    title: "Buy FIX",
-    subtitle: "Enter the amount, confirm in your wallet, pay gas fee",
-    number: "03",
+    id: 3,
+    bgImage: InvestCardsBg3,
+    image: InvestCardsImg3,
+    title: "Browse Curated Opportunities",
+    subtitle: "Pre-vetted, institution-backed startups and assets",
+    number: "3",
   },
   {
-    image: HowBuyCardImage4,
-    title: "Receive Tokens",
+    id: 4,
+    bgImage: InvestCardsBg4,
+    image: InvestCardsImg4,
+    title: "Track, Earn, Influence",
     subtitle:
-      "Tokens will be airdropped after presale. Track assets in your wallet",
-    number: "04",
+      "Monitor performance, receive profit share from exits, and vote on platform strategy",
+    number: "4",
   },
 ];
 
@@ -50,23 +68,28 @@ const dragState = reactive({
 });
 
 function getCardStyle(index) {
-  if (isNotMobile) {
-    return;
-  }
-  const total = HowBuyCards.length;
+  const total = InvestCards.length;
   const relativeIndex = (index - activeIndex.value + total) % total;
 
   const blur = relativeIndex * 2;
 
   const z = 100 - relativeIndex;
   const baseTranslateXPercent = 50;
-  const translateYPercent = 0;
-  const rotate = 0 - relativeIndex * 4;
-  const extraShiftPx = 0;
-  const extraShiftPy = relativeIndex * -12;
+  const translateYPercent = isMobile ? 40 : isTablet ? 30 : 20;
+  const rotate = isMobile ? 0 - relativeIndex * 4 : 0 - relativeIndex * 5;
+  const extraShiftPx = isTablet
+    ? 0
+    : isMiniDesk
+    ? relativeIndex * 80
+    : relativeIndex * 100;
+  const extraShiftPy = isTablet ? relativeIndex * -20 : 0;
   const darkOverlay = relativeIndex * 0.2;
   const brightness = 1 - darkOverlay;
-  const width = `calc(343px - (${relativeIndex}px * 20))`;
+  const width = isMobile
+    ? `calc(343px - (${relativeIndex}px * 30))`
+    : isTablet
+    ? `calc(390px - (${relativeIndex}px * 20))`
+    : "max-content";
 
   if (relativeIndex === 0) {
     return {
@@ -103,9 +126,6 @@ function getCardStyle(index) {
 }
 
 function onPointerDown(event) {
-  if (isNotMobile) {
-    return;
-  }
   if (dragState.animationInProgress) return;
 
   dragState.dragging = true;
@@ -118,9 +138,6 @@ function onPointerDown(event) {
 }
 
 function onPointerMove(event) {
-  if (isNotMobile) {
-    return;
-  }
   if (!dragState.dragging) return;
 
   dragState.currentX = event.clientX || event.touches?.[0]?.clientX || 0;
@@ -142,9 +159,6 @@ function onPointerMove(event) {
 }
 
 function onPointerUp() {
-  if (isNotMobile) {
-    return;
-  }
   if (!dragState.dragging) return;
 
   const threshold = 50;
@@ -158,8 +172,8 @@ function onPointerUp() {
 
     setTimeout(() => {
       activeIndex.value =
-        (activeIndex.value + direction + HowBuyCards.length) %
-        HowBuyCards.length;
+        (activeIndex.value + direction + InvestCards.length) %
+        InvestCards.length;
 
       nextTick(() => {
         dragState.translateX = 0;
@@ -199,27 +213,24 @@ function goToCard(index) {
 </script>
 
 <template>
-  <div class="howBuy">
-    <div class="howBuyTexts">
-      <div class="howBuyTitles">
-        <div class="UnderTitle"><Stars /> How it works</div>
-        <AnimatedText class="howBuyTitle" text="How to buy" />
+  <div class="invest">
+    <div class="investTexts">
+      <div class="investTitles">
+        <div class="UnderTitle"><Stars /> Invest in four steps</div>
+        <div class="investTitle">How it Works</div>
       </div>
 
-      <AnimatedText
-        class="howBuySubtitle Subtitle"
-        anim-delay="0.01"
-        text="  Easily purchase TICS in just a few steps. Connect your wallet, choose your currency, and follow the guided process — simple, secure, and fast"
-      />
+      <button class="investBtn jelly-wave">Join to FundFix <ArrowBtn /></button>
     </div>
 
-    <div class="howBuyCardsWrapper">
-      <div class="howBuyCards">
+    <div class="investCardsWrapper">
+      <div class="investCards">
         <div
-          class="howBuyCardWrapper"
-          v-for="(card, index) in HowBuyCards"
-          :key="index"
+          class="investCardWrapper"
+          v-for="(card, index) in InvestCards"
+          :key="`desktop-${card.id}`"
           :class="{
+            activeCard: index === 0,
             sec: index === 1,
             third: index === 2,
             fourth: index === 3,
@@ -227,27 +238,44 @@ function goToCard(index) {
           :ref="index === 0 ? (el) => (activeCard = el) : null"
           @pointerdown="onPointerDown"
           :style="getCardStyle(index)"
+          і
         >
-          <div class="howBuyCard">
-            <div class="howBuyCardTop">
-              <div class="howBuyCardImg">
-                <img :src="card.image" alt=" " />
+          <div class="investCard">
+            <div
+              class="investCardContent"
+              :style="{ backgroundImage: `url(${card.bgImage})` }"
+            >
+              <div
+                class="investCardImg"
+                :class="{
+                  sec: index === 1,
+                  third: index === 2,
+                  fourth: index === 3,
+                }"
+              >
+                <img :src="card.image" />
               </div>
-              <div class="howBuyCardText">
-                <div class="howBuyCardTitle">{{ card.title }}</div>
-                <div class="howBuyCardSubtitle">{{ card.subtitle }}</div>
+
+              <div class="investCardTitles investCardTitlesDesktop">
+                <div class="investCardTitle">{{ card.title }}</div>
+                <div class="investCardSubtitle">{{ card.subtitle }}</div>
               </div>
             </div>
 
-            <div class="howBuyCardNum">{{ card.number }}</div>
+            <div class="investCardNum">{{ card.number }}</div>
+
+            <div class="investCardTitlesMobile">
+              <div class="investCardTitle">{{ card.title }}</div>
+              <div class="investCardSubtitle">{{ card.subtitle }}</div>
+            </div>
           </div>
         </div>
 
-        <div class="howBuyCardsPags">
+        <div class="investCardsPags">
           <div
-            v-for="(card, index) in HowBuyCards"
+            v-for="(card, index) in InvestCards"
             :key="card.id"
-            class="howBuyCardsPag"
+            class="investCardsPag"
             :class="{ active: index === activeIndex }"
             @click="goToCard(index)"
           ></div>

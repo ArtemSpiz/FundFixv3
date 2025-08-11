@@ -42,6 +42,15 @@
   text-align: center;
 }
 
+.howBuyCardsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
 .howBuyCards {
   display: flex;
   justify-content: center;
@@ -147,4 +156,101 @@
   font-style: normal;
   font-weight: 500;
   line-height: 22px; /* 137.5% */
+}
+
+.howBuyCardsPags {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.howBuyCardsPag {
+  width: 52px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.5s ease-in-out;
+}
+
+.howBuyCardsPag.active {
+  background: #fff;
+}
+
+.howBuyCardsPag:hover {
+  animation: jellyBounce 0.6s ease-in-out;
+}
+
+@media (max-width: 1285px) {
+  .howBuyCard {
+    gap: 24px;
+  }
+
+  .howBuy {
+    padding: 80px 50px;
+  }
+
+  .howBuyTitle {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .howBuyTitle {
+    font-size: 60px;
+  }
+
+  .howBuy {
+    padding: 70px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .howBuyTitle {
+    font-size: 50px;
+  }
+
+  .howBuy {
+    padding: 64px 20px;
+  }
+
+  .howBuyCardsPags {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translate(50%, 0);
+  }
+  .howBuyCardsWrapper {
+    height: 450px;
+    touch-action: none;
+    user-select: none;
+    transition: none;
+  }
+
+  .howBuy {
+    gap: 96px;
+  }
+
+  .howBuyTexts {
+    gap: 24px;
+  }
+
+  .howBuyCardWrapper {
+    max-width: 343px;
+    width: 343px;
+  }
+
+  .howBuyCardTop {
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .howBuyTitle {
+    font-size: 40px;
+  }
+
+  .howBuy {
+    padding: 64px 16px;
+  }
 }

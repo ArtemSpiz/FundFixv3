@@ -523,3 +523,97 @@
   line-height: 16px; /* 114.286% */
   cursor: pointer;
 }
+
+.jelly-wavePopup {
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+  overflow: visible;
+  transition: transform 0.3s;
+}
+
+.jelly-wavePopup:hover {
+  animation: jellyBouncePopup 0.6s ease-in-out;
+}
+
+.jelly-wavePopup::before,
+.jelly-wavePopup::after {
+  content: "";
+  position: absolute;
+  border: 0.5px solid white;
+  border-radius: 32px;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%) scaleX(1) scaleY(1);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -2;
+  display: none;
+}
+
+.jelly-wavePopup:hover::before,
+.jelly-wavePopup:hover::after {
+  animation: pulseWavePopup 1s infinite ease-out;
+  display: flex;
+}
+
+.jelly-wavePopup::after {
+  animation-delay: 1s;
+}
+
+@keyframes pulseWavePopup {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0.9) scaleY(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(0.95) scaleY(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes jellyBouncePopup {
+  0% {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.1, 0.85);
+  }
+  50% {
+    transform: scale(0.9, 1.1);
+  }
+  70% {
+    transform: scale(1.05, 0.95);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.mobConvTop {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .convertRadioBtns {
+    flex-direction: column;
+  }
+  .convertRadioBtn {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .convertCenterBotBtns {
+    flex-direction: column;
+  }
+
+  .deskConvTop {
+    display: none;
+  }
+
+  .mobConvTop {
+    display: flex;
+  }
+}

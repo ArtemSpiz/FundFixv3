@@ -196,19 +196,17 @@
 
 .pointBuyCardSubtitle.inactive {
   opacity: 0;
-  transform-origin: center bottom;
-  transition: opacity 0.5s ease-in-out,
-    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: blur(4px);
-  transform: translateY(20px) scale(0.95);
+  transform: translateZ(50px) scale(0.8);
+  filter: blur(6px);
+  z-index: -1;
 }
 
 .pointBuyCardSubtitle.active {
   opacity: 1;
+  transform: translateZ(0) scale(1);
   filter: blur(0);
-  transform: translateY(0) scale(1);
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9;
 }
 
 .pointBuyCardSubtitleCircle {
@@ -216,4 +214,95 @@
   height: 16px;
   background: #0f0f0f;
   border-radius: 50%;
+}
+
+.pointBuySubtitlesMob {
+  display: none;
+}
+
+@media (max-width: 1285px) {
+  .pointBuy {
+    padding: 80px 50px;
+  }
+
+  .pointBuyRight {
+    margin-right: 0;
+    width: 343px;
+  }
+
+  .pointBuyCards {
+    width: 343px;
+  }
+
+  .pointBuyRightWrapper {
+    margin-right: 50px;
+    width: 343px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .pointBuy {
+    padding: 70px 40px;
+  }
+
+  .pointBuyTitle {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pointBuySubtitle {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pointBuy {
+    flex-direction: column;
+    gap: 48px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pointBuyTexts {
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .pointBuyRightWrapper {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .pointBuy {
+    padding: 64px 20px;
+  }
+
+  .pointBuySubtitlesWrap {
+    position: relative;
+    height: 230px;
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .pointBuySubtitles {
+    display: none;
+  }
+
+  .pointBuySubtitlesMob {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .pointBuy {
+    padding: 64px 16px;
+  }
+  .pointBuyRightWrapper,
+  .pointBuyRight {
+    height: 258px;
+    box-sizing: border-box;
+  }
 }

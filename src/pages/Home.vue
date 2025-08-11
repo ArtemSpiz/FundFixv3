@@ -12,6 +12,7 @@ import Institutions from "../components/Home/Institutions/Institutions.vue";
 import { ref, computed, onMounted, nextTick } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Invest from "@/components/Home/Invest/Invest.vue";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,6 +94,7 @@ onMounted(async () => {
   <Hero />
   <Accessibility />
   <FIX />
+  <Invest />
   <Scale />
   <Future />
   <Roadmap />

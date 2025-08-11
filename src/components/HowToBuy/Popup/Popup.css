@@ -23,5 +23,27 @@
   flex-direction: column;
 }
 
+@media (max-width: 1024px) {
+  .popupWrapper {
+    padding: 80px 16px;
+    padding-top: 120px;
+  }
+}
 
+@media (max-width: 768px) {
+  .popupWrapper {
+    padding: 70px 16px;
+    padding-top: 120px;
+  }
 
+  .popup {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .popupWrapper {
+    padding: 64px 16px;
+    padding-top: 120px;
+  }
+}

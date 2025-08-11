@@ -1,5 +1,5 @@
 .popupTop {
-  padding: 36px 20px;
+  padding: 4px;
   padding-bottom: 0px;
   display: flex;
   flex-direction: column;
@@ -10,25 +10,65 @@
   gap: 40px;
 }
 
+.popupClock {
+  border-radius: 19px;
+  background-image: url("@/assets/img/bgClockPopup.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 231px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.popupClockTitle {
+  text-align: center;
+  font-family: "TeX Gyre Adventor";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 100% */
+  background: linear-gradient(90deg, #eec1be 0%, #94a0e8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .flip-clock {
   display: inline-flex;
   align-items: center;
+  gap: 16px;
+}
+
+.flipUnitWrapper {
+  display: flex;
+  width: 100px;
+  flex-direction: column;
+  align-items: center;
   gap: 12px;
-  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.4));
+}
+
+.flip-clock-title {
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  font-family: "TeX Gyre Adventor";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px; /* 114.286% */
+  text-transform: uppercase;
 }
 
 .flip-unit {
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.08)
-  );
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-  width: 126px;
-  height: 79px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 84px;
   position: relative;
   overflow: hidden;
   perspective: 1000px;
@@ -42,8 +82,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 
-/* Статичні частини */
-.flip-unit-static-top,
+/* .flip-unit-static-top,
 .flip-unit-static-bottom {
   position: absolute;
   width: 100%;
@@ -54,7 +93,7 @@
     rgba(20, 20, 20, 0.4) 0%,
     rgba(10, 10, 10, 0.6) 100%
   );
-}
+} */
 
 .flip-unit-static-top {
   top: 0;
@@ -112,27 +151,26 @@
 .flip-digit {
   position: absolute;
   width: 100%;
-  height: 158px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-family: "TeX Gyre Adventor", monospace;
-  font-size: 48px;
+  color: #d7d7d7;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 72px;
   font-style: normal;
-  font-weight: 700;
-  line-height: 56px;
-  letter-spacing: -1.92px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 255, 255, 0.1);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  font-weight: 500;
+  line-height: 64px; /* 88.889% */
+  letter-spacing: -2.88px;
 }
 
 .flip-unit-static-top .flip-digit {
-  top: -45px;
+  top: -150px;
 }
 
 .flip-unit-static-bottom .flip-digit {
-  top: -85px;
+  top: 0px;
 }
 
 .flip-unit-flip-top .flip-digit {
@@ -140,7 +178,7 @@
 }
 
 .flip-unit-flip-bottom .flip-digit {
-  top: -85px;
+  top: -40px;
   transform: rotateX(180deg) rotate3d(180deg);
 }
 
@@ -219,27 +257,6 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.9) 50%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-  z-index: 5;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-
-.separator {
-  color: #fff;
-  font-family: Poppins, sans-serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 16px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 255, 255, 0.2);
-  animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -260,6 +277,8 @@
   gap: 12px;
   flex-direction: column;
   width: 100%;
+  padding-inline: 20px;
+  box-sizing: border-box;
 }
 
 .popupTopTexts {
@@ -301,10 +320,185 @@
   padding: 2px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
 }
 
 .popupInputRange {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
-  max-width: 350px;
   height: 20px;
+  border-radius: 25px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+}
+
+/* Трек для WebKit */
+.popupInputRange::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 20px;
+  border-radius: 25px;
+  background: transparent;
+  position: relative;
+}
+
+/* Повзунок для WebKit */
+.popupInputRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: black;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #333;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+/* Для Firefox */
+.popupInputRange::-moz-range-track {
+  height: 20px;
+  background: transparent;
+  border-radius: 25px;
+  border: none;
+}
+
+.popupInputRange::-moz-range-progress {
+  background: linear-gradient(
+    90deg,
+    rgba(238, 193, 190, 0.92) 0%,
+    rgba(148, 160, 232, 0.92) 100%
+  );
+  height: 20px;
+  border-radius: 25px;
+}
+
+.popupInputRange::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: black;
+  border-radius: 50%;
+  border: 2px solid #333;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+@media (max-width: 1285px) {
+  .popupClockTitle {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .popupClockTitle {
+    font-size: 28px;
+  }
+
+  .flip-digit {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .popupClockTitle {
+    font-size: 26px;
+  }
+
+  .popupClock {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 181px;
+    flex-shrink: 0;
+    gap: 24px;
+  }
+
+  .flipUnitWrapper {
+    width: max-content;
+  }
+
+  .flip-unit {
+    height: 55px;
+    width: 66px;
+  }
+
+  .flip-digit {
+    height: 55px;
+  }
+
+  .flip-unit-static-top .flip-digit {
+    top: -150px;
+  }
+
+  .flip-unit-static-bottom .flip-digit {
+    top: 0px;
+  }
+
+  .flip-unit-flip-top .flip-digit {
+    top: 0px;
+  }
+
+  .flip-unit-flip-bottom .flip-digit {
+    top: -27px;
+  }
+
+  .popupTopSubtitle {
+    font-size: 14px;
+  }
+
+  .popupTopInputRangeWrapper {
+    height: 18px;
+    box-sizing: border-box;
+  }
+
+  .popupInputRange {
+    height: 14px;
+  }
+
+  .popupInputRange::-webkit-slider-runnable-track {
+    height: 14px;
+  }
+
+  /* Повзунок для WebKit */
+  .popupInputRange::-webkit-slider-thumb {
+    height: 14px;
+    width: 14px;
+  }
+
+  /* Для Firefox */
+  .popupInputRange::-moz-range-track {
+    height: 14px;
+  }
+
+  .popupInputRange::-moz-range-progress {
+    height: 14px;
+  }
+
+  .popupInputRange::-moz-range-thumb {
+    height: 14px;
+    width: 14px;
+  }
+
+  .popupTop {
+    gap: 20px;
+  }
+
+  .popupTopContent {
+    padding-inline: 8px;
+  }
+
+  .popupTop {
+    padding: 0px;
+  }
+}
+
+@media (max-width: 640px) {
+  .popupClockTitle {
+    font-size: 24px;
+  }
 }

@@ -6,6 +6,8 @@ import PointCardImg2 from "@/assets/img/PointCardImg2.png";
 import { ref, onMounted } from "vue";
 import "./PointBuy.css";
 
+const isMobile = window.innerWidth <= 768;
+
 const PointBuyCards = [
   {
     image: PointCardImg1,
@@ -14,25 +16,25 @@ const PointBuyCards = [
     subtitles: [
       {
         subtitle: "Premium Trading",
-        rotate: "-45deg",
-        top: "-10px",
-        left: "-90px",
+        rotate: isMobile ? "-30deg" : "-45deg",
+        top: isMobile ? "110px" : "-10px",
+        left: isMobile ? "0px" : "-90px",
         color: "#ffb107",
         zIndex: 9,
       },
       {
         subtitle: "Revenue Sharing",
         rotate: "30deg",
-        top: "-30px",
-        right: "-70px",
+        top: isMobile ? "50px" : "-30px",
+        right: isMobile ? "30px" : "-70px",
         color: "#fe8cfd",
         zIndex: 1,
       },
       {
         subtitle: "More Benefits",
         rotate: "-30deg",
-        top: "145px",
-        right: "-50px",
+        top: isMobile ? "155px" : "145px",
+        right: isMobile ? "10px" : "-50px",
         color: "#4cbaff",
         zIndex: 9,
       },
@@ -45,25 +47,25 @@ const PointBuyCards = [
     subtitles: [
       {
         subtitle: "Premium Trading",
-        rotate: "-20deg",
-        top: "300px",
-        right: "-60px",
+        rotate: isMobile ? "-30deg" : "-20deg",
+        top: isMobile ? "120px" : "300px",
+        right: isMobile ? "0px" : "-60px",
         color: "#966ef3",
         zIndex: 9,
       },
       {
         subtitle: "Revenue Sharing",
         rotate: "25deg",
-        top: "-30px",
-        right: "-60px",
+        top: isMobile ? "20px" : "-30px",
+        right: isMobile ? "60px" : "-60px",
         color: "#eef36e",
         zIndex: 0,
       },
       {
         subtitle: "More Benefits",
-        rotate: "20deg",
-        top: "130px",
-        left: "-55px",
+        rotate: isMobile ? "25deg" : "20deg",
+        top: isMobile ? "155px" : "130px",
+        left: isMobile ? "10px" : "-55px",
         color: "#6ef3d8",
         zIndex: 9,
       },
@@ -77,24 +79,24 @@ const PointBuyCards = [
       {
         subtitle: "Premium Trading",
         rotate: "-30deg",
-        top: "-5px",
-        left: "-85px",
+        top: isMobile ? "100px" : "-20px",
+        left: isMobile ? "0px" : "-80px",
         color: "#a8f36e",
         zIndex: 9,
       },
       {
         subtitle: "Revenue Sharing",
         rotate: "40deg",
-        top: "-35px",
-        right: "-90px",
+        top: isMobile ? "50px" : "-35px",
+        right: isMobile ? "30px" : "-80px",
         color: "#f38d6e",
-        zIndex: 9,
+        zIndex: 1,
       },
       {
         subtitle: "More Benefits",
         rotate: "-25deg",
-        top: "140px",
-        right: "-65px",
+        top: isMobile ? "155px" : "140px",
+        right: isMobile ? "10px" : "-65px",
         color: "#6e75f3",
         zIndex: 9,
       },
@@ -107,17 +109,17 @@ const PointBuyCards = [
     subtitles: [
       {
         subtitle: "Premium Trading",
-        rotate: "-50deg",
-        top: "-25px",
-        left: "-105px",
+        rotate: isMobile ? "20deg" : "30deg",
+        top: isMobile ? "100px" : "300px",
+        left: isMobile ? "0px" : "-70px",
         color: "#f36e70",
-        zIndex: 9,
+        zIndex: 1,
       },
       {
         subtitle: "Revenue Sharing",
         rotate: "20deg",
-        top: "-50px",
-        right: "-75px",
+        top: isMobile ? "50px" : "-20px",
+        right: isMobile ? "30px" : "-75px",
         color: "#eef36e",
         zIndex: 9,
       },
@@ -125,7 +127,7 @@ const PointBuyCards = [
         subtitle: "More Benefits",
         rotate: "-20deg",
         top: "155px",
-        right: "-45px",
+        right: isMobile ? "10px" : "-45px",
         color: "#6ef3d8",
         zIndex: 9,
       },
@@ -177,6 +179,34 @@ onMounted(() => {
 
 <template>
   <div class="pointBuy">
+    <div class="pointBuySubtitlesMob pointBuySubtitlesWrap">
+      <div
+        class="pointBuySubtitles pointBuySubtitlesMob"
+        v-for="(card, index) in PointBuyCards"
+        :key="index"
+      >
+        <div
+          v-for="(sub, i) in card.subtitles"
+          :key="i"
+          :class="[
+            'pointBuyCardSubtitle',
+            activeIndex === index ? 'active' : 'inactive',
+          ]"
+          :style="{
+            rotate: sub.rotate,
+            top: sub.top,
+            left: sub.left,
+            right: sub.right,
+            background: sub.color,
+            zIndex: sub.zIndex || 'auto',
+            transitionDelay: activeIndex === index ? i * 0.3 + 's' : '0s',
+          }"
+        >
+          <div class="pointBuyCardSubtitleCircle" />
+          {{ sub.subtitle }}
+        </div>
+      </div>
+    </div>
     <div class="pointBuyTexts">
       <AnimatedText
         class="pointBuyTitle Title"
@@ -210,6 +240,7 @@ onMounted(() => {
             right: sub.right,
             background: sub.color,
             zIndex: sub.zIndex || 'auto',
+            transitionDelay: activeIndex === index ? i * 0.3 + 's' : '0s',
           }"
         >
           <div class="pointBuyCardSubtitleCircle" />

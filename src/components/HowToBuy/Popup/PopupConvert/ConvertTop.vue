@@ -23,7 +23,10 @@ import lineBuy from "@/assets/img/lineBuy.png";
 
       <div class="convertTopSubRight">
         <div class="convertTopSubRightTitle">20%</div>
-        <div class="convertTopSubRightSubtitle">Increase On Listing</div>
+        <div class="convertTopSubRightSubtitle deskConvTop">
+          Increase On Listing
+        </div>
+        <div class="convertTopSubRightSubtitle mobConvTop">On Listing</div>
       </div>
     </div>
 

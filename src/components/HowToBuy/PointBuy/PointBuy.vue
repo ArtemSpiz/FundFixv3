@@ -174,6 +174,22 @@ onMounted(() => {
       }
     }, 100);
   });
+
+  setInterval(() => {
+    const children = Array.from(container.children);
+    let nextIndex = (activeIndex.value + 1) % children.length;
+    const nextCard = children[nextIndex];
+    if (nextCard) {
+      activeIndex.value = nextIndex;
+      container.scrollTo({
+        left:
+          nextCard.offsetLeft -
+          container.offsetWidth / 2 +
+          nextCard.offsetWidth / 2,
+        behavior: "smooth",
+      });
+    }
+  }, 10000);
 });
 </script>
 

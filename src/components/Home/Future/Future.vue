@@ -74,7 +74,7 @@ onMounted(async () => {
     ? (targetWidth / initialWidth) * 1.83
     : isMobile
     ? (targetWidth / initialWidth) * 1.1
-    : (targetWidth / initialWidth) * 1.1;
+    : (targetWidth / initialWidth) * 1.2;
 
   gsap.set(tokenomics, {
     position: "absolute",
@@ -212,7 +212,7 @@ onMounted(async () => {
   } else {
     tl.to([futureTexts, cards], {
       yPercent: -400,
-      opacity: 0,
+      opacity: 1,
       ease: "power2.out",
       duration: 3,
     });
@@ -252,8 +252,8 @@ onMounted(async () => {
       tokenomics,
       {
         opacity: 1,
-        scale: bigDesktop ? 0.18 : isMobile ? 0.25 : isTablet ? 0.29 : 0.25,
-        y: bigDesktop ? 20 : isTablet ? 30 : 23,
+        scale: bigDesktop ? 0.18 : isMobile ? 0.25 : isTablet ? 0.29 : 0.23,
+        y: bigDesktop ? 20 : isTablet ? 30 : 26,
         ease: "power2.inOut",
         duration: 2,
       },

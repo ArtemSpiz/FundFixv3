@@ -3,13 +3,14 @@ import CompMouse from "@/assets/svg/CompMouse.vue";
 import "./Hero.css";
 import ArrowBtn from "@/assets/svg/ArrowBtn.vue";
 
-import heroCard1 from "@/assets/img/heroCard2.png";
+import heroCard1 from "@/assets/img/heroCard1.png";
 import heroCard2 from "@/assets/img/heroCard2.png";
-import heroCard3 from "@/assets/img/heroCard2.png";
-import heroCard4 from "@/assets/img/heroCard2.png";
-import heroCard5 from "@/assets/img/heroCard2.png";
-import heroCard6 from "@/assets/img/heroCard2.png";
-import heroCard7 from "@/assets/img/heroCard2.png";
+import heroCard3 from "@/assets/img/heroCard3.png";
+import heroCard4 from "@/assets/img/heroCard4.png";
+import heroCard5 from "@/assets/img/heroCard5.png";
+import heroCard6 from "@/assets/img/heroCard6.png";
+import heroCard7 from "@/assets/img/heroCard7.png";
+
 import heroCardIcon from "@/assets/img/heroCardActive.png";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import AnimatedText from "@/components/AnimatedText.vue";
@@ -59,7 +60,30 @@ const HeroCards = [
     name: "Changpeng Zhao",
     position: "Binance founder",
   },
-
+  {
+    image: heroCard1,
+    icon: heroCardIcon,
+    name: "Changpeng Zhao",
+    position: "Binance founder",
+  },
+  {
+    image: heroCard2,
+    icon: heroCardIcon,
+    name: "Changpeng Zhao",
+    position: "Binance founder",
+  },
+  {
+    image: heroCard3,
+    icon: heroCardIcon,
+    name: "Changpeng Zhao",
+    position: "Binance founder",
+  },
+  {
+    image: heroCard4,
+    icon: heroCardIcon,
+    name: "Changpeng Zhao",
+    position: "Binance founder",
+  },
   {
     image: heroCard5,
     icon: heroCardIcon,
@@ -357,26 +381,4 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped>
-.heroCard {
-  opacity: 0;
-  transition: all 0.8s ease;
-  scale: 0.8;
-}
-
-.heroCard.loaded {
-  opacity: 1;
-  scale: 1;
-}
-
-.heroBtn {
-  transform: scale(0.9);
-  opacity: 0;
-  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-}
-
-.heroBtn.loaded {
-  transform: scale(1);
-  opacity: 1;
-}
-</style>
+<style scoped></style>

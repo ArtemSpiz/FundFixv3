@@ -235,7 +235,7 @@ onMounted(() => {
 
           if (isVisible) {
             gsap.to(card, {
-              scaleY: 1.2,
+              scaleY: 1,
               duration: 0.6,
               ease: "power2.out",
             });

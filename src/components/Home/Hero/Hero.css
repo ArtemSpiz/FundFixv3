@@ -114,6 +114,7 @@
   position: relative;
   width: 150px;
   height: 160px;
+  box-sizing: border-box;
   border-radius: 18px;
   transform-style: preserve-3d;
   transition: transform 1.2s ease, top 1.2s ease, left 1.2s ease,
@@ -121,8 +122,36 @@
   transform-style: preserve-3d;
 }
 
+.heroCard img {
+  border-radius: 18px;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.heroCard {
+  opacity: 0;
+  transition: all 0.8s ease;
+  scale: 0.8;
+}
+
+.heroCard.loaded {
+  opacity: 1;
+  scale: 1;
+}
+
+.heroBtn {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.heroBtn.loaded {
+  transform: scale(1);
+  opacity: 1;
+}
+
 .heroCard.active {
-  height: 175px;
+  height: 185px;
   width: 195px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(21.147891998291016px);
@@ -131,6 +160,13 @@
 .heroCardInner {
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  height: 100%;
+}
+
+.heroCardImg {
+  box-sizing: border-box;
+  height: 100%;
+  object-fit: cover;
 }
 
 .heroCardImg,

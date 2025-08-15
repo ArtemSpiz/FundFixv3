@@ -488,7 +488,7 @@ onUnmounted(() => {
   <div
     ref="exclusivityWrapper"
     class="exclusivityWrapper"
-    style="margin-top: -100vh; opacity: 0; transform: translateY(100vh)"
+    style="margin-top: -100vh; opacity: 1; transform: translateY(100vh)"
   >
     <Exclusivity />
   </div>

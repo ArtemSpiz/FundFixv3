@@ -241,6 +241,7 @@
 @media (min-width: 1600px) {
   .exclusivity {
     height: 100vh;
+    max-height: 1200px;
   }
 }
 

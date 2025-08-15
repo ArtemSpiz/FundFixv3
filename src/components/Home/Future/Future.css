@@ -6,6 +6,7 @@
   justify-content: center;
   gap: 56px;
   background-image: url("@/assets/img/FutureBg.png");
+  background-color: #0f0f0f;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: relative;
@@ -13,6 +14,11 @@
   overflow: hidden;
   width: 100vw !important;
   box-sizing: border-box;
+}
+
+.pin-spacer-future-sequence {
+  background-color: #0f0f0f;
+  overflow: visible;
 }
 
 .future::before {

@@ -234,8 +234,15 @@ onUnmounted(() => {
   clearInterval(intervalId);
 });
 
-watch(activeIndex, () => {
+watch(activeIndex, (newVal) => {
   updatePositions();
+
+  cardsWithPositions.value = cardsWithPositions.value.map((card) => {
+    if (card.originalIndex === (newVal + HeroCards.length) % HeroCards.length) {
+      return { ...card, shouldSpin: true };
+    }
+    return { ...card, shouldSpin: false };
+  });
 });
 
 let observer = null;
@@ -333,6 +340,7 @@ onUnmounted(() => {
         :class="{
           active: card.isActive,
           loaded: card.loaded,
+          spin: card.shouldSpin,
         }"
         v-for="card in cardsWithPositions"
         :key="card.originalIndex"

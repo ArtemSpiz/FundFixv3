@@ -16,9 +16,13 @@
 .heroShadow {
   position: absolute;
   bottom: 0px;
-  width: 100%;
+  width: 100vw;
   z-index: 33;
   height: 400px;
+}
+
+.heroShadow path {
+  width: 100vw;
 }
 
 .heroTexts {

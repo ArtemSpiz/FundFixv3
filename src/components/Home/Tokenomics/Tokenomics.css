@@ -11,6 +11,11 @@
   box-sizing: border-box;
 }
 
+.pin-spacer-future-sequence {
+  width: auto !important;
+  overflow: hidden !important;
+}
+
 .tokenomicsTexts {
   display: flex;
   flex-direction: column;
@@ -38,7 +43,6 @@
 .wrapperCardsToc {
   width: 100vw;
 }
-
 
 @media (max-width: 1285px) {
   .tokenomics {

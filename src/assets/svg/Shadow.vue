@@ -3,10 +3,10 @@
     xmlns="http://www.w3.org/2000/svg"
     width="1437"
     height="281"
-    viewBox="0 0 1437 281"
+    viewBox="0 0 1537 281"
     fill="none"
   >
-    <path d="M-3 0H1437V445H-3V0Z" fill="url(#paint0_linear_220_10412)" />
+    <path d="M-3 0H1537V445H-3V0Z" fill="url(#paint0_linear_220_10412)" />
     <defs>
       <linearGradient
         id="paint0_linear_220_10412"
